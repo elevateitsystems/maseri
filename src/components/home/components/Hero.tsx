@@ -23,7 +23,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Image: Models (positioned on the visual LEFT side of the screen) */}
-      <div className="lg:absolute size-[90%] sm:size-[110%] lg:size-[125%] 2xl:size-[145%] sm:left-[5%] lg:left-[-20%] 2xl:left-[-40%] 2xl:bottom-[-28%]">
+      <div className="lg:absolute size-[90%] sm:size-[110%] lg:size-[125%] 2xl:size-[145%] sm:left-[5%] lg:left-[-20%] 2xl:left-[-38%] 2xl:bottom-[-26%]">
         <Image
           src="/assets/hero-image.png"
           alt="مجموعة أزياء ماسيري"

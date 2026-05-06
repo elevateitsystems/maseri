@@ -18,11 +18,9 @@ const Navbar = () => {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full"
+      className="fixed top-0 z-50 w-full"
       style={{
         backgroundColor: "rgba(255, 255, 255, 0.31)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
       }}
     >
       {/* ── Top Row: Search | Logo | Icons ── */}

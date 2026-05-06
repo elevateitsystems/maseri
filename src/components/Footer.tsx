@@ -1,72 +1,170 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary-50 border-t">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand Info */}
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold tracking-tighter">MASERI</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              ماسيري هي وجهتكم الأولى للأزياء الراقية والمحتشمة. نسعى لتقديم أفضل التصاميم التي تجمع بين الحداثة والتقاليد.
-            </p>
-            <div className="flex space-x-4 space-x-reverse text-sm font-medium">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                Instagram
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                Facebook
-              </Link>
+    <footer className="relative w-full overflow-hidden font-poppins">
+      {/* Background gradient — unchanged */}
+      <div className="absolute inset-0 bg-gradient-to-t from-secondary-900 via-secondary-300 to-secondary-50" />
+
+      {/* ── Main Footer Content ── */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-10 pt-14 pb-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          {/* ── Right Column: Brand + Description + Contact (spans 5 cols) ── */}
+          <div className="md:col-span-5 space-y-6">
+            {/* Logo + Brand Name */}
+            <div className="flex items-center gap-4">
+              <Image
+                src="/assets/logo.png"
+                alt="Label Textile Logo"
+                width={65}
+                height={70}
+                className="object-contain"
+              />
+              <div className="flex flex-col items-start">
+                <span
+                  className="font-semibold text-black tracking-wide leading-tight"
+                  style={{ fontSize: "20px" }}
+                >
+                  LABEL TEXTILE
+                </span>
+                <span
+                  className="text-black/70 leading-tight"
+                  style={{ fontSize: "13px" }}
+                >
+                  Manufactured in ALGERIA
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-bold text-lg mb-4">روابط سريعة</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/home" className="hover:text-primary transition-colors">الرئيسية</Link></li>
-              <li><Link href="/collections" className="hover:text-primary transition-colors">مجموعتنا</Link></li>
-              <li><Link href="/about" className="hover:text-primary transition-colors">من نحن</Link></li>
-              <li><Link href="/contact" className="hover:text-primary transition-colors">اتصل بنا</Link></li>
+            {/* Description */}
+            <p
+              className="text-black leading-relaxed max-w-md"
+              style={{ fontSize: "16px" }}
+            >
+              حيث تلتقي الموضة بالاستدامة! مجموعاتنا تجمع بين جاذبية الصيحات
+              العصرية و رقي الأناقة الكلاسيكية، مع جودة لا تُضاهى واهتمام حقيقي
+              بعملائنا. كل قطعة هي اكتشاف أنيق يُضيف لمستك الخاصة
+            </p>
+
+            {/* Contact Info */}
+            <ul className="space-y-3 font-medium">
+              <li className="flex items-center gap-3">
+                <Phone
+                  className="h-[16px] w-[16px] text-black shrink-0"
+                  strokeWidth={1.5}
+                />
+                <span className="text-black" style={{ fontSize: "16px" }}>
+                  0776506113
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail
+                  className="h-[16px] w-[16px] text-black shrink-0"
+                  strokeWidth={1.5}
+                />
+                <span className="text-black" style={{ fontSize: "16px" }}>
+                  Contact@labeltextile.com
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <MapPin
+                  className="h-[16px] w-[16px] text-black shrink-0"
+                  strokeWidth={1.5}
+                />
+                <span className="text-black" style={{ fontSize: "16px" }}>
+                  Bechar , Algeria 3421
+                </span>
+              </li>
             </ul>
           </div>
 
-          {/* Customer Service */}
-          <div>
-            <h3 className="font-bold text-lg mb-4">خدمة العملاء</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-primary transition-colors">الشحن والتوصيل</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">سياسة الاسترجاع</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">الأسئلة الشائعة</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">جدول القياسات</Link></li>
+          {/* ── Middle Column: المتجر (Shop) (spans 3 cols) ── */}
+          <div className="md:col-span-3">
+            <h3
+              className="font-semibold text-black mb-5"
+              style={{ fontSize: "20px" }}
+            >
+              المتجر
+            </h3>
+            <ul className="space-y-3">
+              {[
+                "فساتين",
+                "بلايزر (سترات رسمية)",
+                "ملابس كاجوال",
+                "إكسسوارات",
+                "ملابس",
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="#"
+                    className="text-black font-medium hover:text-primary-900 transition-colors duration-200"
+                    style={{ fontSize: "16px" }}
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-bold text-lg mb-4">اتصل بنا</h3>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li className="flex items-start space-x-3 space-x-reverse">
-                <MapPin className="h-5 w-5 text-primary shrink-0" />
-                <span>شارع الأزياء، الرياض، المملكة العربية السعودية</span>
-              </li>
-              <li className="flex items-center space-x-3 space-x-reverse">
-                <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span>+966 123 456 789</span>
-              </li>
-              <li className="flex items-center space-x-3 space-x-reverse">
-                <Mail className="h-5 w-5 text-primary shrink-0" />
-                <span>info@maseri.com</span>
-              </li>
+          {/* ── Left Column: خدمة العملاء (Customer Service) (spans 3 cols) ── */}
+          <div className="md:col-span-3">
+            <h3
+              className="font-semibold text-black mb-5"
+              style={{ fontSize: "20px" }}
+            >
+              خدمة العملاء
+            </h3>
+            <ul className="space-y-3">
+              {[
+                "الشحن والإرجاع",
+                "جدول المقاسات",
+                "الأسئلة الشائعة",
+                "اتصل بنا",
+                "من نحن",
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="#"
+                    className="text-black font-medium hover:text-primary-900 transition-colors duration-200"
+                    style={{ fontSize: "16px" }}
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Empty spacer for remaining 1 col */}
+          <div className="md:col-span-1" />
         </div>
 
-        <div className="mt-12 pt-8 border-t text-center text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} ماسيري. جميع الحقوق محفوظة.</p>
+        {/* ── Bottom Bar ── */}
+        <div className="mt-10 pt-5 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-8">
+            <Link
+              href="#"
+              className="text-black hover:text-primary-900 transition-colors duration-200"
+              style={{ fontSize: "16px" }}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="#"
+              className="text-black hover:text-primary-900 transition-colors duration-200"
+              style={{ fontSize: "16px" }}
+            >
+              Terms of services
+            </Link>
+          </div>
+
+          <p className="text-black" style={{ fontSize: "16px" }}>
+            {new Date().getFullYear()} LabelTextile. All Riht Reserved
+          </p>
         </div>
       </div>
     </footer>
