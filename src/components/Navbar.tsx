@@ -28,15 +28,31 @@ const Navbar = () => {
       {/* ── Top Row: Search | Logo | Icons ── */}
       <div className="container mx-auto px-6 lg:px-10">
         <div className="flex items-center justify-between h-[60px] relative">
-
-          {/* Left side: Search bar (desktop) */}
-          <div className="hidden md:flex items-center gap-2 w-[220px]">
-            <Search className="h-[20px] w-[20px] text-black" strokeWidth={1.5} />
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-transparent border-b border-black/30 pb-1 text-[16px] font-poppins text-black placeholder:text-black/50 focus:outline-none focus:border-black w-full"
-            />
+          {/* Left side: Icons */}
+          <div className="flex items-center gap-5">
+            <button className="md:hidden" aria-label="Search">
+              <Search
+                className="h-[20px] w-[20px] text-black"
+                strokeWidth={1.5}
+              />
+            </button>
+            <button className="hidden md:block" aria-label="Wishlist">
+              <Heart
+                className="h-[20px] w-[20px] text-black"
+                strokeWidth={1.5}
+              />
+            </button>
+            <button className="relative" aria-label="Cart">
+              <ShoppingCart
+                className="h-[20px] w-[20px] text-black"
+                strokeWidth={1.5}
+              />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 flex h-[16px] w-[16px] items-center justify-center rounded-full bg-primary text-[9px] font-poppins text-white font-medium">
+                  {cartCount}
+                </span>
+              )}
+            </button>
           </div>
 
           {/* Left side: Hamburger (mobile) */}
@@ -48,49 +64,53 @@ const Navbar = () => {
             {mobileMenuOpen ? (
               <X className="h-[24px] w-[24px] text-black" strokeWidth={1.5} />
             ) : (
-              <Menu className="h-[24px] w-[24px] text-black" strokeWidth={1.5} />
+              <Menu
+                className="h-[24px] w-[24px] text-black"
+                strokeWidth={1.5}
+              />
             )}
           </button>
 
           {/* Center: Logo */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center select-none">
-            <span className="text-[18px] font-poppins font-semibold tracking-[0.05em] text-black leading-tight">
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center select-none"
+            style={{ fontFamily: "Poltawski Nowy" }}
+          >
+            <span className="text-xl font-medium tracking-[0.05em] text-black leading-tight">
               LABEL Textile
             </span>
-            <span className="text-[13px] font-poppins text-black leading-tight">
+            <span className="text-[13px] text-black leading-tight">
               Algeria
             </span>
           </div>
 
-          {/* Right side: Icons */}
-          <div className="flex items-center gap-5">
-            <button className="md:hidden" aria-label="Search">
-              <Search className="h-[20px] w-[20px] text-black" strokeWidth={1.5} />
-            </button>
-            <button className="hidden md:block" aria-label="Wishlist">
-              <Heart className="h-[20px] w-[20px] text-black" strokeWidth={1.5} />
-            </button>
-            <button className="relative" aria-label="Cart">
-              <ShoppingCart className="h-[20px] w-[20px] text-black" strokeWidth={1.5} />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 flex h-[16px] w-[16px] items-center justify-center rounded-full bg-primary text-[9px] font-poppins text-white font-medium">
-                  {cartCount}
-                </span>
-              )}
-            </button>
+          {/* Right side: Search bar (desktop) */}
+          <div className="hidden md:flex items-center gap-2 w-[220px]">
+            <input
+              type="text"
+              placeholder="Search"
+              className="text-left bg-transparent border-b border-black/30 text-[16px] font-poppins text-black placeholder:text-black/50 focus:outline-none focus:border-black w-full"
+            />
+            <Search
+              className="h-[20px] w-[20px] text-black"
+              strokeWidth={1.5}
+            />
           </div>
         </div>
       </div>
 
       {/* ── Bottom Row: Navigation Links (desktop) ── */}
-      <nav className="hidden md:block border-t border-black/5">
+      <nav className="hidden md:block">
         <div className="container mx-auto px-6 lg:px-10">
-          <ul className="flex items-center justify-center gap-10 h-[44px]">
+          <ul
+            className="flex items-center justify-center gap-10 h-[44px]"
+            // style={{ fontFamily: "Poltawski Nowy" }}
+          >
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-[16px] font-poppins text-black hover:text-primary-900 transition-colors duration-200"
+                  className="text-[16px] font-poppins text-black hover:text-primary-900 transition-colors duration-200 font-medium"
                 >
                   {link.label}
                 </Link>
@@ -105,7 +125,10 @@ const Navbar = () => {
         <nav className="md:hidden border-t border-black/10 bg-white/90 backdrop-blur-md">
           <div className="px-6 py-4">
             <div className="flex items-center gap-2 mb-4">
-              <Search className="h-[20px] w-[20px] text-black" strokeWidth={1.5} />
+              <Search
+                className="h-[20px] w-[20px] text-black"
+                strokeWidth={1.5}
+              />
               <input
                 type="text"
                 placeholder="Search"

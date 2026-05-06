@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Almarai, Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,7 +23,8 @@ const almarai = Almarai({
 
 export const metadata: Metadata = {
   title: "Maseri | LABEL Textile",
-  description: "Experience the perfect blend of elegance and modesty with Maseri fashion collections.",
+  description:
+    "Experience the perfect blend of elegance and modesty with Maseri fashion collections.",
 };
 
 export default function RootLayout({
@@ -36,7 +39,9 @@ export default function RootLayout({
       className={`${inter.variable} ${almarai.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="font-almarai min-h-full flex flex-col bg-background text-foreground">
-        {children}
+        <Navbar />
+        <div className="relative -top-24">{children}</div>
+        <Footer />
       </body>
     </html>
   );

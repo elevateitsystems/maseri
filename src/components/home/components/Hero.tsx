@@ -5,12 +5,12 @@ export default function Hero() {
   return (
     <section className="relative w-full h-[500px] md:h-[827px] overflow-hidden">
       {/* Background: warm beige gradient */}
-      <div className="absolute inset-0 bg-gradient-to-l from-[#E8DFD5] via-[#EDE6DE] to-[#D6C9BB]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-secondary-900 via-secondary-400 to-secondary-50" />
 
       {/* Flower decoration (bottom-left visually) */}
       <div
-        className="absolute bottom-0 w-[400px] h-[400px] md:w-[500px] md:h-[500px] opacity-20 pointer-events-none"
-        style={{ left: 0 }}
+        className="absolute -top-45 -left-55 w-[400px] h-[400px] md:w-[500px] md:h-[500px] opacity-20 pointer-events-none"
+        // style={{ left: 0 }}
       >
         <Image
           src="/assets/background-flower.png"
@@ -23,15 +23,12 @@ export default function Hero() {
       </div>
 
       {/* Hero Image: Models (positioned on the visual LEFT side of the screen) */}
-      <div
-        className="absolute bottom-0 w-[90%] sm:w-[65%] md:w-[50%] h-full"
-        style={{ left: 0 }}
-      >
+      <div className="lg:absolute size-[90%] sm:size-[110%] lg:size-[125%] 2xl:size-[145%] sm:left-[5%] lg:left-[-20%] 2xl:left-[-40%] 2xl:bottom-[-28%]">
         <Image
           src="/assets/hero-image.png"
           alt="مجموعة أزياء ماسيري"
           fill
-          sizes="50vw"
+          sizes="125vw"
           className="object-contain object-bottom"
           priority
         />
@@ -44,8 +41,11 @@ export default function Hero() {
             <div className="max-w-[580px] flex flex-col items-start">
               {/* Title */}
               <h1
-                className="font-poppins font-bold text-black leading-[1.1] mb-6"
-                style={{ fontSize: "clamp(36px, 5vw, 70px)" }}
+                className="font-bold text-black leading-[1.1] mb-6"
+                style={{
+                  fontSize: "clamp(36px, 5vw, 70px)",
+                  fontFamily: "'Poltawski Nowy', serif",
+                }}
               >
                 حيث تلتقي
                 <br />
@@ -59,16 +59,31 @@ export default function Hero() {
 
               {/* Buttons */}
               <div className="flex items-center gap-4">
-                <button className="h-[50px] px-8 border border-black text-[16px] font-poppins text-black hover:bg-black hover:text-white transition-all duration-300">
+                <button className="h-[50px] px-8 bg-primary-900 text-[16px] font-poppins hover:bg-primary-800 transition-all duration-300">
                   حيث تلتقي
                 </button>
-                <button className="h-[50px] px-8 bg-primary-900 text-[16px] font-poppins text-white hover:bg-primary-800 transition-all duration-300">
+                <button className="h-[50px] px-8 border border-black text-[16px] font-poppins hover:bg-black hover:text-white transition-all duration-300">
                   حيث تلتقي
                 </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Flower decoration (bottom-left visually) */}
+      <div
+        className="absolute -bottom-45 -right-55 w-[400px] h-[400px] md:w-[500px] md:h-[500px] opacity-20 pointer-events-none"
+        // style={{ left: 0 }}
+      >
+        <Image
+          src="/assets/background-flower.png"
+          alt=""
+          fill
+          sizes="500px"
+          className="object-contain object-bottom"
+          aria-hidden="true"
+        />
       </div>
     </section>
   );
