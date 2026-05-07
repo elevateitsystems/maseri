@@ -6,7 +6,7 @@ import InfoSection from "../components/home/components/InfoSection";
 
 export default function RootPage() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col gap-24">
       <Hero />
       <Categories />
       <BestSellers />

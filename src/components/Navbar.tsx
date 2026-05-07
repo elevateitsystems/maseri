@@ -16,11 +16,24 @@ const Navbar = () => {
   const cartCount = useStore((state) => state.cartCount);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const [scrolled, setScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
       className="fixed top-0 z-50 w-full"
       style={{
-        backgroundColor: "rgba(255, 255, 255, 0.31)",
+        backgroundColor: scrolled
+          ? "rgba(255, 255, 255, 0.85)"
+          : "rgba(255, 255, 255, 0.31)",
       }}
     >
       {/* ── Top Row: Search | Logo | Icons ── */}

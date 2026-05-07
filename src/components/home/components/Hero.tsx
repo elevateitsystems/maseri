@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="relative w-full h-[500px] md:h-[827px] overflow-hidden">
       {/* Background: warm beige gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-secondary-900 via-secondary-400 to-secondary-50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#C7B7A7] to-[#F2F2F2]" />
 
       {/* Flower decoration (bottom-left visually) */}
       <div

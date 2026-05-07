@@ -1,48 +1,55 @@
 import React from "react";
-import { CheckCircle } from "lucide-react";
+import Image from "next/image";
+import aboutUsImage from "../../../../assets/about-us-image.png";
+import aboutUsIcon from "../../../../assets/about-us-icon.png";
 
 const InfoSection = () => {
   return (
-    <section className="py-20 bg-background overflow-hidden">
+    <section className="overflow-hidden bg-gradient-to-t from-[#F2F2F2] via-[#DED1C1] to-[#F2F2F2]">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-16">
-          <div className="relative order-2 md:order-1">
-            <div className="aspect-square relative bg-secondary-100 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 flex items-center justify-center text-secondary-900/5 font-bold text-6xl select-none">
-                ABOUT MASERI
+        <div className="flex flex-col sm:flex-row items-center gap-20">
+          {/* RIGHT SIDE (Image + Icon) */}
+          <div className="relative flex justify-center lg:justify-start">
+            {/* Wrapper that reserves space for the icon */}
+            <div className="relative pr-[140px]">
+              {/* Main Image */}
+              <div className="relative w-[376px] h-[534px] overflow-hidden">
+                <Image
+                  src={aboutUsImage}
+                  alt="About Maseri"
+                  width={376}
+                  height={534}
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Floating Icon (now inside layout) */}
+              <div className="absolute top-1/3 -translate-y-1/2 right-0 w-[233px] h-[233px] bg-[#F2F2F2] rounded-full flex items-center justify-center p-4 shadow-sm">
+                <Image
+                  src={aboutUsIcon}
+                  alt="Quality Icon"
+                  width={233}
+                  height={233}
+                  className="object-contain"
+                />
               </div>
             </div>
-            {/* Decorative Element */}
-            <div className="absolute -bottom-8 -right-8 h-32 w-32 bg-primary rounded-full opacity-20 blur-3xl" />
           </div>
 
-          <div className="space-y-8 order-1 md:order-2">
-            <div className="space-y-4">
-              <span className="text-primary font-bold tracking-widest text-sm uppercase">قصتنا</span>
-              <h2 className="text-3xl md:text-5xl font-bold leading-tight">حيث تلتقي التقاليد مع الحداثة في كل غرزة</h2>
-            </div>
-            
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              في ماسيري، نؤمن أن الأناقة لا تتعارض مع الاحتشام. نحن نختار أجود أنواع الأقمشة ونصمم قطعاً فريدة تعكس شخصيتك وتمنحك الثقة والجمال في كل مناسبة.
+          {/* LEFT SIDE (Text) */}
+          <div className="sm:flex-1 flex flex-col items-start text-start space-y-8">
+            <h2 className="text-[56px] font-semibold text-black leading-tight">
+              حيث تلتقي
+            </h2>
+
+            <p className="text-[20px] font-medium text-black/70 leading-relaxed max-w-[600px]">
+              حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي
+              الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة
+              بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة
+              حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي
+              الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة
+              بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة
             </p>
-
-            <ul className="space-y-4">
-              {[
-                "أقمشة طبيعية عالية الجودة",
-                "تصاميم حصرية وفريدة",
-                "صناعة يدوية بأيدي خبراء",
-                "التزام كامل بمعايير الاستدامة"
-              ].map((item, index) => (
-                <li key={index} className="flex items-center space-x-3 space-x-reverse">
-                  <CheckCircle className="h-5 w-5 text-primary" />
-                  <span className="font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <button className="bg-neutral-0 text-white px-10 py-4 rounded-full hover:bg-primary transition-all duration-300 transform hover:scale-105 shadow-lg">
-              اكتشفي المزيد عن هويتنا
-            </button>
           </div>
         </div>
       </div>

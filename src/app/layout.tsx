@@ -40,7 +40,7 @@ export default function RootLayout({
     >
       <body className="font-almarai min-h-full flex flex-col bg-background text-foreground">
         <Navbar />
-        <div className="">{children}</div>
+        <div className="bg-[#F2F2F2]">{children}</div>
         <Footer />
       </body>
     </html>
