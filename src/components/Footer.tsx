@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="relative w-full overflow-hidden font-poppins">
       {/* Background gradient — unchanged */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#C7B7A7] to-[#F2F2F2]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#C7B7A7] via-[#dccbbb] to-[#e4e4e4]" />
 
       {/* ── Main Footer Content ── */}
       <div className="relative z-10 container mx-auto px-6 lg:px-10 pt-14 pb-6">
@@ -144,7 +144,7 @@ const Footer = () => {
         </div>
 
         {/* ── Bottom Bar ── */}
-        <div className="mt-10 pt-5 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 pt-5 border-t border-[#666666] flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-8">
             <Link
               href="#"

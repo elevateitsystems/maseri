@@ -142,15 +142,14 @@ const Categories = () => {
                     width: size.width,
                     height: size.height,
                     x: xPosition,
-                    opacity:
-                      Math.abs(offset) > 2 ? 0 : 1 - Math.abs(offset) * 0.2,
+                    opacity: Math.abs(offset) > 2 ? 0 : 1,
                     zIndex: 10 - Math.abs(offset),
                   }}
                   transition={{ type: "spring", stiffness: 180, damping: 25 }}
                   onClick={() => setActiveIndex(index)}
                   className="absolute cursor-pointer flex items-center justify-center"
                 >
-                  <div className="relative w-full h-full overflow-hidden rounded-t-full bg-neutral-100 shadow-md">
+                  <div className="relative w-full h-full overflow-hidden rounded-t-full bg-neutral-100">
                     <Image
                       src={cat.image}
                       alt={cat.title}
