@@ -1,3 +1,4 @@
+import CategoryCarousel from "@/components/CategoryCarousel";
 import BestSellers from "../components/home/components/BestSellers";
 import Categories from "../components/home/components/Categories";
 import Features from "../components/home/components/Features";
@@ -8,7 +9,7 @@ export default function RootPage() {
   return (
     <main className="min-h-screen flex flex-col gap-24">
       <Hero />
-      <Categories />
+      <CategoryCarousel/> 
       <BestSellers />
       <InfoSection />
       <Features />
