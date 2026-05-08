@@ -26,7 +26,7 @@ export default function Hero() {
 
         {/* Model image — LEFT side, full height, no cropping */}
         <div
-          className="absolute inset-0 pointer-events-none select-none"
+          className="absolute inset-0 pointer-events-none select-none md:-left-[150px] lg:-left-[200px] 2xl:-left-[360px]"
         >
           <Image
             src="/assets/hero.png"
