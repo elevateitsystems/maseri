@@ -113,7 +113,7 @@ export default function CategoryCarousel() {
 
         <div className="flex justify-center mt-4">
           <svg width="153" height="24" viewBox="0 0 153 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.779386 21.7369C0.779386 21.7369 79.2044 -11.5285 152.249 8.31399" stroke="black" stroke-width="4" />
+            <path d="M0.779386 21.7369C0.779386 21.7369 79.2044 -11.5285 152.249 8.31399" stroke="black" strokeWidth="4" />
           </svg>
 
         </div>
@@ -257,13 +257,18 @@ export default function CategoryCarousel() {
 
       {/* Bottom Button */}
       <div className="flex justify-center mt-12">
-        <Link
-          href="/cataProduct"
+        <button
+          onClick={() => {
+            const activeCat = rawCats[active % rawCats.length];
+            if (activeCat) {
+              router.push(`/cataProducts/${activeCat.id}/${encodeURIComponent(activeCat.name)}`);
+            }
+          }}
           className="group inline-flex items-center gap-3 bg-black text-white px-10 py-4 rounded-full text-sm md:text-base font-medium hover:scale-105 active:scale-95 transition-all duration-300"
         >
           منتجاتنا
           <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-        </Link>
+        </button>
       </div>
     </section>
   );

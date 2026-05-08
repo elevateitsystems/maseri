@@ -120,7 +120,7 @@ function CardSkeleton() {
   );
 }
 
-export default function CataProductCard({ cataId }: { cataId?: number }) {
+export default function CataProductCard({ cataId, cataName }: { cataId?: number, cataName?: string }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -128,7 +128,7 @@ export default function CataProductCard({ cataId }: { cataId?: number }) {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const data = await api.filterProducts();
+        const data = await api.filterProducts(cataId ? { cataId } : {});
         setProducts(data || []);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -146,7 +146,7 @@ export default function CataProductCard({ cataId }: { cataId?: number }) {
         {/* Header */}
         <div className="mb-4 flex items-start justify-start gap-3">
           <h2 className="text-[32px] md:text-[56px] font-bold leading-none tracking-[-1px] md:tracking-[-2px] text-black">
-            {products[0]?.cata_name || "Abaya"}
+            {cataName || products[0]?.cata_name || "Abaya"}
           </h2>
 
           <span className="mt-1 text-[18px] font-medium text-black/70">

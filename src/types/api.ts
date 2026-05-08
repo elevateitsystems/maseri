@@ -20,6 +20,7 @@ export interface Product {
   otherInfo: any;
   images: string | string[];
   tableImage: string;
+  cata_name?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -29,7 +30,7 @@ export const ReviewSchema = z.object({
   name: z.string().min(2, "الاسم يجب أن يكون حرفين على الأقل"),
   rating: z.number().min(1).max(5),
   comment: z.string().min(5, "التعليق يجب أن يكون 5 أحرف على الأقل"),
-  approved: z.boolean().default(false),
+  approved: z.boolean(),
 });
 
 export type ReviewPayload = z.infer<typeof ReviewSchema>;

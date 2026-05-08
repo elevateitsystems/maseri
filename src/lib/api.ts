@@ -1,3 +1,5 @@
+import { Category, Product, Review, ReviewPayload, ApiResponse } from "@/types/api";
+
 export interface OrderPayload {
   productId: number;
   quantity: number;
@@ -17,11 +19,6 @@ export interface Order extends OrderPayload {
   updatedAt: string;
 }
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  message?: string;
-}
 
 const BASE_URL = 'https://back.testwebapp.space/';
 
