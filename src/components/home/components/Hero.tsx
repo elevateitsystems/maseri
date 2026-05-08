@@ -22,18 +22,19 @@ export default function Hero() {
       </div>
 
       {/* ── DESKTOP LAYOUT ── */}
-      <div className="hidden md:block relative w-full" style={{ minHeight: "100svh" }}>
+      <div className="hidden lg:block relative w-full" style={{ minHeight: "100svh" }}>
 
         {/* Model image — LEFT side, full height, no cropping */}
         <div
-          className="absolute bottom-0 left-0 pointer-events-none select-none"
-          style={{ width: "80%", height: "115%" }}
+          className="absolute lg:-top-35 lg:-left-55 2xl:-left-70 pointer-events-none select-none lg:w-[100%] 2xl:w-[95%] h-[125%]
+          "
+        // style={{ width: "80%", height: "115%" }}
         >
           <Image
             src="/assets/hero-image.png"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
-            sizes="55vw"
+            sizes="100vw"
             className="object-fill object-bottom"
             priority
           />
@@ -59,7 +60,7 @@ export default function Hero() {
 
             <p
               className="text-black mb-10 leading-relaxed"
-              style={{ fontSize: "clamp(14px, 1.1vw, 19px)" }}
+              style={{ fontSize: "clamp(20px, 1.1vw, 24px)" }}
             >
               قمصان أنيقة وبيجامات مريحة مصممة لراحتك وأناقتك
             </p>
@@ -67,7 +68,7 @@ export default function Hero() {
             <div>
               <Link
                 href="/Cata"
-                className="inline-flex items-center justify-center px-10 h-[52px] border border-black text-black text-[16px] hover:bg-black hover:text-white transition-all duration-300"
+                className="inline-flex items-center justify-center px-25 h-[52px] border border-black text-black text-lg hover:bg-black hover:text-white transition-all duration-300"
                 style={{ fontFamily: "'Poltawski Nowy', serif" }}
               >
                 اكتشفي المجموعة
@@ -79,7 +80,7 @@ export default function Hero() {
 
       {/* ── MOBILE LAYOUT ── */}
       <div
-        className="relative flex md:hidden w-full flex-col justify-end"
+        className="relative flex lg:hidden w-full flex-col justify-end"
         style={{ minHeight: "100svh" }}
       >
         {/* Full-bleed background image using img tag to avoid Next.js fill issues */}
