@@ -20,16 +20,13 @@ interface Category {
   image: string;
 }
 
-const duplicateCategories = (cats: Category[]) => {
+const duplicateForLoop = (cats: Category[]) => {
   if (!cats.length) return [];
   const arr: Category[] = [];
   while (arr.length < 12) {
-    for (const cat of cats) {
-      if (arr.length >= 12) break;
-      arr.push({ ...cat });
-    }
+    arr.push(...cats);
   }
-  return arr;
+  return arr.slice(0, 12);
 };
 
 export default function CategoryCarousel() {
@@ -40,52 +37,51 @@ export default function CategoryCarousel() {
   const [active, setActive] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // FETCH
+  // Fetch Categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/getCata`, {
-          cache: "no-store",
-        });
+        const res = await fetch(`${BASE_URL}/getCata`, { cache: "no-store" });
         const json = await res.json();
         setRawCats(json.data || []);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch categories:", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchCategories();
   }, []);
 
-  // MEMOIZED DATA
-  const categories = useMemo(() => duplicateCategories(rawCats), [rawCats]);
+  const categories = useMemo(() => duplicateForLoop(rawCats), [rawCats]);
 
-  const slideTo = (i: number) => {
-    swiperRef.current?.slideToLoop(i, 700);
+  const slideTo = (index: number) => {
+    swiperRef.current?.slideToLoop(index, 800);
   };
 
-  // SKELETON LOADER
   if (loading) {
     return (
-      <section
-        className="relative overflow-hidden py-16 md:py-24"
-        style={{ background: "#F5F1EC" }}
-      >
-        <div className="animate-pulse">
-          <div className="flex flex-col items-center mb-14">
-            <div className="h-14 w-52 rounded bg-black/10" />
-            <div className="h-2 w-40 rounded bg-black/10 mt-5" />
+      <section className="py-16 md:py-24 bg-[#F5F1EC]">
+        <div className="animate-pulse max-w-7xl mx-auto px-4">
+          <div className="h-16 w-48 bg-black/10 rounded mx-auto mb-6" />
+          <div className="flex justify-center gap-8 mb-12">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-6 w-24 bg-black/10 rounded hidden md:block" />
+            ))}
           </div>
-          <div className="flex items-end justify-center gap-1 px-5 overflow-hidden">
+          <div className="flex justify-center gap-4 md:gap-6">
             {[...Array(5)].map((_, i) => (
               <div
                 key={i}
-                className={`rounded-t-[200px] bg-black/10 ${
-                  i === 2 ? "w-[320px] h-[520px]" : "w-[220px] h-[360px]"
-                }`}
+                className={`bg-black/10 rounded-[200px_200px_30px_30px] hidden md:block ${i === 2 ? "w-[340px] h-[580px]" : "w-[260px] h-[460px]"
+                  }`}
               />
             ))}
+            <div
+              key="mobile"
+              className="bg-black/10 rounded-[200px_200px_30px_30px] w-full sm:w-[280px] h-[420px] sm:h-[520px] md:hidden"
+            />
           </div>
         </div>
       </section>
@@ -95,268 +91,178 @@ export default function CategoryCarousel() {
   if (!categories.length) return null;
 
   return (
-    <div>
-      <section
-        dir="rtl"
-        className="relative overflow-hidden"
-        // style={{ background: "#F5F1EC" }}
-      >
-        {/* BACKGROUND */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-[#DDD3C8]/30 blur-3xl" />
+    <section
+      dir="rtl"
+      className="relative py-16 md:py-24 bg-[#F5F1EC] overflow-hidden"
+    >
+      {/* Soft Background Accent */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[1200px] h-[800px] rounded-full bg-[#EDE4D8]/60 blur-[120px]" />
+      </div>
+
+      {/* Header */}
+      <div className="text-center mb-12 md:mb-16 relative z-10">
+        <h2
+          className="font-bold text-black tracking-tight"
+          style={{ fontSize: "clamp(42px, 7.5vw, 88px)", fontFamily: "Georgia, serif" }}
+        >
+          منتجاتنا
+        </h2>
+
+        <div className="flex justify-center mt-4">
+          <svg width="153" height="24" viewBox="0 0 153 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.779386 21.7369C0.779386 21.7369 79.2044 -11.5285 152.249 8.31399" stroke="black" stroke-width="4" />
+          </svg>
+
         </div>
 
-        {/* GLOBAL STYLES */}
-        <style jsx global>{`
-          .cat-swiper {
-            width: 100%;
-            overflow: visible !important;
-            padding-top: 40px;
-            padding-bottom: 90px;
-
-            /* FIX 3: Fixed height prevents layout reflow when active card grows/shrinks */
-            height: 580px;
-          }
-
-          @media (min-width: 768px) {
-            .cat-swiper {
-              /* FIX 3: Taller fixed height for desktop active card size */
-              height: 860px;
-            }
-            .cat-swiper .swiper-slide {
-              transform: scale(1);
-              width: auto !important;
-            }
-          }
-
-          .cat-swiper .swiper-wrapper {
-            align-items: center;
-          }
-          .cat-swiper .swiper-slide {
-            display: flex;
-            justify-content: center;
-            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-            transform: scale(0.7);
-            z-index: 1;
-          }
-          .cat-swiper .swiper-slide-active,
-          .cat-swiper .swiper-slide-prev,
-          .cat-swiper .swiper-slide-next {
-            transform: scale(1);
-            z-index: 50;
-          }
-          .arch-card {
-            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-          }
-          .no-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-          .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-          @media (max-width: 768px) {
-            .cat-swiper {
-              padding-bottom: 60px;
-            }
-          }
-        `}</style>
-
-        {/* HEADING */}
-        <div className="relative z-10 text-center mb-10 md:mb-16">
-          <h2
-            className="font-normal text-black leading-none"
-            style={{
-              fontSize: "clamp(42px, 8vw, 88px)",
-              fontFamily: "Georgia, serif",
-            }}
-          >
-            منتجاتنا
-          </h2>
-
-          <div className="flex justify-center mt-4 mb-8">
-            <svg width="180" height="20" viewBox="0 0 180 20" fill="none">
-              <path
-                d="M5 15C60 0 120 0 175 15"
-                stroke="black"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-
-          {/* TABS */}
-          <div className="flex justify-center gap-5 md:gap-8 overflow-x-auto no-scrollbar px-5">
-            {rawCats.map((cat, i) => (
-              <button
-                key={cat.id}
-                onClick={() => slideTo(i)}
-                className={`relative pb-2 text-sm md:text-[20px] whitespace-nowrap transition-all duration-300 ${
-                  active % rawCats.length === i
-                    ? "text-black"
-                    : "text-black/40 hover:text-black/70"
+        {/* Navigation Tabs */}
+        <div className="flex justify-center gap-6 md:gap-10 mt-8 overflow-x-auto pb-3 no-scrollbar px-4">
+          {rawCats.map((cat, i) => (
+            <button
+              key={cat.id}
+              onClick={() => slideTo(i)}
+              className={`text-sm md:text-base whitespace-nowrap pb-2 transition-all duration-300 ${active % rawCats.length === i
+                  ? "text-black font-medium"
+                  : "text-black/50 hover:text-black/80"
                 }`}
-              >
-                {cat.name}
-                {active % rawCats.length === i && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1.5px] rounded-full bg-black" />
-                )}
-              </button>
-            ))}
-          </div>
+            >
+              {cat.name}
+              {active % rawCats.length === i && (
+                <div className="h-0.5 w-full bg-black mt-1.5 rounded" />
+              )}
+            </button>
+          ))}
         </div>
+      </div>
 
-        {/* SWIPER */}
+      {/* Swiper Carousel */}
+      <div className="relative z-10 px-2 md:px-0 min-h-[320px] md:min-h-[620px] flex items-center justify-center overflow-visible">
         <Swiper
           dir="rtl"
-          className="cat-swiper"
+          className="cat-swiper max-w-[1800px] mx-auto overflow-visible"
           modules={[Autoplay]}
           centeredSlides
           loop
-          speed={900}
-          slidesPerView={5}
-          spaceBetween={4}        // FIX 1: Was -150 (heavy overlap). Now 4px gap between slides.
+          speed={1000}
           autoplay={{
-            delay: 2500,
+            delay: 3000,
             disableOnInteraction: false,
-            reverseDirection: true,
             pauseOnMouseEnter: true,
           }}
+          slidesPerView={1}
+          spaceBetween={16}
           breakpoints={{
             320: {
-              slidesPerView: 1,   // FIX 2: Was 1.8 (showed partial cards). Now exactly 1 on mobile.
-              spaceBetween: 4,    // FIX 1: Consistent 4px gap on mobile too.
+              slidesPerView: 1,
+              spaceBetween: 8,
             },
             640: {
-              slidesPerView: "auto",
-              spaceBetween: 20,
+              slidesPerView: 1.05,
+              spaceBetween: 8,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: -28,
             },
             1024: {
-              slidesPerView: "auto",
-              spaceBetween: 40,
+              slidesPerView: 5,
+              spaceBetween: -35,
+            },
+            1280: {
+              slidesPerView: 5,
+              spaceBetween: -42,
             },
           }}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          onSlideChange={(swiper) => {
-            setActive(swiper.realIndex);
-          }}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={(swiper) => setActive(swiper.realIndex)}
         >
-          {categories.map((cat, i) => (
-            <SwiperSlide key={`${cat.id}-${i}`}>
-              {({ isActive, isNext, isPrev }) => (
-                <div
-                  className="flex justify-center cursor-pointer"
-                  onClick={() =>
-                    isActive
-                      ? router.push(
-                          `/cataProducts/${cat.id}/${encodeURIComponent(cat.name)}`
-                        )
-                      : swiperRef.current?.slideToLoop(i, 700)
-                  }
-                >
-                  <div
-                    className={`arch-card relative transition-all duration-700 ${
-                      isActive
-                        ? "w-[250px] md:w-[420px]"
-                        : isNext || isPrev
-                        ? "w-[170px] md:w-[380px]"
-                        : "w-[170px] md:w-[280px]"
-                    }`}
-                  >
-                    {/* IMAGE */}
-                    <div
-                      className={`relative overflow-hidden transition-all duration-700 ${
-                        isActive
-                          ? "h-[360px] md:h-[620px]"
-                          : isNext || isPrev
-                          ? "h-[250px] md:h-[580px]"
-                          : "h-[250px] md:h-[413px]"
-                      }`}
-                      style={{
-                        borderRadius: "220px 220px 0 0",
-                        background: "linear-gradient(to bottom, #E7DED3 0%, #F6F2ED 100%)",
-                      }}
-                    >
-                      <Image
-                        src={`${BASE_URL}/${cat.image}`}
-                        alt={cat.name}
-                        fill
-                        priority={isActive}
-                        className="object-cover object-top"
-                        sizes="(max-width:768px) 250px, 420px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
-                    </div>
+          {categories.map((cat, i) => {
+            // Calculate distance from active slide
+            const distance = Math.min(
+              Math.abs(i - active),
+              categories.length - Math.abs(i - active)
+            );
 
-                    {/* LABEL */}
-                    <div className="text-right bg-[rgba(200,200,200,0.2)] p-2 space-y-3">
-                      <div className="flex items-center justify-between">
+            // Determine card size based on distance
+            const getCardSizes = () => {
+              if (distance === 0)
+                return { w: "w-[364px]", h: "h-[586px]", scale: "md:scale-100" };
+              if (distance === 1)
+                return { w: "w-[297px]", h: "h-[399px]", scale: "md:scale-100" };
+              return { w: "w-[234px]", h: "h-[317px]", scale: "md:scale-100" };
+            };
+
+            const sizes = getCardSizes();
+
+            return (
+              <SwiperSlide key={`${cat.id}-${i}`} className="h-auto flex items-center justify-center py-6">
+                {({ isActive }) => (
+                  <div
+                    className="flex justify-center cursor-pointer group w-full"
+                    onClick={() =>
+                      isActive
+                        ? router.push(`/cataProducts/${cat.id}/${encodeURIComponent(cat.name)}`)
+                        : swiperRef.current?.slideToLoop(i, 700)
+                    }
+                  >
+                    <div
+                      className={`arch-card relative transition-all duration-700 transform ${sizes.scale}`}
+                    >
+                      {/* Arch Container - Fixed Height */}
+                      <div
+                        className={`relative overflow-hidden bg-[#F8F4EE] shadow-lg md:shadow-2xl transition-all duration-500 flex-shrink-0 ${sizes.w} ${sizes.h}`}
+                        style={{
+                          borderRadius: "140px 140px 30px 30px / 120px 120px 30px 30px",
+                        }}
+                      >
+                        {cat.image ? (
+                          <Image
+                            src={`${BASE_URL}/${cat.image}`}
+                            alt={cat.name}
+                            fill
+                            priority={isActive}
+                            className="object-cover object-center transition-all duration-700"
+                            sizes="(max-width: 640px) 260px, (max-width: 1024px) 260px, 364px"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-b from-[#E8D5C4] to-[#D4C4B0] animate-pulse" />
+                        )}
+
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
+                      </div>
+
+                      {/* Label */}
+                      <div className="text-center mt-2 md:mt-4 min-h-[28px] md:min-h-[40px] flex items-center justify-center">
                         <h3
-                          className={`text-black font-semibold leading-none transition-all duration-500 ${
-                            isActive ? "text-[26px] md:text-[32px]" : "text-[22px] md:text-[28px]"
-                          }`}
+                          className={`font-semibold text-black transition-all duration-500 ${isActive
+                              ? "text-lg md:text-2xl"
+                              : "text-sm md:text-base"
+                            }`}
                         >
                           {cat.name}
                         </h3>
-
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            swiperRef.current?.slidePrev();
-                          }}
-                        >
-                          <ArrowLeft className="size-8" />
-                        </button>
                       </div>
-
-                      <p
-                        className={`transition-all duration-500 ${
-                          isActive ? "text-[20px] md:text-[24px]" : "text-[11px] md:text-[13px]"
-                        }`}
-                      >
-                        اكتشف منتجاتنا
-                      </p>
                     </div>
                   </div>
-                </div>
-              )}
-            </SwiperSlide>
-          ))}
+                )}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
-      </section>
+      </div>
 
-      {/* BUTTON */}
-      <div className="flex justify-center">
+      {/* Bottom Button */}
+      <div className="flex justify-center mt-12">
         <Link
           href="/products"
-          className="
-            group
-            relative
-            overflow-hidden
-            inline-flex
-            items-center
-            justify-center
-            bg-[#B8A998]
-            px-12
-            py-4
-            text-black
-            text-sm
-            md:text-lg
-            font-medium
-            tracking-wide
-            transition-all
-            duration-300
-            hover:scale-105
-            hover:shadow-xl
-          "
+          className="group inline-flex items-center gap-3 bg-black text-white px-10 py-4 rounded-full text-sm md:text-base font-medium hover:scale-105 active:scale-95 transition-all duration-300"
         >
-          <span className="relative z-10 flex items-center gap-3">
-            منتجاتنا
-          </span>
+          منتجاتنا
+          <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
         </Link>
       </div>
-    </div>
+    </section>
   );
 }
