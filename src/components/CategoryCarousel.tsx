@@ -123,6 +123,10 @@ export default function CategoryCarousel() {
               /* FIX 3: Taller fixed height for desktop active card size */
               height: 860px;
             }
+            .cat-swiper .swiper-slide {
+              transform: scale(1);
+              width: auto !important;
+            }
           }
 
           .cat-swiper .swiper-wrapper {
@@ -140,12 +144,6 @@ export default function CategoryCarousel() {
           .cat-swiper .swiper-slide-next {
             transform: scale(1);
             z-index: 50;
-            opacity: 1;
-          }
-
-          .cat-swiper .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
-            opacity: 0.6;
-            transform: scale(0.8);
           }
           .arch-card {
             transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -226,16 +224,16 @@ export default function CategoryCarousel() {
           }}
           breakpoints={{
             320: {
-              slidesPerView: 1.2,
-              spaceBetween: 4,
+              slidesPerView: 1,   // FIX 2: Was 1.8 (showed partial cards). Now exactly 1 on mobile.
+              spaceBetween: 4,    // FIX 1: Consistent 4px gap on mobile too.
             },
             640: {
-              slidesPerView: 3,
-              spaceBetween: 4,
+              slidesPerView: "auto",
+              spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 5,
-              spaceBetween: 4,
+              slidesPerView: "auto",
+              spaceBetween: 40,
             },
           }}
           onSwiper={(swiper) => {
@@ -247,7 +245,7 @@ export default function CategoryCarousel() {
         >
           {categories.map((cat, i) => (
             <SwiperSlide key={`${cat.id}-${i}`}>
-              {({ isActive }) => (
+              {({ isActive, isNext, isPrev }) => (
                 <div
                   className="flex justify-center cursor-pointer"
                   onClick={() =>
@@ -259,11 +257,23 @@ export default function CategoryCarousel() {
                   }
                 >
                   <div
-                    className="arch-card relative transition-all duration-700 w-full max-w-[420px] mx-auto"
+                    className={`arch-card relative transition-all duration-700 ${
+                      isActive
+                        ? "w-[250px] md:w-[420px]"
+                        : isNext || isPrev
+                        ? "w-[170px] md:w-[380px]"
+                        : "w-[170px] md:w-[280px]"
+                    }`}
                   >
                     {/* IMAGE */}
                     <div
-                      className="relative overflow-hidden transition-all duration-700 w-full h-[300px] md:h-[550px]"
+                      className={`relative overflow-hidden transition-all duration-700 ${
+                        isActive
+                          ? "h-[360px] md:h-[620px]"
+                          : isNext || isPrev
+                          ? "h-[250px] md:h-[580px]"
+                          : "h-[250px] md:h-[413px]"
+                      }`}
                       style={{
                         borderRadius: "220px 220px 0 0",
                         background: "linear-gradient(to bottom, #E7DED3 0%, #F6F2ED 100%)",

@@ -22,7 +22,7 @@ export default function AboutClosing() {
           ترتديها
         </p>
 
-        <div className="relative w-full aspect-[21/9] overflow-hidden rounded-sm grayscale-[0.2] opacity-90">
+        <div className="relative w-1/2 mx-auto aspect-[21/9] overflow-hidden rounded-sm grayscale-[0.2] opacity-90">
           <Image
             src="/assets/about-us/Rectangle 57 (2).png"
             alt="Closing View"

@@ -39,7 +39,7 @@ export default function RootLayout({
       className={`${inter.variable} ${almarai.variable} ${poppins.variable} h-full antialiased`}
     >
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
-      <body className="font-almarai min-h-full flex flex-col bg-background text-foreground">
+      <body className="font-almarai min-h-full flex flex-col">
         <Navbar />
         <div className="bg-[#F2F2F2]">{children}</div>
         <Footer />

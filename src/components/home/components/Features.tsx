@@ -31,12 +31,10 @@ const Features = () => {
         {/* Header Section */}
         <div className="text-center max-w-4xl mx-auto mb-20">
           <h2 className="text-[40px] font-semibold text-black mb-6 leading-tight">
-            حيث تلتقي حيث تلتقي
+           لماذا تختاريننا
           </h2>
           <p className="text-[20px] font-medium text-black/70 leading-relaxed">
-            حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي
-            الموضة بالاستدامة حيث تلتقي الموضة بالاستدامة حيث تلتقي الموضة
-            بالاستدامة حيث تلتقي الموضة بالاستدامة
+           نوفرو لك تجربة تسوق سهلة وآمنة مع الدفع عند الاستلام، تصنيع في الجزائر، تصاميم مصنوعة يدويا، وتوصيل لكل الولايات عبر الوطن
           </p>
         </div>
 
