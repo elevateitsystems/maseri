@@ -4,15 +4,22 @@ import Image from "next/image";
 export default function AboutClosing() {
   return (
     <section className="bg-background py-16 md:py-24">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-[28px] md:text-[40px] font-bold text-black mb-8 leading-tight">
-          انضمي إلى رحلتنا
+      <div className=" px-6 text-center">
+        <h2 className="text-[28px] md:text-[40px]  text-black mb-8 leading-tight">
+          التزام أصيل: إبراز الحرفية المحلية وصناعة موضة مسؤولة
         </h2>
 
-        <p className="max-w-[1000px] mx-auto text-[16px] md:text-[18px] text-black/80 leading-relaxed mb-16">
-          ماسيري ليست مجرد علامة تجارية، بل هي مجتمع يقدر الأناقة والستر. ندعوك
-          لاستكشاف مجموعاتنا وتجربة الفرق الذي تصنعه الجودة والشغف. شكراً لكونك
-          جزءاً من قصتنا.
+        <p className="  !text-[22px] md:text-[18px] text-black/80 leading-relaxed mb-16 text-justify md:text-center">
+          وراء كل قطعة نصممها، هناك رؤية واضحة: إبراز الحرفية المحلية التي غالبا
+          ما يتم التقليل من قيمتها، وتقديم موضة تحمل معنى حقيقي يتم تصميم كل
+          قطعة وصناعتها بعناية في الجزائر، على يد حرفيين مهرة يجمعون بين
+          التقنيات التقليدية وروح الموضة العصرية. هذا الاختيار ليس جماليا فقط،
+          بل هو أيضا التزام أخلاقي لدعم إنتاج أكثر إنسانية ومسؤولية، نحرص على
+          إنتاج كميات محدودة لضمان جودة أعلى وتقليل الهدر، مما يمنح كل قطعة
+          طابعًا مميزا بعيدًا عن الإنتاج الواسع. تهتم بكل تفصيلة لتقدم تصاميم
+          فريدة تعبر عن العناية والدقة . نحن لا تقدم مجرد ملابس، بل رؤية الموضة
+          واعية مستدامة، ومتصلة بجذورها. موضة تحترم من يصنعها بقدر ما تليق بمن
+          ترتديها
         </p>
 
         <div className="relative w-full aspect-[21/9] overflow-hidden rounded-sm grayscale-[0.2] opacity-90">
