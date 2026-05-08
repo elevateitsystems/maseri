@@ -3,7 +3,7 @@ import { Almarai, Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import "swiper/css";
+import { ToastProvider } from "@/components/ToastProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,6 +44,7 @@ export default function RootLayout({
         <Navbar />
         <div className="bg-[#F2F2F2]">{children}</div>
         <Footer />
+        <ToastProvider />
       </body>
     </html>
   );

@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { api } from "@/lib/api";
+import { Category } from "@/types/api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -14,15 +16,15 @@ import "swiper/css";
 
 const BASE_URL = "https://back.testwebapp.space";
 
-interface Category {
+interface CategoryType {
   id: number;
   name: string;
   image: string;
 }
 
-const duplicateForLoop = (cats: Category[]) => {
+const duplicateForLoop = (cats: CategoryType[]) => {
   if (!cats.length) return [];
-  const arr: Category[] = [];
+  const arr: CategoryType[] = [];
   while (arr.length < 12) {
     arr.push(...cats);
   }
@@ -256,7 +258,7 @@ export default function CategoryCarousel() {
       {/* Bottom Button */}
       <div className="flex justify-center mt-12">
         <Link
-          href="/products"
+          href="/cataProduct"
           className="group inline-flex items-center gap-3 bg-black text-white px-10 py-4 rounded-full text-sm md:text-base font-medium hover:scale-105 active:scale-95 transition-all duration-300"
         >
           منتجاتنا

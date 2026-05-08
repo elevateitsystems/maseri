@@ -28,12 +28,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className="group relative transition-all duration-300">
-      <div className="aspect-[4/4] relative overflow-hidden bg-secondary-50">
+      <div className="aspect-[4/4] relative overflow-hidden">
         {mainImage ? (
           <img
             src={mainImage}
             alt={product.title}
-            className="w-full h-full object-contain object-bottom"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full bg-muted flex items-center justify-center">
@@ -42,8 +42,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
         )}
       </div>
       <div className="p-4 space-y-1.5">
-        <div className="flex justify-between items-center">
-          <h3 className="text-xl font-normal truncate">{product.title}</h3>
+        <div className="flex justify-between items-top gap-2">
+          <h3 className="text-xl font-normal">{product.title}</h3>
           <button className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red transition-colors">
             <Heart className="size-6" />
           </button>
