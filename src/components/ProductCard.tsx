@@ -1,49 +1,55 @@
 "use client";
 
 import React from "react";
-import { Heart, ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 import { useStore } from "@/store/useStore";
-import Image, { StaticImageData } from "next/image";
+import { Product } from "@/types/api";
+import { getImageUrl } from "@/lib/api";
 
 interface ProductCardProps {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  image: StaticImageData;
+  product: Product;
 }
 
-const ProductCard = ({
-  id,
-  title,
-  price,
-  category,
-  image,
-}: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
   const incrementCart = useStore((state) => state.incrementCart);
+
+  // Handle images
+  const images = React.useMemo(() => {
+    try {
+      if (Array.isArray(product.images)) return product.images;
+      if (typeof product.images === "string") return JSON.parse(product.images);
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }, [product.images]);
+
+  const mainImage = images.length > 0 ? getImageUrl(images[0]) : "";
 
   return (
     <div className="group relative transition-all duration-300">
       <div className="aspect-[4/4] relative overflow-hidden bg-secondary-50">
-        <Image
-          src={image}
-          alt=""
-          fill
-          sizes="534px"
-          className="object-contain object-bottom"
-          aria-hidden="true"
-        />
+        {mainImage ? (
+          <img
+            src={mainImage}
+            alt={product.title}
+            className="w-full h-full object-contain object-bottom"
+          />
+        ) : (
+          <div className="w-full h-full bg-muted flex items-center justify-center">
+            <span className="text-muted-foreground">No Image</span>
+          </div>
+        )}
       </div>
       <div className="p-4 space-y-1.5">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-normal truncate">{title}</h3>
+          <h3 className="text-xl font-normal truncate">{product.title}</h3>
           <button className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red transition-colors">
             <Heart className="size-6" />
           </button>
         </div>
         <div className="">
-          <p className="text-xl font-semibold">${price}</p>
+          <p className="text-xl font-semibold">{product.price} د.ج</p>
         </div>
       </div>
     </div>

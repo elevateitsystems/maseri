@@ -1,34 +1,49 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import ProductCard from "@/components/ProductCard";
-import product1 from "../../../../assets/productImages/product-1.png";
-import product2 from "../../../../assets/productImages/product-2.png";
-import product3 from "../../../../assets/productImages/product-3.png";
+import { api } from "@/lib/api";
+import { Product } from "@/types/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const products = [
-  {
-    id: 1,
-    title: "عباية كلاسيكية سوداء",
-    price: 450,
-    category: "العبايات",
-    image: product3,
-  },
-  {
-    id: 2,
-    title: "فستان صيفي مشجر",
-    price: 320,
-    category: "الفساتين",
-    image: product2,
-  },
-  {
-    id: 3,
-    title: "طقم كاجوال بيج",
-    price: 280,
-    category: "ملابس كاجوال",
-    image: product1,
-  },
-];
+function BestSellerSkeleton() {
+  return (
+    <div className="space-y-4">
+      <Skeleton className="aspect-[4/4] w-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-5 w-1/4" />
+      </div>
+    </div>
+  );
+}
 
-const BestSellers = () => {
+const BestSellers = ({limit}: {limit?: number}) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      try {
+         const data = await fetch('https://back.testwebapp.space/filterProducts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ cataId: 1 }),
+        });
+        const responseResult = await data.json();
+        setProducts(limit ? responseResult?.data?.slice(0, limit) : responseResult?.data);
+      } catch (error) {
+        console.error("Error fetching best sellers:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBestSellers();
+  }, []);
+
   return (
     <section>
       <div className="container mx-auto px-4">
@@ -45,9 +60,19 @@ const BestSellers = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
+          {loading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <BestSellerSkeleton key={i} />
+            ))
+          ) : products.length > 0 ? (
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <div className="col-span-full py-20 text-center">
+              <p className="text-xl text-muted-foreground">0 data found</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
