@@ -83,7 +83,7 @@ const Categories = () => {
   if (!categories.length) return null;
 
   return (
-    <section className="w-full overflow-hidden select-none" dir="rtl">
+    <section className="w-full overflow-hidden select-none " dir="rtl">
       <div className="w-full">
 
         {/* Header */}
@@ -140,7 +140,7 @@ const Categories = () => {
               >
                 {/* Arch frame */}
                 <motion.div
-                  className="relative w-full overflow-hidden rounded-t-full bg-[#e8ddd0]"
+                  className="relative w-full overflow-hidden rounded-t-full  "
                   animate={{ height }}
                   transition={SPRING}
                 >

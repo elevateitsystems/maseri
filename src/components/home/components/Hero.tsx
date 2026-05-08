@@ -22,25 +22,27 @@ export default function Hero() {
       </div>
 
       {/* ── DESKTOP LAYOUT ── */}
-      <div className="hidden lg:block relative w-full h-screen">
+      <div className="hidden lg:block relative w-full" style={{ minHeight: "100svh" }}>
 
         {/* Model image — LEFT side, full height, no cropping */}
         <div
-          className="absolute inset-0 pointer-events-none select-none md:-left-[150px] lg:-left-[200px] 2xl:-left-[360px]"
+          className="absolute lg:-b-035 lg:-left-55 2xl:-left-70 pointer-events-none select-none lg:w-[100%] 2xl:w-[95%] h-[125%]
+          "
+        // style={{  width: "80%", height: "115%" }}
         >
           <Image
             src="/assets/hero.png"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 70vw"
-            className="object-cover object-center lg:object-left"
+            sizes="100vw"
+            className="min-h-[900px] object-fit object-bottom"
             priority
           />
         </div>
         {/* Text — RIGHT side, vertically centered */}
         <div
-          className="absolute inset-y-0 right-0 flex items-center z-10"
-          style={{ width: "50%" }}
+          className="absolute inset-y-0 right-0 flex items-center"
+          style={{ width: "45%" }}
         >
           <div
             className="flex flex-col w-full pr-12  "

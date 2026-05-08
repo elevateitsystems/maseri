@@ -64,7 +64,7 @@ export default function CategoryCarousel() {
 
   if (loading) {
     return (
-      <section className="py-16 md:py-24 bg-[#F5F1EC]">
+      <section className="py-16 md:py-24 ">
         <div className="animate-pulse max-w-7xl mx-auto px-4">
           <div className="h-16 w-48 bg-black/10 rounded mx-auto mb-6" />
           <div className="flex justify-center gap-8 mb-12">
@@ -95,7 +95,7 @@ export default function CategoryCarousel() {
   return (
     <section
       dir="rtl"
-      className="relative py-16 md:py-24 bg-[#F5F1EC] overflow-hidden"
+      className="relative py-16 md:py-24   overflow-hidden"
     >
       {/* Soft Background Accent */}
       <div className="absolute inset-0 pointer-events-none">
@@ -125,8 +125,8 @@ export default function CategoryCarousel() {
               key={cat.id}
               onClick={() => slideTo(i)}
               className={`text-sm md:text-base whitespace-nowrap pb-2 transition-all duration-300 ${active % rawCats.length === i
-                  ? "text-black font-medium"
-                  : "text-black/50 hover:text-black/80"
+                ? "text-black font-medium"
+                : "text-black/50 hover:text-black/80"
                 }`}
             >
               {cat.name}
@@ -139,7 +139,7 @@ export default function CategoryCarousel() {
       </div>
 
       {/* Swiper Carousel */}
-      <div className="relative z-10 px-2 md:px-0 min-h-[320px] md:min-h-[620px] flex items-center justify-center overflow-visible">
+      <div className="relative z-10 px-2 md:px-0 min-h-[320px] md:min-h-[720px] flex items-center justify-center overflow-visible">
         <Swiper
           dir="rtl"
           className="cat-swiper max-w-[1800px] mx-auto overflow-visible"
@@ -236,11 +236,26 @@ export default function CategoryCarousel() {
                       </div>
 
                       {/* Label */}
-                      <div className="text-center mt-2 md:mt-4 min-h-[28px] md:min-h-[40px] flex items-center justify-center">
+                      <div className="text-center mt-2 md:mt-4 min-h-[28px] md:min-h-[40px] flex items-center flex-row-reverse justify-between">
+                        <button className={`${isActive
+                          ? "block"
+                          : "hidden"
+                          }`}
+                          onClick={() => {
+                            const activeCat = rawCats[active % rawCats.length];
+                            if (activeCat) {
+                              router.push(`/cataProducts/${activeCat.id}/${encodeURIComponent(activeCat.name)}`);
+                            }
+                          }}>
+                          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 9C18.5523 9 19 8.55228 19 8C19 7.44772 18.5523 7 18 7V8V9ZM1.29289 7.29289C0.902369 7.68342 0.902369 8.31658 1.29289 8.70711L7.65685 15.0711C8.04738 15.4616 8.68054 15.4616 9.07107 15.0711C9.46159 14.6805 9.46159 14.0474 9.07107 13.6569L3.41421 8L9.07107 2.34315C9.46159 1.95262 9.46159 1.31946 9.07107 0.928932C8.68054 0.538408 8.04738 0.538408 7.65685 0.928932L1.29289 7.29289ZM18 8V7L2 7V8V9L18 9V8Z" fill="black" />
+                          </svg>
+
+                        </button>
                         <h3
                           className={`font-semibold text-black transition-all duration-500 ${isActive
-                              ? "text-lg md:text-2xl"
-                              : "text-sm md:text-base"
+                            ? "text-lg md:text-2xl"
+                            : "text-sm md:text-base"
                             }`}
                         >
                           {cat.name}
@@ -260,14 +275,34 @@ export default function CategoryCarousel() {
         <button
           onClick={() => {
             const activeCat = rawCats[active % rawCats.length];
+
             if (activeCat) {
-              router.push(`/cataProducts/${activeCat.id}/${encodeURIComponent(activeCat.name)}`);
+              router.push(
+                `/cataProducts/${activeCat.id}/${encodeURIComponent(
+                  activeCat.name
+                )}`
+              );
             }
           }}
-          className="group inline-flex items-center gap-3 bg-black text-white px-10 py-4 rounded-full text-sm md:text-base font-medium hover:scale-105 active:scale-95 transition-all duration-300"
+          dir="rtl"
+          className="
+    inline-flex items-center justify-center
+    h-[62px]
+    px-[40px] 
+    bg-[#B3A495]
+    text-[#2F2F2F]
+    text-[28px] md:text-[34px]
+    leading-none
+    font-normal
+    whitespace-nowrap
+    transition-transform duration-300
+     scale-[1.02] 
+  "
+          style={{
+            fontFamily: "'Noto Naskh Arabic', serif",
+          }}
         >
-          منتجاتنا
-          <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+          حيث تلتقي
         </button>
       </div>
     </section>
