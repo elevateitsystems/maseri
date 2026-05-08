@@ -54,7 +54,7 @@ const Navbar = () => {
             <span className="text-xl font-medium leading-tight tracking-normal text-black">
               LABEL Textile
             </span>
-            <span className="text-[13px] leading-tight text-black">Algeria</span>
+            <span className="text-[13px] leading-tight text-black mt-2">Algeria</span>
           </div>
         </div>
       </div>

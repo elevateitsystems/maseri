@@ -77,7 +77,7 @@ export default function ContactUs() {
             </div>
             <button
               type="submit"
-              className="w-full h-[60px] border border-[#DBDBDB] text-black text-[18px] font-medium hover:bg-[#B3A495] hover:text-white transition-all duration-300"
+              className="w-full h-14 bg-[#B3A495] hover:bg-[#a39485] text-white text-[18px] font-medium rounded-[2px] transition-all disabled:opacity-50"
             >
               تقديم
             </button>

@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { api } from "@/lib/api";
+import { Category } from "@/types/api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -13,12 +15,6 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 
 const BASE_URL = "https://back.testwebapp.space";
-
-interface Category {
-  id: number;
-  name: string;
-  image: string;
-}
 
 const duplicateCategories = (cats: Category[]) => {
   if (!cats.length) return [];
@@ -44,11 +40,8 @@ export default function CategoryCarousel() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/getCata`, {
-          cache: "no-store",
-        });
-        const json = await res.json();
-        setRawCats(json.data || []);
+        const data = await api.getCategories();
+        setRawCats(data);
       } catch (error) {
         console.error(error);
       } finally {

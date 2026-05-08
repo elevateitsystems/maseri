@@ -1,4 +1,27 @@
-import { Product, Category, ApiResponse } from "@/types/api";
+export interface OrderPayload {
+  productId: number;
+  quantity: number;
+  totalAmount: number;
+  size: string;
+  name: string;
+  surName: string;
+  city: string;
+  address: string;
+  contact: string;
+}
+
+export interface Order extends OrderPayload {
+  id: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  message?: string;
+}
 
 const BASE_URL = 'https://back.testwebapp.space/';
 
@@ -6,7 +29,8 @@ export const api = {
   async getCategories(): Promise<Category[]> {
     const response = await fetch(`${BASE_URL}getCata`);
     if (!response.ok) throw new Error("Failed to fetch categories");
-    return response.json();
+    const result = await response.json();
+    return result.data || [];
   },
 
   async filterProducts(filters: any = {}): Promise<Product[]> {
@@ -17,13 +41,64 @@ export const api = {
       },
       body: JSON.stringify(filters),
     });
-    console.log(response)
     if (!response.ok) throw new Error("Failed to fetch products");
     const result: ApiResponse<Product[]> = await response.json();
     return result.data || [];
   },
 
-  async filterOrders(payload: any = { cataId: 1 }): Promise<Product[]> {
+  async filterReviews(filters: { approved: boolean; productId: number }): Promise<Review[]> {
+    const response = await fetch(`${BASE_URL}filterReviews`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(filters),
+    });
+    if (!response.ok) throw new Error("Failed to fetch reviews");
+    const result: ApiResponse<Review[]> = await response.json();
+    return result.data || [];
+  },
+
+  async addReview(payload: ReviewPayload): Promise<Review> {
+    const response = await fetch(`${BASE_URL}addReview`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error("Failed to add review");
+    const result: ApiResponse<Review> = await response.json();
+    return result.data;
+  },
+
+  async getProductById(id: number): Promise<Product | null> {
+    const response = await fetch(`${BASE_URL}filterProducts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+    if (!response.ok) throw new Error("Failed to fetch product");
+    const result: ApiResponse<Product[]> = await response.json();
+    return result.data && result.data.length > 0 ? result.data[0] : null;
+  },
+
+  async addOrder(payload: OrderPayload): Promise<Order> {
+    const response = await fetch(`${BASE_URL}addOrder`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error("Failed to add order");
+    const result: ApiResponse<Order> = await response.json();
+    return result.data;
+  },
+
+  async filterOrders(payload: any = { cataId: 1 }): Promise<any[]> {
     const response = await fetch(`${BASE_URL}filterOrders`, {
       method: 'POST',
       headers: {
@@ -32,12 +107,12 @@ export const api = {
       body: JSON.stringify(payload),
     });
     if (!response.ok) throw new Error("Failed to fetch data from filterOrders");
-    const result: ApiResponse<Product[]> = await response.json();
+    const result: ApiResponse<any[]> = await response.json();
     return result.data || [];
   },
 
   async getProducts(): Promise<Product[]> {
-    return this.filterOrders({ cataId: 1 });
+    return this.filterProducts({ cataId: 1 });
   }
 };
 

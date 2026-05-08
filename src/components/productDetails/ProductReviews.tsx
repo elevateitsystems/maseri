@@ -9,7 +9,7 @@ export function ProductReviews({ reviews }: any) {
         {reviews.map((r: any, i: number) => (
           <div
             key={i}
-            className="p-8 bg-[#FDFDFD] border border-[#EEEEEE] rounded-[4px] shadow-sm flex flex-col items-start text-right"
+            className="p-8 border border-[rgba(0,0,0,0.1)] rounded-[4px] flex flex-col items-start text-right"
           >
             {/* stars */}
             <div className="flex gap-1 mb-4">

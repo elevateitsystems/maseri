@@ -18,22 +18,18 @@ function BestSellerSkeleton() {
   );
 }
 
-const BestSellers = ({limit}: {limit?: number}) => {
+const BestSellers = ({limit, excludeId}: {limit?: number, excludeId?: number}) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-         const data = await fetch('https://back.testwebapp.space/filterProducts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ cataId: 1 }),
-        });
-        const responseResult = await data.json();
-        setProducts(limit ? responseResult?.data?.slice(0, limit) : responseResult?.data);
+        const data = await api.filterProducts();
+        const filteredData = excludeId 
+          ? data.filter(p => p.id !== excludeId)
+          : data;
+        setProducts(limit ? filteredData.slice(0, limit) : filteredData);
       } catch (error) {
         console.error("Error fetching best sellers:", error);
       } finally {
@@ -42,7 +38,7 @@ const BestSellers = ({limit}: {limit?: number}) => {
     };
 
     fetchBestSellers();
-  }, []);
+  }, [limit, excludeId]);
 
   return (
     <section>
@@ -70,7 +66,7 @@ const BestSellers = ({limit}: {limit?: number}) => {
             ))
           ) : (
             <div className="col-span-full py-20 text-center">
-              <p className="text-xl text-muted-foreground">0 data found</p>
+              <p className="text-xl text-muted-foreground">No Products Found </p>
             </div>
           )}
         </div>

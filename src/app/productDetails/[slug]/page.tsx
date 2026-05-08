@@ -1,8 +1,13 @@
+"use client";
+import { useEffect, useState, use } from "react";
 import BestSellers from "@/components/home/components/BestSellers";
 import { AddReviewForm } from "@/components/productDetails/AddReviewForm";
 import { ProductAccordion } from "@/components/productDetails/ProductAccordion";
 import { ProductImageCard } from "@/components/productDetails/ProductImageCard";
 import { ProductReviews } from "@/components/productDetails/ProductReviews";
+import { api } from "@/lib/api";
+import { Review, Product } from "@/types/api";
+import { ProductDetailsSkeleton } from "@/components/productDetails/ProductDetailsSkeleton";
 
 export const mockProduct = {
   id: 1,
@@ -14,41 +19,47 @@ export const mockProduct = {
   details:
     "هذا المنتج مصنوع من خامات عالية الجودة ومناسب للاستخدام اليومي.",
 };
-export const mockReviews = [
-  {
-    name: "أحمد",
-    rating: 5,
-    comment: "منتج ممتاز وجودة عالية جدًا",
-  },
-  {
-    name: "سارة",
-    rating: 4,
-    comment: "جميل ولكن يحتاج تحسين بسيط",
-  },
-  {
-    name: "ليلى",
-    rating: 5,
-    comment: "رائع جدًا أنصح به",
-  },
-];
-export default function Page() {
+
+export default function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const productId = parseInt(slug) || 1;
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const [reviewData, productData] = await Promise.all([
+        api.filterReviews({ approved: true, productId }),
+        api.getProductById(productId)
+      ]);
+      setReviews(reviewData);
+      setProduct(productData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [productId]);
+
+  if (isLoading) return <ProductDetailsSkeleton />;
+  if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
+
   return (
-    <div className="rtl md:mt-32 space-y-16">
-      <div className="container mx-auto py-10">
-        <ProductImageCard product={mockProduct} />
-        <ProductAccordion product={mockProduct} />
-      </div>
+    <div className=" container mx-auto  md:mt-44 space-y-16 ">
+      <ProductImageCard product={product} />
+      <ProductAccordion product={product} />
 
-      <div className="bg-[#F5F5F5] py-20">
-        <div className="container mx-auto">
-          <ProductReviews reviews={mockReviews} />
-          <AddReviewForm />
-        </div>
-      </div>
+      <ProductReviews reviews={reviews} />
+      <AddReviewForm productId={productId} onSuccess={fetchData} />
 
-      <div className="container mx-auto py-10">
-        <BestSellers limit={3} />
-      </div>
+      <BestSellers limit={3} excludeId={productId} />
     </div>
   );
 }

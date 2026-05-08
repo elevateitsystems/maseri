@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getImageUrl } from "@/lib/api";
+import { api, getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
 import Link from "next/link";
 
@@ -120,27 +120,16 @@ function CardSkeleton() {
   );
 }
 
-export default function CataProductCard() {
+export default function CataProductCard({ cataId }: { cataId?: number }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
-        const data = await fetch(
-          "https://back.testwebapp.space/filterProducts",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ cataId: 1 }),
-          }
-        );
-
-        const responseResult = await data.json();
-
-        setProducts(responseResult?.data || []);
+        const data = await api.filterProducts();
+        setProducts(data || []);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -149,7 +138,7 @@ export default function CataProductCard() {
     };
 
     fetchProducts();
-  }, []);
+  }, [cataId]);
 
   return (
     <section className="w-full overflow-hidden py-16 md:mt-20">
@@ -185,37 +174,26 @@ export default function CataProductCard() {
                 {/* Product Info */}
                 <Link
                   href={`/productDetails/${product.id}`}
-                  className="mt-5 flex items-start justify-between px-2"
+                  className="flex items-start justify-between p-3 md:px-4 md:py-3"
                 >
-                  {/* Text */}
-                  <div className="flex-1 text-start">
-                    <h3 className="text-[22px] font-semibold leading-none text-black">
-                      {product.title}
-                    </h3>
-
-                    <p className="mt-2 text-[18px] text-black/80">
-                      {product.price} د.ج
-                    </p>
-                  </div>
-
-                  {/* Cart Button */}
-                  <Button
-                    size="icon"
-                    variant="outline"
-                    className="h-12 w-12 md:size-16 rounded-full border-black bg-transparent hover:bg-black hover:text-white"
-                  >
-                    <ShoppingBag
-                      className="h-5 w-5 md:size-7"
-                      strokeWidth={1.8}
-                    />
-                  </Button>
+                  <div className="space-y-1.5 flex-1 ">
+        <div className="flex-1 flex justify-between items-top gap-2">
+          <h3 className="text-xl font-normal">{product.title}</h3>
+          <button className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red transition-colors">
+            <Heart className="size-6" />
+          </button>
+        </div>
+        <div className="">
+          <p className="text-xl font-semibold">${product.price}</p>
+        </div>
+      </div>
                 </Link>
               </div>
             ))
           ) : (
             <div className="col-span-full py-20 text-center">
               <p className="text-xl text-muted-foreground">
-                0 data found
+No Products Found
               </p>
             </div>
           )}

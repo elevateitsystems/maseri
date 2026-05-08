@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface Category {
   id: number;
   name: string;
@@ -14,12 +16,28 @@ export interface Product {
   discountPrice: number;
   stock: number;
   favourite: boolean;
-  sizeInfo: any; // Using any for JSON fields for now, can be refined
+  sizeInfo: any;
   otherInfo: any;
-  images: string | string[]; // Can be a JSON string or parsed array
+  images: string | string[];
   tableImage: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export const ReviewSchema = z.object({
+  productId: z.number(),
+  name: z.string().min(2, "الاسم يجب أن يكون حرفين على الأقل"),
+  rating: z.number().min(1).max(5),
+  comment: z.string().min(5, "التعليق يجب أن يكون 5 أحرف على الأقل"),
+  approved: z.boolean().default(false),
+});
+
+export type ReviewPayload = z.infer<typeof ReviewSchema>;
+
+export interface Review extends ReviewPayload {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ApiResponse<T> {
