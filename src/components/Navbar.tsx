@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "الرئيسية" },
-  { href: "/collections", label: "مجموعاتنا" },
+  { href: "/cataProduct", label: "مجموعاتنا" },
   { href: "/contact", label: "اتصل بنا" },
   { href: "/about", label: "من نحن" },
 ];
