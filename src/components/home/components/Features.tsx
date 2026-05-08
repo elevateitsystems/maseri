@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import icon1 from "../../../../assets/features/hand-love.png";
-import icon2 from "../../../../assets/features/doller.png";
-import icon3 from "../../../../assets/features/box.png";
-import icon4 from "../../../../assets/features/location.png";
+import icon1 from "../../../../assets/features/hand-love.svg";
+import icon2 from "../../../../assets/features/doller.svg";
+import icon3 from "../../../../assets/features/box.svg";
+import icon4 from "../../../../assets/features/location.svg";
 
 const features = [
   {
@@ -12,15 +12,15 @@ const features = [
   },
   {
     icon: icon2,
-    title: "دفع آمن",
+    title: "الدفع عند الاستلام",
   },
   {
     icon: icon3,
-    title: "استبدال مرن",
+    title: "توصيل لكل الولايات",
   },
   {
     icon: icon4,
-    title: "شحن سريع",
+    title: "صنع في الجزائر",
   },
 ];
 
@@ -47,7 +47,7 @@ const Features = () => {
               key={index}
               className="flex flex-col items-center text-center group"
             >
-              <div className="w-[80px] h-[80px] mb-8 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <div className="w-[100px] h-[100px] mb-8 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                 <Image
                   src={feature.icon}
                   alt={feature.title}
