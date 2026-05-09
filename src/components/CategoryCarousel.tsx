@@ -95,18 +95,18 @@ export default function CategoryCarousel() {
   return (
     <section
       dir="rtl"
-      className="relative py-16 md:py-24 overflow-hidden"
+      className="relative overflow-hidden"
     >
       {/* Soft Background Accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[1200px] h-[800px] rounded-full bg-[#EDE4D8]/60 blur-[120px]" />
+        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[1200px] h-[800px] rounded-full blur-[120px]" />
       </div>
 
       {/* Header */}
-      <div className="text-center mb-12 md:mb-16 relative z-10">
+      <div className="text-center mb-6 md:mb-6 relative z-10">
         <h2
           className="font-bold text-black tracking-tight"
-          style={{ fontSize: "clamp(42px, 7.5vw, 88px)", fontFamily: "Georgia, serif" }}
+          style={{ fontSize: "clamp(42px, 7.5vw, 64px)", fontFamily: "Georgia, serif" }}
         >
           منتجاتنا
         </h2>
@@ -271,7 +271,7 @@ export default function CategoryCarousel() {
       </div>
 
       {/* Bottom Button */}
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center">
         <button
           onClick={() => {
             router.push(`/cataProducts`);
@@ -283,7 +283,7 @@ export default function CategoryCarousel() {
     px-[40px] 
     bg-[#B3A495]
     text-[#2F2F2F]
-    text-[28px] md:text-[34px]
+    text-[18px] md:text-[20px]
     leading-none
     font-normal
     whitespace-nowrap

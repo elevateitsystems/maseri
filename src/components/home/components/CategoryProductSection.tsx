@@ -57,7 +57,7 @@ const CategoryProductSection = () => {
   if (catsLoading) return null;
 
   return (
-    <section className="py-20" dir="rtl">
+    <section className="" dir="rtl">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-10">
           <div className="space-y-6 text-right">

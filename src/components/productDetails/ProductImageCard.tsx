@@ -101,10 +101,10 @@ export function ProductImageCard({ product }: any) {
   const prevImage = () => setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="px-4 md:px-0">
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+    <div className="px-4 md:px-0 mt-24 md:mt-0 container mx-auto">
+      <div className="flex flex-col md:flex-row gap-12 md:gap-24">
         {/* ─── COLUMN 1 (RIGHT in RTL): Product Info ─── */}
-        <div className="order-2 lg:order-1 flex flex-col text-right">
+        <div className="flex-1 order-2 lg:order-1 flex flex-col text-right">
           <h1 className="text-[36px] font-bold leading-tight text-black mb-4">
             {product.title}
           </h1>
@@ -134,7 +134,7 @@ export function ProductImageCard({ product }: any) {
                 <Input
                   placeholder="الاسم الكامل"
                   {...register("fullName")}
-                  className="h-14 bg-[#F9F9F9] border-none rounded-[2px] text-right placeholder:text-gray-500"
+                  className="h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right placeholder:text-gray-500"
                 />
                 {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
               </div>
@@ -142,7 +142,7 @@ export function ProductImageCard({ product }: any) {
                 <Input
                   placeholder="رقم الهاتف"
                   {...register("phone")}
-                  className="h-14 bg-[#F9F9F9] border-none rounded-[2px] text-right placeholder:text-gray-500"
+                  className="h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right placeholder:text-gray-500"
                 />
                 {errors.phone && <p className="text-red-500 text-xs">{errors.phone.message}</p>}
               </div>
@@ -150,7 +150,7 @@ export function ProductImageCard({ product }: any) {
                 <Input
                   placeholder="المدينة"
                   {...register("city")}
-                  className="h-14 bg-[#F9F9F9] border-none rounded-[2px] text-right placeholder:text-gray-500"
+                  className="h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right placeholder:text-gray-500"
                 />
                 {errors.city && <p className="text-red-500 text-xs">{errors.city.message}</p>}
               </div>
@@ -158,7 +158,7 @@ export function ProductImageCard({ product }: any) {
                 <Input
                   placeholder="العنوان"
                   {...register("address")}
-                  className="h-14 bg-[#F9F9F9] border-none rounded-[2px] text-right placeholder:text-gray-500"
+                  className="h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right placeholder:text-gray-500"
                 />
                 {errors.address && <p className="text-red-500 text-xs">{errors.address.message}</p>}
               </div>
@@ -234,7 +234,7 @@ export function ProductImageCard({ product }: any) {
         </div>
 
         {/* ─── COLUMN 2 (LEFT in RTL): Image Gallery ─── */}
-        <div className="order-1 lg:order-2 flex flex-row gap-4 h-full">
+        <div className="flex-1 md:max-w-[600px] order-1 lg:order-2 flex flex-row gap-4 h-full">
           {/* Main Image */}
           <div className="flex-1 relative aspect-[3/4] bg-[#F5F5F5] overflow-hidden group">
             <img

@@ -67,10 +67,10 @@ const Navbar = () => {
 
           {/* Logo */}
           <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 select-none flex-col items-center">
-            <span className="text-2xl font-bold tracking-tight text-black">
+            <span className="text-2xl font-medium tracking-tight text-black">
               LABEL Textile
             </span>
-            <span className="text-[11px] uppercase tracking-[3px] text-black/50 -mt-1 font-semibold">Algeria</span>
+            <span className="text-[11px] tracking-[3px] -mt-1 font-medium">Algeria</span>
           </div>
 
           {/* Spacer for desktop layout balance */}

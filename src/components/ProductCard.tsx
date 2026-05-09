@@ -5,6 +5,7 @@ import { Heart } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { Product } from "@/types/api";
 import { getImageUrl } from "@/lib/api";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
@@ -27,8 +28,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const mainImage = images.length > 0 ? getImageUrl(images[0]) : "";
 
   return (
-    <div className="group relative transition-all duration-300">
-      <div className="aspect-[4/4] relative overflow-hidden">
+    <div className="group relative transition-all duration-300 overflow-hidden">
+      {/* Clickable Overlay */}
+      <Link 
+        href={`/productDetails/${product.id}`} 
+        className="absolute inset-0 z-10"
+        aria-label={`View details for ${product.title}`}
+      />
+
+      <div className="aspect-[4/4] relative overflow-hidden bg-[#F9F9F9]">
         {mainImage ? (
           <img
             src={mainImage}

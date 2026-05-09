@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState, use } from "react";
 import BestSellers from "@/components/home/components/BestSellers";
-import { AddReviewForm } from "@/components/productDetails/AddReviewForm";
 import { ProductAccordion } from "@/components/productDetails/ProductAccordion";
 import { ProductImageCard } from "@/components/productDetails/ProductImageCard";
 import { ProductReviews } from "@/components/productDetails/ProductReviews";
@@ -52,12 +51,15 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
   if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
 
   return (
-    <div className=" container mx-auto  md:mt-44 space-y-16 ">
+    <div className="container mx-auto md:mt-44 space-y-16 ">
       <ProductImageCard product={product} />
       <ProductAccordion product={product} />
 
-      <ProductReviews reviews={reviews} />
-      <AddReviewForm productId={productId} onSuccess={fetchData} />
+      <ProductReviews 
+        reviews={reviews} 
+        productId={productId} 
+        onSuccess={fetchData} 
+      />
 
       <BestSellers limit={3} excludeId={productId} />
     </div>
