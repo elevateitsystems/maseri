@@ -64,7 +64,7 @@ export default function CategoryCarousel() {
 
   if (loading) {
     return (
-      <section className="py-16 md:py-24 bg-[#F5F1EC]">
+      <section className="py-16 md:py-24">
         <div className="animate-pulse max-w-7xl mx-auto px-4">
           <div className="h-16 w-48 bg-black/10 rounded mx-auto mb-6" />
           <div className="flex justify-center gap-8 mb-12">
@@ -95,7 +95,7 @@ export default function CategoryCarousel() {
   return (
     <section
       dir="rtl"
-      className="relative py-16 md:py-24 bg-[#F5F1EC] overflow-hidden"
+      className="relative py-16 md:py-24 overflow-hidden"
     >
       {/* Soft Background Accent */}
       <div className="absolute inset-0 pointer-events-none">
@@ -259,10 +259,7 @@ export default function CategoryCarousel() {
       <div className="flex justify-center mt-12">
         <button
           onClick={() => {
-            const activeCat = rawCats[active % rawCats.length];
-            if (activeCat) {
-              router.push(`/cataProducts/${activeCat.id}/${encodeURIComponent(activeCat.name)}`);
-            }
+            router.push(`/cataProducts`);
           }}
           className="group inline-flex items-center gap-3 bg-black text-white px-10 py-4 rounded-full text-sm md:text-base font-medium hover:scale-105 active:scale-95 transition-all duration-300"
         >

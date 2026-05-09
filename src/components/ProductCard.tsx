@@ -44,8 +44,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <div className="p-4 space-y-1.5">
         <div className="flex justify-between items-top gap-2">
           <h3 className="text-xl font-normal">{product.title}</h3>
-          <button className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red transition-colors">
-            <Heart className="size-6" />
+          <button className="h-10 w-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red-500 transition-all duration-300 shadow-sm">
+            <Heart className={`size-6 transition-all duration-300 ${product.favourite ? "fill-red-500 text-red-500 scale-110" : "group-hover:scale-110"}`} />
           </button>
         </div>
         <div className="">
