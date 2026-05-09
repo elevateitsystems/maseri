@@ -20,6 +20,7 @@ import { api, getImageUrl } from "@/lib/api";
 import { toast } from "react-toastify";
 import { Product } from "@/types/api";
 import placeholderImage from "../../../assets/placeholder-image.svg";
+import Image from "next/image";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "الاسم الكامل مطلوب"),
@@ -175,6 +176,7 @@ export function ProductImageCard({ product }: { product: Product }) {
 
   const nextImage = () => setSelectedImageIndex((prev) => (prev + 1) % images.length);
   const prevImage = () => setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  const imageUrl = (src: string) => src.startsWith("/") ? src : getImageUrl(src);
 
   const accordionItems = [
     { title: "دليل المقاسات", content: <SizeTable /> },
@@ -221,7 +223,13 @@ export function ProductImageCard({ product }: { product: Product }) {
           <div className="flex flex-row gap-4 mb-10 h-auto md:h-[600px] flex-shrink-0">
             {/* Main Image */}
             <div className="flex-1 relative aspect-[3/4] bg-[#F5F5F5] overflow-hidden rounded-[4px] group">
-              <img src={getImageUrl(images[selectedImageIndex])} alt={product.title} className="h-full w-full object-cover object-top" />
+              <Image
+                src={imageUrl(images[selectedImageIndex])}
+                alt={product.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top"
+              />
               <button onClick={prevImage} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5 md:flex hidden opacity-0 group-hover:opacity-100">
                 <ChevronRight size={28} className="text-black/80" />
               </button>
@@ -251,7 +259,13 @@ export function ProductImageCard({ product }: { product: Product }) {
                     selectedImageIndex === index ? "ring-2 ring-[#B3A495]" : "opacity-60"
                   }`}
                 >
-                  <img src={getImageUrl(img)} alt={`Thumbnail ${index + 1}`} className="h-full w-full object-cover" />
+                  <Image
+                    src={imageUrl(img)}
+                    alt={`Thumbnail ${index + 1}`}
+                    fill
+                    sizes="90px"
+                    className="object-cover"
+                  />
                 </button>
               ))}
             </div>

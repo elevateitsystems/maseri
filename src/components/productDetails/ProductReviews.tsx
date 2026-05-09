@@ -5,7 +5,6 @@ import { Review } from "@/types/api";
 import { Star, X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { motion, AnimatePresence } from "framer-motion";
 import { AddReviewForm } from "./AddReviewForm";
 
 // Swiper styles
@@ -90,24 +89,17 @@ export function ProductReviews({ reviews, productId, onSuccess }: ProductReviews
       </div>
 
       {/* Review Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
+      {isModalOpen && (
           <>
             {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+            <div
               onClick={() => setIsModalOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] animate-in fade-in duration-200"
             />
             
             {/* Modal Content */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[500px] bg-white rounded-[12px] shadow-2xl z-[101] overflow-hidden"
+            <div
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[500px] bg-white rounded-[12px] shadow-2xl z-[101] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-200"
             >
               <div className="p-6 md:p-8 relative">
                 <button 
@@ -125,10 +117,9 @@ export function ProductReviews({ reviews, productId, onSuccess }: ProductReviews
                   }} 
                 />
               </div>
-            </motion.div>
+            </div>
           </>
         )}
-      </AnimatePresence>
     </div>
   );
 }

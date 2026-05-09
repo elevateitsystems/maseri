@@ -1,25 +1,13 @@
 import type { Metadata } from "next";
-import { Almarai, Inter, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ToastProvider } from "@/components/ToastProvider";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-});
-
-const almarai = Almarai({
-  variable: "--font-almarai",
-  subsets: ["arabic"],
-  weight: ["300", "400", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -37,14 +25,12 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${inter.variable} ${almarai.variable} ${poppins.variable} h-full antialiased`}
+      className={`${poppins.variable} h-full antialiased`}
     >
-      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
-      <body className="font-almarai min-h-full flex flex-col">
+      <body className="font-poppins min-h-full flex flex-col">
         <Navbar />
         <div className="bg-[#F2F2F2]">{children}</div>
         <Footer />
-        <ToastProvider />
       </body>
     </html>
   );

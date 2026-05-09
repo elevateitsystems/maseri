@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { Review, Product } from "@/types/api";
 import { ProductDetailsSkeleton } from "@/components/productDetails/ProductDetailsSkeleton";
 import Link from "next/link";
+import { ToastProvider } from "@/components/ToastProvider";
 
 export const mockProduct = {
   id: 1,
@@ -53,6 +54,7 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
 
   return (
     <div className="container mx-auto space-y-16 mt-20 md:mt-44 relative px-6">
+      <ToastProvider />
       <ProductImageCard product={product} />
 
       <ProductReviews 

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { api, getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
 import Link from "next/link";
+import Image from "next/image";
 
 import placeholderImage from "../../../assets/placeholder-image.svg";
 
@@ -44,13 +45,15 @@ function ProductSlider({ product }: { product: Product }) {
   return (
     <div className="relative group w-full aspect-[4/5] overflow-hidden bg-[#d9d9d9]">
       {/* Product Image */}
-      <img
+      <Image
         src={
           images.length > 0 && images[currentIndex]
             ? getImageUrl(images[currentIndex])
             : placeholderImage.src
         }
         alt={product.title}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className="w-full h-full object-cover transition-all duration-500"
       />
 

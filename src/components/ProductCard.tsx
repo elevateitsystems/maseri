@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
 import Link from "next/link";
+import Image from "next/image";
 
 import placeholderImage from "../../assets/placeholder-image.svg";
 
@@ -42,13 +43,15 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Product Image Slider */}
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#d9d9d9]">
         <Link href={`/productDetails/${product.id}`} className="block w-full h-full">
-          <img
+          <Image
             src={
               images.length > 0 && images[currentIndex]
                 ? getImageUrl(images[currentIndex])
                 : placeholderImage.src
             }
             alt={product.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="w-full h-full object-cover object-top transition-all duration-500"
           />
         </Link>

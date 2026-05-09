@@ -5,7 +5,6 @@ import { api } from "@/lib/api";
 import { Category, Product, ProductFilters } from "@/types/api";
 import ProductCard from "@/components/ProductCard";
 import { ChevronDown, Loader2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const CategoryProductSection = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -60,23 +59,16 @@ const CategoryProductSection = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end mb-8 md:mb-12 gap-6 md:gap-10 text-center lg:text-right">
           <div className="space-y-4 md:space-y-6">
-            <motion.h2 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+            <h2 
               className="text-[32px] md:text-[48px] font-bold text-black leading-tight"
             >
               اكتشف مجموعتنا
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+            </h2>
+            <p 
               className="text-base md:text-lg text-black/60 max-w-2xl leading-relaxed"
             >
               اختر الفئة التي تناسب ذوقك وتصفح أفضل المنتجات المختارة بعناية.
-            </motion.p>
+            </p>
           </div>
 
           <div className="w-full lg:w-auto">
@@ -89,14 +81,9 @@ const CategoryProductSection = () => {
                 <span className="truncate">{selectedCata?.name || "جميع الفئات"}</span>
               </button>
 
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                    transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                    className="absolute top-full left-0 right-0 mt-4 bg-white border border-black/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded overflow-hidden backdrop-blur p-2"
+              {isOpen && (
+                  <div
+                    className="absolute top-full left-0 right-0 mt-4 bg-white border border-black/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded overflow-hidden backdrop-blur p-2 animate-in fade-in slide-in-from-top-2 duration-200"
                   >
                     <button
                       onClick={() => {
@@ -123,9 +110,8 @@ const CategoryProductSection = () => {
                         {cat.name}
                       </button>
                     ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+              )}
             </div>
           </div>
         </div>
@@ -138,35 +124,26 @@ const CategoryProductSection = () => {
               <p className="text-black/40 font-medium">جاري تحميل المنتجات...</p>
             </div>
           ) : (
-            <motion.div 
-              layout
+            <div 
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
             >
-              <AnimatePresence mode="popLayout">
                 {products.length > 0 ? (
                   products.map((product) => (
-                    <motion.div
+                    <div
                       key={product.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.5, type: "spring" }}
                     >
                       <ProductCard product={product} />
-                    </motion.div>
+                    </div>
                   ))
                 ) : (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                  <div 
                     className="col-span-full py-32 text-center bg-[#F9F9F9] rounded-[3rem] border-2 border-dashed border-black/5"
                   >
                     <p className="text-3xl font-medium text-black/30 mb-2">عذراً، لا توجد منتجات حالياً</p>
                     <p className="text-lg text-black/20">جرب تغيير الفئة أو تصفح الكل</p>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
-            </motion.div>
+            </div>
           )}
         </div>
       </div>

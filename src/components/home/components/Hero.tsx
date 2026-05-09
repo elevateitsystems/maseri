@@ -32,12 +32,13 @@ export default function Hero() {
           }}
         >
           <Image
-            src="/assets/hero.png"
+            src="/assets/hero.webp"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 70vw"
             className="object-cover object-center lg:object-left"
-            priority
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
         {/* Text — RIGHT side, vertically centered */}
@@ -84,11 +85,14 @@ export default function Hero() {
         className="relative flex lg:hidden w-full flex-col justify-end mt-16"
         style={{ minHeight: "100svh" }}
       >
-        {/* Full-bleed background image using img tag to avoid Next.js fill issues */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/assets/mobile-hero-image.png"
           alt="مجموعة أزياء لابيل تكستايل"
+          width={375}
+          height={390}
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
           className="object-top"
           style={{ zIndex: 0 }}
         />
