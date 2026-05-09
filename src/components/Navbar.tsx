@@ -41,14 +41,14 @@ const Navbar = () => {
 
   return (
     <header
-      className="fixed top-0 z-50 w-full transition-all duration-300"
+      className="sticky top-0 md:top-[-70px] z-50 w-full transition-all duration-300"
       dir="rtl"
       style={{
         backgroundColor: scrolled
-          ? "rgba(255, 255, 255, 0.9)"
+          ? "rgba(255, 255, 255, 0.95)"
           : "rgba(255, 255, 255, 0.4)",
-        // backdropFilter: scrolled ? "blur(12px)" : "blur(4px)",
-        boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        boxShadow: (scrolled && !mobileMenuOpen) ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
       }}
     >
       <div className="container mx-auto px-6 lg:px-10">
@@ -79,9 +79,9 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:block">
+      <nav className="hidden md:block transition-all duration-300">
         <div className="container mx-auto px-6 lg:px-10">
-          <ul className="flex h-[50px] items-center justify-center gap-12">
+          <ul className="flex h-[60px] items-center justify-center gap-12">
             {navLinks.map((link) => (
               <li 
                 key={link.label}

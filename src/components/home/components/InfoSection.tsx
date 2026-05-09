@@ -5,7 +5,7 @@ const InfoSection = () => {
   return (
     <section className="overflow-hidden bg-gradient-to-t from-[#F2F2F2] via-[#DED1C1] to-[#F2F2F2]">
       <div className=" w-full mx-auto  ">
-        <div className="flex flex-col-reverse md:flex-row items-end  gap-20 px-3">
+        <div className="flex flex-col-reverse md:flex-row items-center  gap-20 px-3">
           {/* RIGHT SIDE (Image + Icon) */}
           <div className="  flex justify-center lg:justify-start">
             {/* Wrapper that reserves space for the icon */}
