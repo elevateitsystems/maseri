@@ -85,17 +85,21 @@ export default function Hero() {
         className="relative flex lg:hidden w-full flex-col justify-end mt-16"
         style={{ minHeight: "100svh" }}
       >
-        <Image
-          src="/assets/mobile-hero-image.png"
-          alt="مجموعة أزياء لابيل تكستايل"
-          width={375}
-          height={390}
-          sizes="100vw"
-          loading="eager"
-          fetchPriority="high"
-          className="object-top"
-          style={{ zIndex: 0 }}
-        />
+ 
+        <div className="relative w-full h-[65vh]">
+          <Image
+            src="/assets/hero-mobile.svg"
+            alt="مجموعة أزياء لابيل تكستايل"
+            fill
+            priority
+            quality={100}
+            sizes="100vw"
+            className="object-cover object-top"
+          />
+        </div> 
+
+
+
 
 
 
