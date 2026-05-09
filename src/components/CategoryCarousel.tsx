@@ -64,7 +64,7 @@ export default function CategoryCarousel() {
 
   if (loading) {
     return (
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-14">
         <div className="animate-pulse max-w-7xl mx-auto px-4">
           <div className="h-16 w-48 bg-black/10 rounded mx-auto mb-6" />
           <div className="flex justify-center gap-8 mb-12">
@@ -93,7 +93,7 @@ export default function CategoryCarousel() {
   if (!categories.length) return null;
 
   return (
-    <section dir="rtl" className="relative overflow-hidden py-12 md:py-24 px-6 md:px-0">
+    <section dir="rtl" className="relative overflow-hidden py-12 md:py-12 px-6 md:px-0">
       {/* Soft Background Accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[1200px] h-[800px] rounded-full blur-[120px]" />
@@ -138,7 +138,7 @@ export default function CategoryCarousel() {
       </div>
 
       {/* Swiper Carousel */}
-      <div className="relative z-10 px-2 md:px-0 min-h-[320px] md:min-h-[550px] flex items-center justify-center overflow-visible">
+      <div className="relative z-10 px-2 md:px-0 min-h-[300px] md:min-h-[450px] flex items-center justify-center overflow-visible group">
         <Swiper
           dir="rtl"
           className="cat-swiper max-w-[1800px] mx-auto overflow-visible"
@@ -151,12 +151,13 @@ export default function CategoryCarousel() {
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
-          slidesPerView={1}
+          slidesPerView={1.5}
           spaceBetween={16}
+          centeredSlides={true}
           breakpoints={{
-            320: { slidesPerView: 1.3, spaceBetween: 12 },
-            480: { slidesPerView: 1.5, spaceBetween: 16 },
-            640: { slidesPerView: 1.8, spaceBetween: 20 },
+            320: { slidesPerView: 1.4, spaceBetween: 12 },
+            480: { slidesPerView: 1.6, spaceBetween: 16 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
             768: { slidesPerView: 3, spaceBetween: -20 },
             1024: { slidesPerView: 5, spaceBetween: -35 },
             1280: { slidesPerView: 5, spaceBetween: -42 },
@@ -237,18 +238,29 @@ export default function CategoryCarousel() {
           })}
         </Swiper>
         {/* Side Finger Sliders (Arrows) */}
+        {/* Side Finger Sliders (Arrows) - Desktop Only, Hover Only */}
         <button 
           onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform"
+          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform md:flex hidden opacity-0 group-hover:opacity-100 transition-all duration-300"
         >
           <ChevronRight size={24} className="text-black/70 md:w-8 md:h-8" />
         </button>
         <button 
           onClick={() => swiperRef.current?.slideNext()}
-          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform"
+          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform md:flex hidden opacity-0 group-hover:opacity-100 transition-all duration-300"
         >
           <ChevronLeft size={24} className="text-black/70 md:w-8 md:h-8" />
         </button>
+
+        {/* Mobile Pagination Bar */}
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1.5 md:hidden z-20">
+          {rawCats.map((_, i) => (
+            <div 
+              key={i} 
+              className={`h-1.5 rounded-full transition-all duration-300 ${active % rawCats.length === i ? "w-6 bg-black" : "w-1.5 bg-black/20"}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Bottom Button */}

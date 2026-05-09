@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { Product } from "@/types/api";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -64,7 +64,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     <img
                       src={getImageUrl(img)}
                       alt={`${product.title} ${idx + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </Link>
                 </SwiperSlide>
@@ -72,19 +72,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </Swiper>
             
             {/* Custom Navigation Arrows */}
-            <button className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center shadow-sm opacity-0 group-hover/swiper:opacity-100 transition-opacity md:flex hidden">
-              <ChevronLeft size={18} className="text-black/60" />
+            <button className="swiper-button-prev-custom absolute left-3 top-1/2 -translate-y-1/2 z-50 w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-lg opacity-0 group-hover/swiper:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white border border-black/5">
+              <ChevronLeft size={24} strokeWidth={2} />
             </button>
-            <button className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center shadow-sm opacity-0 group-hover/swiper:opacity-100 transition-opacity md:flex hidden">
-              <ChevronRight size={18} className="text-black/60" />
-            </button>
-
-            {/* Mobile Arrows (Always visible but smaller) */}
-            <button className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white/60 flex items-center justify-center shadow-sm md:hidden">
-              <ChevronLeft size={16} className="text-black/60" />
-            </button>
-            <button className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white/60 flex items-center justify-center shadow-sm md:hidden">
-              <ChevronRight size={16} className="text-black/60" />
+            <button className="swiper-button-next-custom absolute right-3 top-1/2 -translate-y-1/2 z-50 w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-lg opacity-0 group-hover/swiper:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white border border-black/5">
+              <ChevronRight size={24} strokeWidth={2} />
             </button>
 
             <style jsx global>{`
@@ -102,7 +94,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <img
               src={mainImage}
               alt={product.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
             />
           </Link>
         ) : (
@@ -111,15 +103,26 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
       </div>
-      <div className="p-4 space-y-1.5">
-        <div className="flex justify-between items-top gap-2">
-          <h3 className="text-xl font-normal">{product.title}</h3>
-          <button className="h-10 w-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red-500 transition-all duration-300 shadow-sm">
-            <Heart className={`size-6 transition-all duration-300 ${product.favourite ? "fill-red-500 text-red-500 scale-110" : "group-hover:scale-110"}`} />
+      <div className="p-4 flex flex-col w-full">
+        <div className="flex justify-between items-start gap-4 mb-1">
+          <Link href={`/productDetails/${product.id}`} className="flex-1 min-w-0">
+            <h3 className="text-xl font-normal text-black truncate text-right">
+              {product.title}
+            </h3>
+          </Link>
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Cart logic
+            }}
+            className="h-10 w-10 flex-shrink-0 rounded-full bg-[#F9F9F9] border border-black/5 flex items-center justify-center text-black hover:bg-black hover:text-white transition-all duration-300 shadow-sm"
+          >
+            <ShoppingBag size={18} />
           </button>
         </div>
-        <div className="">
-          <p className="text-xl font-semibold">{product.price} د.ج</p>
+        <div className="text-right">
+          <p className="text-xl font-bold text-black">{product.price} د.ج</p>
         </div>
       </div>
     </div>
