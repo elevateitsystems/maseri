@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="relative w-full overflow-hidden font-poppins">
       {/* Background gradient — unchanged */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#C7B7A7] to-[#e4e4e4]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#C7B7A7] to-[#F2F2F2]" />
 
       {/* ── Main Footer Content ── */}
       <div className="relative z-10 container mx-auto px-6 lg:px-10 pt-14 pb-6">
@@ -22,6 +22,7 @@ const Footer = () => {
                 width={65}
                 height={70}
                 className="object-contain"
+                style={{ height: "auto" }}
               />
               <div className="flex flex-col items-start">
                 <span
@@ -44,9 +45,7 @@ const Footer = () => {
               className="text-black leading-relaxed max-w-md"
               style={{ fontSize: "16px" }}
             >
-              حيث تلتقي الموضة بالاستدامة! مجموعاتنا تجمع بين جاذبية الصيحات
-              العصرية و رقي الأناقة الكلاسيكية، مع جودة لا تُضاهى واهتمام حقيقي
-              بعملائنا. كل قطعة هي اكتشاف أنيق يُضيف لمستك الخاصة
+              لیبل تیكستايل هي علامة ملابس مقرها في الجزائر، مختصة في تصميم أزياء نسائية أنيقة ومريحة. نركز على الجودة في التصنيع، والتصميم العصري والاهتمام بأدق التفاصيل لنقدم ملابس تجمع بين الأناقة والراحة للاستعمال اليومي
             </p>
 
             {/* Contact Info */}
@@ -91,11 +90,10 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3">
               {[
-                "فساتين",
-                "بلايزر (سترات رسمية)",
-                "ملابس كاجوال",
-                "إكسسوارات",
-                "ملابس",
+                "الرئيسية",
+                "مجموعاتنا",
+                "اتصل بنا",
+                "من نحن", 
               ].map((item) => (
                 <li key={item}>
                   <Link
