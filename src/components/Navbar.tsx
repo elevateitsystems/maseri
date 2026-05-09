@@ -47,7 +47,7 @@ const Navbar = () => {
         backgroundColor: scrolled
           ? "rgba(255, 255, 255, 0.9)"
           : "rgba(255, 255, 255, 0.4)",
-        backdropFilter: scrolled ? "blur(12px)" : "blur(4px)",
+        // backdropFilter: scrolled ? "blur(12px)" : "blur(4px)",
         boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
       }}
     >
