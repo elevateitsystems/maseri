@@ -81,7 +81,7 @@ export default function Hero() {
 
       {/* ── MOBILE LAYOUT ── */}
       <div
-        className="relative flex lg:hidden w-full flex-col justify-end mt-24"
+        className="relative flex lg:hidden w-full flex-col justify-end mt-16"
         style={{ minHeight: "100svh" }}
       >
         {/* Full-bleed background image using img tag to avoid Next.js fill issues */}
@@ -97,7 +97,7 @@ export default function Hero() {
 
         {/* Text at bottom */}
         <div
-          className="relative flex flex-col items-center py-12 px-6"
+          className="relative flex flex-col items-center py-8 px-6"
           style={{ zIndex: 2, direction: "rtl", textAlign: "center" }}
         >
           <h1

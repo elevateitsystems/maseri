@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Heart, ShoppingBag } from "lucide-react";
+import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { api, getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
@@ -22,7 +22,7 @@ function ProductSlider({ product }: { product: Product }) {
       }
 
       return [];
-    } catch (e) {
+    } catch {
       return [];
     }
   }, [product.images]);
@@ -61,11 +61,11 @@ function ProductSlider({ product }: { product: Product }) {
             type="button"
             size="icon"
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 z-50 h-10 w-10 md:h-12 md:w-12 -translate-y-1/2 rounded-full bg-white/80 md:bg-[#d8cfc0] text-black shadow-none hover:bg-white md:hover:bg-[#cfc4b2] opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute left-3 top-1/2 z-50 h-11 w-11 -translate-y-1/2 rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white"
           >
             <ChevronLeft
-              className="h-5 w-5 md:h-7 md:w-7"
-              strokeWidth={1.8}
+              className="h-6 w-6"
+              strokeWidth={2}
             />
           </Button>
 
@@ -73,11 +73,11 @@ function ProductSlider({ product }: { product: Product }) {
             type="button"
             size="icon"
             onClick={handleNext}
-            className="absolute right-4 top-1/2 z-50 h-10 w-10 md:h-12 md:w-12 -translate-y-1/2 rounded-full bg-white/80 md:bg-[#d8cfc0] text-black shadow-none hover:bg-white md:hover:bg-[#cfc4b2] opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute right-3 top-1/2 z-50 h-11 w-11 -translate-y-1/2 rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white"
           >
             <ChevronRight
-              className="h-5 w-5 md:h-7 md:w-7"
-              strokeWidth={1.8}
+              className="h-6 w-6"
+              strokeWidth={2}
             />
           </Button>
 
@@ -141,8 +141,8 @@ export default function CataProductCard({ cataId, cataName }: { cataId?: number,
   }, [cataId]);
 
   return (
-    <section className="w-full overflow-hidden py-16 md:mt-20">
-      <div className="mx-auto container px-6">
+    <section className="w-full overflow-hidden py-16 mt-10 md:mt-22">
+      <div className="mx-auto container px-6 md:px-12 lg:px-20">
         {/* Header */}
         <div className="mb-4 flex items-start justify-start gap-3">
           <h2 className="text-[32px] md:text-[56px] font-bold leading-none tracking-[-1px] md:tracking-[-2px] text-black">
@@ -167,27 +167,33 @@ export default function CataProductCard({ cataId, cataName }: { cataId?: number,
                 className="relative flex flex-col w-full h-auto"
               >
                 {/* Product Image */}
-                <Link href={`/productDetails/${product.id}`}>
+                <Link href={`/productDetails/${product.id}`} className="w-full">
                   <ProductSlider product={product} />
                 </Link>
 
                 {/* Product Info */}
-                <Link
-                  href={`/productDetails/${product.id}`}
-                  className="flex items-start justify-between p-3 md:px-4 md:py-3"
-                >
-                  <div className="space-y-1.5 flex-1 ">
-        <div className="flex-1 flex justify-between items-top gap-2">
-          <h3 className="text-xl font-normal">{product.title}</h3>
-          <button className="h-10 w-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red-500 transition-all duration-300 shadow-sm">
-            <Heart className={`size-6 transition-all duration-300 ${product.favourite ? "fill-red-500 text-red-500 scale-110" : "group-hover:scale-110"}`} />
-          </button>
-        </div>
-        <div className="">
-          <p className="text-xl font-semibold">{product.price} د.ج</p>
-        </div>
-      </div>
-                </Link>
+                <div className="flex flex-col p-3 md:px-4 md:py-3 w-full">
+                  <div className="flex justify-between items-start gap-4 mb-1">
+                    <Link href={`/productDetails/${product.id}`} className="flex-1 min-w-0">
+                      <h3 className="text-xl font-normal text-black truncate text-right">
+                        {product.title}
+                      </h3>
+                    </Link>
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Add to cart logic
+                      }}
+                      className="h-10 w-10 flex-shrink-0 rounded-full bg-[#F9F9F9] border border-black/5 flex items-center justify-center text-black hover:bg-black hover:text-white transition-all duration-300 shadow-sm"
+                    >
+                      <ShoppingBag size={20} />
+                    </button>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xl font-bold text-black">{product.price} د.ج</p>
+                  </div>
+                </div>
               </div>
             ))
           ) : (

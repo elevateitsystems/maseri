@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const InfoSection = () => {
   return (
-    <section className="overflow-hidden bg-gradient-to-t from-[#F2F2F2] via-[#DED1C1] to-[#F2F2F2] py-12 md:py-24">
+    <section className="overflow-hidden bg-gradient-to-t from-[#F2F2F2] via-[#DED1C1] to-[#F2F2F2] py-8 md:py-12">
       <div className="container mx-auto px-6 md:px-0">
         <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-20">
           {/* RIGHT SIDE (Image + Icon) */}

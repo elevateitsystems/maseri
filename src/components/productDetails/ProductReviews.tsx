@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Review } from "@/types/api";
 import { Star, X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -11,7 +12,7 @@ import { AddReviewForm } from "./AddReviewForm";
 import "swiper/css";
 
 interface ProductReviewsProps {
-  reviews: any[];
+  reviews: Review[];
   productId: number;
   onSuccess?: () => void;
 }
