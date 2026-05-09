@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { api } from "@/lib/api";
 import { Category } from "@/types/api";
 
@@ -235,6 +236,19 @@ export default function CategoryCarousel() {
             );
           })}
         </Swiper>
+        {/* Side Finger Sliders (Arrows) */}
+        <button 
+          onClick={() => swiperRef.current?.slidePrev()}
+          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform"
+        >
+          <ChevronRight size={24} className="text-black/70 md:w-8 md:h-8" />
+        </button>
+        <button 
+          onClick={() => swiperRef.current?.slideNext()}
+          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform"
+        >
+          <ChevronLeft size={24} className="text-black/70 md:w-8 md:h-8" />
+        </button>
       </div>
 
       {/* Bottom Button */}

@@ -53,7 +53,7 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
   if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
 
   return (
-    <div className="container mx-auto md:mt-44 space-y-16 ">
+    <div className="container mx-auto space-y-16 mt-10 relative">
       <ProductImageCard product={product} />
 
       <ProductReviews 
@@ -73,6 +73,19 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
           اكتشف مجموعتنا
         </Link>
       </section>
+
+      {/* Fixed Mobile Order Button */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-black/5 md:hidden z-[100]">
+        <button
+          onClick={() => {
+            const el = document.getElementById("order-form");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="w-full bg-[#B3A495] text-white h-14 rounded-[4px] text-[18px] font-bold shadow-xl active:scale-95 transition-transform"
+        >
+          اطلب الآن
+        </button>
+      </div>
     </div>
   );
 }

@@ -22,6 +22,7 @@ const Footer = () => {
                 width={65}
                 height={70}
                 className="object-contain"
+                style={{ height: "auto" }}
               />
               <div className="flex flex-col items-start">
                 <span

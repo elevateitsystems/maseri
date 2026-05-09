@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -26,6 +26,7 @@ const formSchema = z.object({
   city: z.string().min(2, "المدينة مطلوبة"),
   address: z.string().min(5, "العنوان مطلوب"),
   size: z.string().min(1, "المقاس مطلوب"),
+  status: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -70,6 +71,43 @@ export function ProductImageCard({ product }: any) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(0);
 
+  const imageColRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Scroll trap: intercept page scroll and redirect to image column
+  useEffect(() => {
+    const imageCol = imageColRef.current;
+    const section = sectionRef.current;
+    if (!imageCol || !section) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // Only apply on desktop (md breakpoint = 768px)
+      if (window.innerWidth < 768) return;
+
+      // Check if the product section is in view
+      const rect = section.getBoundingClientRect();
+      if (rect.top > window.innerHeight || rect.bottom < 0) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = imageCol;
+      const atTop = scrollTop <= 1;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+      // Scrolling down and image column hasn't reached bottom
+      if (e.deltaY > 0 && !atBottom) {
+        e.preventDefault();
+        imageCol.scrollTop += e.deltaY;
+      }
+      // Scrolling up and image column hasn't reached top
+      else if (e.deltaY < 0 && !atTop) {
+        e.preventDefault();
+        imageCol.scrollTop += e.deltaY;
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, []);
+
   const images: string[] = useMemo(() => {
     try {
       if (Array.isArray(product.images)) return product.images.length > 0 ? product.images : [placeholderImage.src];
@@ -98,6 +136,7 @@ export function ProductImageCard({ product }: any) {
       city: "",
       address: "",
       size: "S",
+      status: "in progress",
     },
   });
 
@@ -120,6 +159,7 @@ export function ProductImageCard({ product }: any) {
         city: data.city,
         address: data.address,
         contact: data.phone,
+        status: data.status,
       });
       toast.success("تم تقديم طلبك بنجاح! سنتصل بك قريباً.");
       reset();
@@ -141,12 +181,70 @@ export function ProductImageCard({ product }: any) {
     { title: "سياسة التوصيل", content: <p className="text-[16px] leading-[1.8] text-black/60">يتم التوصيل خلال 3-5 أيام عمل إلى جميع الولايات.</p> },
   ];
 
+  const statusOptions = [
+    { value: "in progress", label: "قيد التنفيذ" },
+    { value: "to call back", label: "بانتظار الاتصال" },
+    { value: "confirm", label: "تأكيد" },
+    { value: "completed", label: "مكتمل" },
+    { value: "cancelled", label: "ملغى" },
+  ];
+
   return (
     <div className="container mx-auto px-4 md:px-0">
-      <div className="flex flex-col md:flex-row gap-10 lg:gap-20 h-auto md:h-[800px]">
+      <div ref={sectionRef} className="flex flex-col md:flex-row gap-10 lg:gap-20 h-auto md:h-[800px]">
         
-        {/* ─── RIGHT SIDE (Visually) / FIRST IN DOM: Product Details + Form ─── */}
-        <div className="flex-1 flex flex-col text-right order-2 md:order-1 h-full md:overflow-y-auto no-scrollbar">
+        {/* ─── IMAGE GALLERY ─── */}
+        <div ref={imageColRef} className="flex-1 flex flex-col md:overflow-y-auto no-scrollbar order-1 md:order-2 h-full">
+          <div className="flex flex-row gap-4 mb-10 h-auto md:h-[600px] flex-shrink-0">
+            {/* Main Image */}
+            <div className="flex-1 relative aspect-[3/4] bg-[#F5F5F5] overflow-hidden rounded-[4px]">
+              <img src={getImageUrl(images[selectedImageIndex])} alt={product.title} className="h-full w-full object-cover object-top" />
+              <button onClick={prevImage} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5">
+                <ChevronRight size={28} className="text-black/80" />
+              </button>
+              <button onClick={nextImage} className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5">
+                <ChevronLeft size={28} className="text-black/80" />
+              </button>
+            </div>
+
+            {/* Thumbnails (Desktop Only) */}
+            <div className="hidden md:flex flex-col gap-3 w-[100px]">
+              {images.map((img, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setSelectedImageIndex(index)}
+                  className={`relative aspect-[3/4] w-full overflow-hidden rounded-[4px] transition-all ${
+                    selectedImageIndex === index ? "ring-2 ring-[#B3A495]" : "opacity-60"
+                  }`}
+                >
+                  <img src={getImageUrl(img)} alt={`Thumbnail ${index + 1}`} className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ Accordion (Hidden on Mobile, shown later) */}
+          <div className="hidden md:block space-y-2 pb-10">
+            {accordionItems.map((item, i) => (
+              <div key={i} className="border-b border-[#E9E9E9]">
+                <button
+                  onClick={() => setOpenAccordionIndex(openAccordionIndex === i ? null : i)}
+                  className="flex w-full items-center justify-between py-6 text-right group"
+                >
+                  <span className="text-[20px] font-medium text-black">{item.title}</span>
+                  <ChevronDown className={`h-5 w-5 text-black transition-transform duration-500 ${openAccordionIndex === i ? "rotate-180" : ""}`} />
+                </button>
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openAccordionIndex === i ? "max-h-[1000px] opacity-100 pb-8" : "max-h-0 opacity-0"}`}>
+                  {item.content}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ─── PRODUCT DETAILS + FORM ─── */}
+        <div id="order-form" className="flex-1 flex flex-col text-right order-2 md:order-1 h-full md:overflow-y-auto no-scrollbar">
           <h1 className="text-[32px] md:text-[42px] font-bold leading-tight text-black mb-4">
             {product.title}
           </h1>
@@ -180,6 +278,19 @@ export function ProductImageCard({ product }: any) {
               <div className="space-y-1">
                 <Input placeholder="العنوان" {...register("address")} className="h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right" />
                 {errors.address && <p className="text-red-500 text-xs">{errors.address.message}</p>}
+              </div>
+              
+              {/* Status Dropdown */}
+              <div className="col-span-2 space-y-1">
+                <select 
+                  {...register("status")}
+                  className="w-full h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right px-4 appearance-none outline-none focus:ring-1 focus:ring-[#B3A495]"
+                  dir="rtl"
+                >
+                  {statusOptions.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -216,44 +327,9 @@ export function ProductImageCard({ product }: any) {
               </div>
             </div>
           </form>
-        </div>
 
-        {/* ─── LEFT SIDE (Visually) / SECOND IN DOM: Image + FAQ (Scrollable) ─── */}
-        <div className="flex-1 flex flex-col md:overflow-y-auto no-scrollbar order-1 md:order-2 h-full">
-          {/* Main Gallery */}
-          <div className="flex flex-row gap-4 mb-10 h-auto md:h-[600px] flex-shrink-0">
-
-
-            {/* Main Image */}
-            <div className="flex-1 relative aspect-[3/4] bg-[#F5F5F5] overflow-hidden rounded-[4px]">
-              <img src={getImageUrl(images[selectedImageIndex])} alt={product.title} className="h-full w-full object-cover" />
-              <button onClick={prevImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center shadow-sm hover:bg-white transition-colors">
-                <ChevronRight size={20} className="text-black/60" />
-              </button>
-              <button onClick={nextImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center shadow-sm hover:bg-white transition-colors">
-                <ChevronLeft size={20} className="text-black/60" />
-              </button>
-            </div>
-
-                        {/* Thumbnails */}
-            <div className="hidden md:flex flex-col gap-3 w-[100px]">
-              {images.map((img, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => setSelectedImageIndex(index)}
-                  className={`relative aspect-[3/4] w-full overflow-hidden rounded-[4px] transition-all ${
-                    selectedImageIndex === index ? "ring-2 ring-[#B3A495]" : "opacity-60"
-                  }`}
-                >
-                  <img src={getImageUrl(img)} alt={`Thumbnail ${index + 1}`} className="h-full w-full object-cover" />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Accordion (FAQ) - Appears after image in scroll area */}
-          <div className="space-y-2 pb-10 order-3 md:order-2">
+          {/* FAQ Accordion (Shown here on Mobile) */}
+          <div className="block md:hidden space-y-2 py-10">
             {accordionItems.map((item, i) => (
               <div key={i} className="border-b border-[#E9E9E9]">
                 <button
