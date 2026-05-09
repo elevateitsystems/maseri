@@ -2,15 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { api } from "@/lib/api";
-import { Category, Product } from "@/types/api";
+import { Category, Product, ProductFilters } from "@/types/api";
 import ProductCard from "@/components/ProductCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import { ChevronDown, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-import "swiper/css";
-import "swiper/css/navigation";
 
 const CategoryProductSection = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -20,7 +15,6 @@ const CategoryProductSection = () => {
   const [loading, setLoading] = useState(false);
   const [catsLoading, setCatsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const swiperRef = React.useRef<any>(null);
 
   useEffect(() => {
     const fetchCats = async () => {
@@ -41,7 +35,7 @@ const CategoryProductSection = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const filters: any = {};
+        const filters: ProductFilters = {};
         if (selectedCata) {
           filters.cataId = selectedCata.id;
         }
@@ -136,54 +130,43 @@ const CategoryProductSection = () => {
           </div>
         </div>
 
-        {/* Products Carousel */}
-        <div className="relative group min-h-[500px]">
+        {/* Products Grid */}
+        <div className="relative min-h-[500px]">
           {loading ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
               <Loader2 className="w-16 h-16 animate-spin text-black/10" />
               <p className="text-black/40 font-medium">جاري تحميل المنتجات...</p>
             </div>
-          ) : products.length > 0 ? (
-            <>
-              <Swiper
-                dir="rtl"
-                modules={[Navigation, Autoplay]}
-                spaceBetween={16}
-                slidesPerView={1.5}
-                centeredSlides={true}
-                onSwiper={(swiper) => (swiperRef.current = swiper)}
-                breakpoints={{
-                  640: { slidesPerView: 2, spaceBetween: 30, centeredSlides: false },
-                  1024: { slidesPerView: 3, spaceBetween: 30, centeredSlides: false },
-                }}
-                className="product-carousel !overflow-visible"
-              >
-                {products.map((product) => (
-                  <SwiperSlide key={product.id}>
-                    <ProductCard product={product} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-
-              {/* Navigation Arrows - Desktop Only, Hover Only */}
-              <button 
-                onClick={() => swiperRef.current?.slidePrev()}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden"
-              >
-                <ChevronRight size={24} className="text-black/70" />
-              </button>
-              <button 
-                onClick={() => swiperRef.current?.slideNext()}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden"
-              >
-                <ChevronLeft size={24} className="text-black/70" />
-              </button>
-            </>
           ) : (
-            <div className="py-32 text-center bg-[#F9F9F9] rounded-[3rem] border-2 border-dashed border-black/5">
-              <p className="text-3xl font-medium text-black/30 mb-2">عذراً، لا توجد منتجات حالياً</p>
-              <p className="text-lg text-black/20">جرب تغيير الفئة أو تصفح الكل</p>
-            </div>
+            <motion.div 
+              layout
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
+            >
+              <AnimatePresence mode="popLayout">
+                {products.length > 0 ? (
+                  products.map((product) => (
+                    <motion.div
+                      key={product.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5, type: "spring" }}
+                    >
+                      <ProductCard product={product} />
+                    </motion.div>
+                  ))
+                ) : (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="col-span-full py-32 text-center bg-[#F9F9F9] rounded-[3rem] border-2 border-dashed border-black/5"
+                  >
+                    <p className="text-3xl font-medium text-black/30 mb-2">عذراً، لا توجد منتجات حالياً</p>
+                    <p className="text-lg text-black/20">جرب تغيير الفئة أو تصفح الكل</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           )}
         </div>
       </div>

@@ -1,0 +1,91 @@
+
+> maseri@0.1.0 lint
+> eslint
+
+
+/home/mokhlesur-rahman/projects/maseri/maseri/next.config.ts
+  1:15  warning  'NextConfig' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/app/layout.tsx
+  42:7  warning  Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/app/productDetails/[slug]/page.tsx
+  10:8  warning  'Image' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  49:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/app/productDetails/[slug]/page.tsx:49:5
+  47 |
+  48 |   useEffect(() => {
+> 49 |     fetchData();
+     |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  50 |   }, [productId]);
+  51 |
+  52 |   if (isLoading) return <ProductDetailsSkeleton />;  react-hooks/set-state-in-effect
+  50:6  warning  React Hook useEffect has a missing dependency: 'fetchData'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/exhaustive-deps
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/CategoryCarousel.tsx
+  5:8   warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+  8:10  warning  'api' is defined but never used   @typescript-eslint/no-unused-vars
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/ProductCard.tsx
+  23:14  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  45:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/cataProduct/CataProductCard.tsx
+  25:14  warning  'e' is defined but never used                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  47:7   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/contact/ContactUs.tsx
+  7:7  warning  'features' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/home/components/CategoryProductSection.tsx
+  13:25  warning  'setShowFavorites' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/home/components/Features.tsx
+  8:10  warning  'ChevronLeft' is defined but never used   @typescript-eslint/no-unused-vars
+  8:23  warning  'ChevronRight' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/productDetails/AddReviewForm.tsx
+  39:18  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/productDetails/AddReviewForm.tsx:39:18
+  37 |   });
+  38 |
+> 39 |   const rating = watch("rating");
+     |                  ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  40 |
+  41 |   const onSubmit = async (data: ReviewPayload) => {
+  42 |     setIsSubmitting(true);  react-hooks/incompatible-library
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/productDetails/ProductImageCard.tsx
+    3:55  warning  'useCallback' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  120:14  warning  'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  144:24  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/productDetails/ProductImageCard.tsx:144:24
+  142 |   });
+  143 |
+> 144 |   const selectedSize = watch("size");
+      |                        ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  145 |
+  146 |   const onSubmit = async (data: FormValues) => {
+  147 |     setIsSubmitting(true);  react-hooks/incompatible-library
+  224:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @next/next/no-img-element
+  254:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @next/next/no-img-element
+
+/home/mokhlesur-rahman/projects/maseri/maseri/src/components/productDetails/ProductSizeTable.tsx
+  11:57  warning  'tableImage' is defined but never used      @typescript-eslint/no-unused-vars
+  13:9   warning  'sizes' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 23 problems (1 error, 22 warnings)
+

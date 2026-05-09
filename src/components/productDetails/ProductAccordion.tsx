@@ -2,6 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { Product } from "@/types/api";
 
 interface AccordionItemData {
   title: string;
@@ -48,7 +49,7 @@ const SizeTable = () => {
   );
 };
 
-export function ProductAccordion({ product }: any) {
+export function ProductAccordion({ product }: { product: Product }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // Default open first one
 
   const items: AccordionItemData[] = [

@@ -2,10 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { api } from "@/lib/api";
 import { Category } from "@/types/api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -143,7 +141,6 @@ export default function CategoryCarousel() {
           dir="rtl"
           className="cat-swiper max-w-[1800px] mx-auto overflow-visible"
           modules={[Autoplay]}
-          centeredSlides
           loop
           speed={1000}
           autoplay={{

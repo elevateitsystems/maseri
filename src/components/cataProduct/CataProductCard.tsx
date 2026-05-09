@@ -22,7 +22,7 @@ function ProductSlider({ product }: { product: Product }) {
       }
 
       return [];
-    } catch (e) {
+    } catch {
       return [];
     }
   }, [product.images]);

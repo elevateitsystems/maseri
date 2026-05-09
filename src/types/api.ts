@@ -16,13 +16,15 @@ export interface Product {
   discountPrice: number;
   stock: number;
   favourite: boolean;
-  sizeInfo: any;
-  otherInfo: any;
+  sizeInfo: Record<string, unknown>;
+  otherInfo: Record<string, unknown>;
   images: string | string[];
   tableImage: string;
   cata_name?: string;
   createdAt?: string;
   updatedAt?: string;
+  rating?: number;
+  reviewsCount?: number;
 }
 
 export const ReviewSchema = z.object({
@@ -39,6 +41,11 @@ export interface Review extends ReviewPayload {
   id: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ProductFilters {
+  cataId?: number;
+  favourite?: boolean;
 }
 
 export interface ApiResponse<T> {

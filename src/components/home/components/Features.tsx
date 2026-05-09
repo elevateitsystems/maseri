@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";

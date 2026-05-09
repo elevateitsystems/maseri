@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api, getImageUrl } from "@/lib/api";
 import { toast } from "react-toastify";
+import { Product } from "@/types/api";
 import placeholderImage from "../../../assets/placeholder-image.svg";
 
 const formSchema = z.object({
@@ -65,7 +66,7 @@ const SizeTable = () => {
   );
 };
 
-export function ProductImageCard({ product }: any) {
+export function ProductImageCard({ product }: { product: Product }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);

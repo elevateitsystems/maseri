@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use, useCallback } from "react";
 import BestSellers from "@/components/home/components/BestSellers";
 import { ProductImageCard } from "@/components/productDetails/ProductImageCard";
 import { ProductReviews } from "@/components/productDetails/ProductReviews";
@@ -7,7 +7,6 @@ import { api } from "@/lib/api";
 import { Review, Product } from "@/types/api";
 import { ProductDetailsSkeleton } from "@/components/productDetails/ProductDetailsSkeleton";
 import Link from "next/link";
-import Image from "next/image";
 
 export const mockProduct = {
   id: 1,
@@ -29,7 +28,7 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
 
   const productId = parseInt(slug) || 1;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
       const [reviewData, productData] = await Promise.all([
@@ -43,11 +42,11 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [productId]);
 
   useEffect(() => {
-    fetchData();
-  }, [productId]);
+    Promise.resolve().then(() => fetchData());
+  }, [fetchData]);
 
   if (isLoading) return <ProductDetailsSkeleton />;
   if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
