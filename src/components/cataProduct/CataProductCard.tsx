@@ -10,10 +10,18 @@ import Image from "next/image";
 
 import placeholderImage from "../../../assets/placeholder-image.svg";
 
-function ProductSlider({ product }: { product: Product }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Parse images from JSON
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+function ProductSlider({ product }: { product: Product }) {
+  const prevRef = React.useRef<HTMLButtonElement | null>(null);
+  const nextRef = React.useRef<HTMLButtonElement | null>(null);
+
   const images: string[] = React.useMemo(() => {
     try {
       if (Array.isArray(product.images)) return product.images;
@@ -28,77 +36,68 @@ function ProductSlider({ product }: { product: Product }) {
     }
   }, [product.images]);
 
-  const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const handlePrev = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
   return (
     <div className="relative group w-full aspect-[4/5] overflow-hidden bg-[#d9d9d9]">
-      {/* Product Image */}
-      <Image
-        src={
-          images.length > 0 && images[currentIndex]
-            ? getImageUrl(images[currentIndex])
-            : placeholderImage.src
-        }
-        alt={product.title}
-        fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="w-full h-full object-cover transition-all duration-500"
-      />
+      <Swiper
+        modules={[Navigation, Pagination]}
+        slidesPerView={1}
+        loop={images.length > 1}
+        pagination={{
+          clickable: true,
+        }}
+        onBeforeInit={(swiper: any) => {
+          if (
+            typeof swiper.params.navigation !== "boolean" &&
+            swiper.params.navigation
+          ) {
+            swiper.params.navigation.prevEl = prevRef.current;
+            swiper.params.navigation.nextEl = nextRef.current;
+          }
+        }}
+        className="h-full w-full"
+      >
+        {(images.length > 0 ? images : [placeholderImage.src]).map(
+          (img, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative w-full h-full">
+                <Image
+                  src={
+                    img === placeholderImage.src
+                      ? placeholderImage.src
+                      : getImageUrl(img)
+                  }
+                  alt={product.title}
+                  fill
+                  priority={index === 0}
+                  quality={100}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-all duration-500"
+                />
+              </div>
+            </SwiperSlide>
+          )
+        )}
 
-      {/* Navigation Buttons */}
-      {images.length > 1 && (
-        <>
-          <Button
-            type="button"
-            size="icon"
-            onClick={handlePrev}
-            className="absolute left-3 top-1/2 z-50 h-11 w-11 -translate-y-1/2 rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white"
+        {/* PREV */}
+        {images.length > 1 && (
+          <button
+            ref={prevRef}
+            className="absolute left-3 top-1/2 z-30 hidden md:flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black hover:text-white"
           >
-            <ChevronLeft
-              className="h-6 w-6"
-              strokeWidth={2}
-            />
-          </Button>
+            <ChevronLeft className="h-6 w-6" strokeWidth={2} />
+          </button>
+        )}
 
-          <Button
-            type="button"
-            size="icon"
-            onClick={handleNext}
-            className="absolute right-3 top-1/2 z-50 h-11 w-11 -translate-y-1/2 rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white"
+        {/* NEXT */}
+        {images.length > 1 && (
+          <button
+            ref={nextRef}
+            className="absolute right-3 top-1/2 z-30 hidden md:flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black hover:text-white"
           >
-            <ChevronRight
-              className="h-6 w-6"
-              strokeWidth={2}
-            />
-          </Button>
-
-          {/* Slider Dots */}
-          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
-            {images.map((_, idx) => (
-              <span
-                key={idx}
-                className={`h-[6px] w-[6px] md:h-[8px] md:w-[8px] rounded-full transition-all ${
-                  idx === currentIndex
-                    ? "bg-black scale-110"
-                    : "bg-black/20"
-                }`}
-              />
-            ))}
-          </div>
-        </>
-      )}
+            <ChevronRight className="h-6 w-6" strokeWidth={2} />
+          </button>
+        )}
+      </Swiper>
     </div>
   );
 }
