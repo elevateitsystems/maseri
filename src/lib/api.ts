@@ -1,4 +1,4 @@
-import { Category, Product, Review, ReviewPayload, ApiResponse } from "@/types/api";
+import { Category, Product, Review, ReviewPayload, ApiResponse, ProductFilters } from "@/types/api";
 
 export interface OrderPayload {
   productId: number;
@@ -31,7 +31,7 @@ export const api = {
     return result.data || [];
   },
 
-  async filterProducts(filters: any = {}): Promise<Product[]> {
+  async filterProducts(filters: ProductFilters = {}): Promise<Product[]> {
     const response = await fetch(`${BASE_URL}filterProducts`, {
       method: 'POST',
       headers: {
@@ -96,7 +96,7 @@ export const api = {
     return result.data;
   },
 
-  async filterOrders(payload: any = { cataId: 1 }): Promise<any[]> {
+  async filterOrders(payload: Record<string, unknown> = { cataId: 1 }): Promise<Order[]> {
     const response = await fetch(`${BASE_URL}filterOrders`, {
       method: 'POST',
       headers: {
@@ -105,7 +105,7 @@ export const api = {
       body: JSON.stringify(payload),
     });
     if (!response.ok) throw new Error("Failed to fetch data from filterOrders");
-    const result: ApiResponse<any[]> = await response.json();
+    const result: ApiResponse<Order[]> = await response.json();
     return result.data || [];
   },
 

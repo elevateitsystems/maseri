@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api, getImageUrl } from "@/lib/api";
 import { toast } from "react-toastify";
+import { Product } from "@/types/api";
 import placeholderImage from "../../../assets/placeholder-image.svg";
 
 const formSchema = z.object({
@@ -65,11 +66,11 @@ const SizeTable = () => {
   );
 };
 
-export function ProductImageCard({ product }: any) {
+export function ProductImageCard({ product }: { product: Product }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(0);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(null);
 
   const imageColRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -189,26 +190,58 @@ export function ProductImageCard({ product }: any) {
     { value: "cancelled", label: "ملغى" },
   ];
 
+  const [showStickyButton, setShowStickyButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky button after scrolling 500px
+      if (window.scrollY > 500) {
+        setShowStickyButton(true);
+      } else {
+        setShowStickyButton(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToForm = () => {
+    const formElement = document.getElementById("order-form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 md:px-0">
-      <div ref={sectionRef} className="flex flex-col md:flex-row gap-10 lg:gap-20 h-auto md:h-[800px]">
+    <div className="container mx-auto px-4 md:px-10 lg:px-10">
+      <div ref={sectionRef} className="flex flex-col md:flex-row gap-10 lg:gap-10 h-auto md:h-[800px]">
         
         {/* ─── IMAGE GALLERY ─── */}
         <div ref={imageColRef} className="flex-1 flex flex-col md:overflow-y-auto no-scrollbar order-1 md:order-2 h-full">
           <div className="flex flex-row gap-4 mb-10 h-auto md:h-[600px] flex-shrink-0">
             {/* Main Image */}
-            <div className="flex-1 relative aspect-[3/4] bg-[#F5F5F5] overflow-hidden rounded-[4px]">
+            <div className="flex-1 relative aspect-[3/4] bg-[#F5F5F5] overflow-hidden rounded-[4px] group">
               <img src={getImageUrl(images[selectedImageIndex])} alt={product.title} className="h-full w-full object-cover object-top" />
-              <button onClick={prevImage} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5">
+              <button onClick={prevImage} className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5 md:flex hidden opacity-0 group-hover:opacity-100">
                 <ChevronRight size={28} className="text-black/80" />
               </button>
-              <button onClick={nextImage} className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5">
+              <button onClick={nextImage} className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white transition-all active:scale-90 z-20 border border-black/5 md:flex hidden opacity-0 group-hover:opacity-100">
                 <ChevronLeft size={28} className="text-black/80" />
               </button>
+              
+              {/* Mobile Pagination Dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 md:hidden z-20">
+                {images.map((_, i) => (
+                  <div 
+                    key={i} 
+                    className={`h-1.5 rounded-full transition-all duration-300 ${selectedImageIndex === i ? "w-6 bg-black" : "w-1.5 bg-black/20"}`}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Thumbnails (Desktop Only) */}
-            <div className="hidden md:flex flex-col gap-3 w-[100px]">
+            <div className="hidden md:flex flex-col gap-3 w-[90px]">
               {images.map((img, index) => (
                 <button
                   key={index}
@@ -282,15 +315,20 @@ export function ProductImageCard({ product }: any) {
               
               {/* Status Dropdown */}
               <div className="col-span-2 space-y-1">
-                <select 
-                  {...register("status")}
-                  className="w-full h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right px-4 appearance-none outline-none focus:ring-1 focus:ring-[#B3A495]"
-                  dir="rtl"
-                >
-                  {statusOptions.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select 
+                    {...register("status")}
+                    className="w-full h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right px-4 appearance-none outline-none focus:ring-1 focus:ring-[#B3A495] pr-4 pl-10"
+                    dir="rtl"
+                  >
+                    {statusOptions.map(opt => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <ChevronDown size={20} className="text-black/40" />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -347,6 +385,16 @@ export function ProductImageCard({ product }: any) {
           </div>
         </div>
 
+      </div>
+
+      {/* Sticky Mobile Buy Now Button */}
+      <div className={`fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-black/5 transition-all duration-500 z-[100] ${showStickyButton ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>
+        <Button 
+          onClick={scrollToForm}
+          className="w-full h-14 bg-[#B3A495] hover:bg-[#a39485] text-[20px] font-medium rounded-[2px] shadow-lg"
+        >
+          اشتري الآن
+        </Button>
       </div>
     </div>
   );

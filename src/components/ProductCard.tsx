@@ -1,129 +1,119 @@
 "use client";
 
-import React from "react";
-import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
-import { useStore } from "@/store/useStore";
-import { Product } from "@/types/api";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import React, { useState, useMemo } from "react";
+import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { getImageUrl } from "@/lib/api";
+import { Product } from "@/types/api";
 import Link from "next/link";
 
-interface ProductCardProps {
-  product: Product;
-}
+import placeholderImage from "../../assets/placeholder-image.svg";
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  const incrementCart = useStore((state) => state.incrementCart);
+export default function ProductCard({ product }: { product: Product }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Handle images
-  const images = React.useMemo(() => {
+  // Parse images from JSON or Array
+  const images: string[] = useMemo(() => {
     try {
       if (Array.isArray(product.images)) return product.images;
-      if (typeof product.images === "string") return JSON.parse(product.images);
+      if (typeof product.images === "string") {
+        return JSON.parse(product.images);
+      }
       return [];
-    } catch (e) {
+    } catch {
       return [];
     }
   }, [product.images]);
 
-  const mainImage = images.length > 0 ? getImageUrl(images[0]) : "";
+  const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
-    <div className="group relative transition-all duration-300 overflow-hidden">
-      {/* Clickable Overlay (Desktop only, mobile will click the card/swiper) */}
-      <Link 
-        href={`/productDetails/${product.id}`} 
-        className="absolute inset-0 z-10 hidden md:block"
-        aria-label={`View details for ${product.title}`}
-      />
+    <div className="relative flex flex-col w-full h-auto group" dir="rtl">
+      {/* Product Image Slider */}
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#d9d9d9]">
+        <Link href={`/productDetails/${product.id}`} className="block w-full h-full">
+          <img
+            src={
+              images.length > 0 && images[currentIndex]
+                ? getImageUrl(images[currentIndex])
+                : placeholderImage.src
+            }
+            alt={product.title}
+            className="w-full h-full object-cover object-top transition-all duration-500"
+          />
+        </Link>
 
-      <div className="aspect-[4/4] relative overflow-hidden bg-[#F9F9F9]">
-        {images.length > 1 ? (
-          <div className="relative w-full h-full group/swiper">
-            <Swiper
-              modules={[Pagination, Autoplay, Navigation]}
-              pagination={{
-                clickable: true,
-                bulletClass: 'swiper-pagination-bullet !bg-black/20 !opacity-100 !w-2 !h-1 !rounded-full transition-all duration-300',
-                bulletActiveClass: 'swiper-pagination-bullet-active !bg-[#4ADE80] !w-8 !rounded-full',
-              }}
-              navigation={{
-                nextEl: '.swiper-button-next-custom',
-                prevEl: '.swiper-button-prev-custom',
-              }}
-              className="w-full h-full product-card-swiper"
-              loop
+        {/* Navigation Buttons - Hidden by default, show on hover on desktop */}
+        {images.length > 1 && (
+          <>
+            <Button
+              type="button"
+              size="icon"
+              onClick={handlePrev}
+              className="absolute left-3 top-1/2 z-50 h-11 w-11 -translate-y-1/2 rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white"
             >
-              {images.map((img: string, idx: number) => (
-                <SwiperSlide key={idx}>
-                  <Link href={`/productDetails/${product.id}`}>
-                    <img
-                      src={getImageUrl(img)}
-                      alt={`${product.title} ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </Link>
-                </SwiperSlide>
+              <ChevronLeft className="h-6 w-6" strokeWidth={2} />
+            </Button>
+
+            <Button
+              type="button"
+              size="icon"
+              onClick={handleNext}
+              className="absolute right-3 top-1/2 z-50 h-11 w-11 -translate-y-1/2 rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden hover:bg-black hover:text-white"
+            >
+              <ChevronRight className="h-6 w-6" strokeWidth={2} />
+            </Button>
+
+            {/* Slider Dots */}
+            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+              {images.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`h-[6px] w-[6px] md:h-[8px] md:w-[8px] rounded-full transition-all ${
+                    idx === currentIndex
+                      ? "bg-black scale-110"
+                      : "bg-black/20"
+                  }`}
+                />
               ))}
-            </Swiper>
-            
-            {/* Custom Navigation Arrows */}
-            <button className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center shadow-sm opacity-0 group-hover/swiper:opacity-100 transition-opacity md:flex hidden">
-              <ChevronLeft size={18} className="text-black/60" />
-            </button>
-            <button className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center shadow-sm opacity-0 group-hover/swiper:opacity-100 transition-opacity md:flex hidden">
-              <ChevronRight size={18} className="text-black/60" />
-            </button>
-
-            {/* Mobile Arrows (Always visible but smaller) */}
-            <button className="swiper-button-prev-custom absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white/60 flex items-center justify-center shadow-sm md:hidden">
-              <ChevronLeft size={16} className="text-black/60" />
-            </button>
-            <button className="swiper-button-next-custom absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white/60 flex items-center justify-center shadow-sm md:hidden">
-              <ChevronRight size={16} className="text-black/60" />
-            </button>
-
-            <style jsx global>{`
-              .product-card-swiper .swiper-pagination {
-                bottom: 8px !important;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 4px;
-              }
-            `}</style>
-          </div>
-        ) : mainImage ? (
-          <Link href={`/productDetails/${product.id}`}>
-            <img
-              src={mainImage}
-              alt={product.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-          </Link>
-        ) : (
-          <div className="w-full h-full bg-muted flex items-center justify-center">
-            <span className="text-muted-foreground">No Image</span>
-          </div>
+            </div>
+          </>
         )}
       </div>
-      <div className="p-4 space-y-1.5">
-        <div className="flex justify-between items-top gap-2">
-          <h3 className="text-xl font-normal">{product.title}</h3>
-          <button className="h-10 w-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-red-500 transition-all duration-300 shadow-sm">
-            <Heart className={`size-6 transition-all duration-300 ${product.favourite ? "fill-red-500 text-red-500 scale-110" : "group-hover:scale-110"}`} />
+
+      {/* Product Info Section */}
+      <div className="flex flex-col p-3 md:px-4 md:py-3 w-full">
+        <div className="flex justify-between items-start gap-4 mb-1">
+          <Link href={`/productDetails/${product.id}`} className="flex-1 min-w-0">
+            <h3 className="text-xl font-normal text-black truncate text-right">
+              {product.title}
+            </h3>
+          </Link>
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Add to cart logic
+            }}
+            className="h-10 w-10 flex-shrink-0 rounded-full bg-[#F9F9F9] border border-black/5 flex items-center justify-center text-black hover:bg-black hover:text-white transition-all duration-300 shadow-sm"
+          >
+            <ShoppingBag size={20} />
           </button>
         </div>
-        <div className="">
-          <p className="text-xl font-semibold">{product.price} د.ج</p>
+        <div className="text-right">
+          <p className="text-xl font-bold text-black">{product.price} د.ج</p>
         </div>
       </div>
     </div>
   );
-};
-
-export default ProductCard;
+}

@@ -43,11 +43,11 @@ const Navbar = () => {
   return (
     <>
       <header
-        className="sticky top-0 md:top-[-70px] z-50 w-full transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300"
         dir="rtl"
         style={{
           backgroundColor: scrolled
-            ? "rgba(255, 255, 255, 0.95)"
+            ? "rgba(255, 255, 255, 0.4)"
             : "rgba(255, 255, 255, 0.4)",
           backdropFilter: scrolled ? "blur(12px)" : "none",
           boxShadow: (scrolled && !mobileMenuOpen) ? "0 4px 20px rgba(0,0,0,0.05)" : "none",

@@ -3,22 +3,12 @@
 import React, { useMemo } from "react";
 
 interface SizeTableProps {
-  sizeInfo: any;
-  otherInfo: any;
-  tableImage?: string;
+  sizeInfo: unknown;
+  otherInfo: unknown;
 }
 
-export function ProductSizeTable({ sizeInfo, otherInfo, tableImage }: SizeTableProps) {
-  // Parse sizeInfo
-  const sizes: string[] = useMemo(() => {
-    try {
-      if (Array.isArray(sizeInfo)) return sizeInfo;
-      if (typeof sizeInfo === "string") return JSON.parse(sizeInfo);
-      return [];
-    } catch {
-      return [];
-    }
-  }, [sizeInfo]);
+export function ProductSizeTable({ otherInfo }: SizeTableProps) {
+
 
   // Parse otherInfo
   const otherDetails: { question: string; answer: string }[] = useMemo(() => {
