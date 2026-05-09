@@ -84,9 +84,9 @@ const CategoryProductSection = () => {
             </motion.p>
           </div>
 
-          <div className="flex flex-row items-center gap-3 w-full lg:w-auto overflow-x-auto no-scrollbar">
+          <div className="w-full lg:w-auto overflow-x-auto no-scrollbar">
             {/* Favourites Filter */}
-            <button
+            {/* <button
               onClick={() => setShowFavorites(!showFavorites)}
               className={`flex items-center gap-2 px-5 md:px-8 py-4 rounded-full border-2 transition-all duration-500 text-base md:text-lg font-medium whitespace-nowrap ${
                 showFavorites 
@@ -96,7 +96,7 @@ const CategoryProductSection = () => {
             >
               <Heart className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${showFavorites ? "fill-white scale-110" : "group-hover:scale-110"}`} />
               <span>المفضلة</span>
-            </button>
+            </button> */}
 
             {/* Custom Premium Dropdown */}
             <div className="relative flex-1 md:w-80 z-50 min-w-[160px]">

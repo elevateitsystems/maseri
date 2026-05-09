@@ -118,7 +118,7 @@ export default function CategoryCarousel() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex justify-center gap-6 md:gap-10 mt-8 overflow-x-auto pb-3 no-scrollbar px-4">
+        <div className="flex justify-center gap-6 md:gap-10 mt-2 overflow-x-auto pb-3 no-scrollbar px-4">
           {rawCats.map((cat, i) => (
             <button
               key={cat.id}
@@ -138,7 +138,7 @@ export default function CategoryCarousel() {
       </div>
 
       {/* Swiper Carousel */}
-      <div className="relative z-10 px-2 md:px-0 min-h-[320px] md:min-h-[720px] flex items-center justify-center overflow-visible">
+      <div className="relative z-10 px-2 md:px-0 min-h-[320px] md:min-h-[550px] flex items-center justify-center overflow-visible">
         <Swiper
           dir="rtl"
           className="cat-swiper max-w-[1800px] mx-auto overflow-visible"
@@ -172,10 +172,10 @@ export default function CategoryCarousel() {
 
             const getCardSizes = () => {
               if (distance === 0)
-                return { w: "w-[260px] md:w-[364px]", h: "h-[400px] md:h-[586px]" };
+                return { w: "w-[230px] md:w-[320px]", h: "h-[350px] md:h-[420px]" };
               if (distance === 1)
-                return { w: "w-[220px] md:w-[297px]", h: "h-[320px] md:h-[399px]" };
-              return { w: "w-[180px] md:w-[234px]", h: "h-[260px] md:h-[317px]" };
+                return { w: "w-[190px] md:w-[260px]", h: "h-[280px] md:h-[350px]" };
+              return { w: "w-[160px] md:w-[200px]", h: "h-[230px] md:h-[280px]" };
             };
 
             const sizes = getCardSizes();
@@ -184,7 +184,7 @@ export default function CategoryCarousel() {
               <SwiperSlide key={`${cat.id}-${i}`} className="h-full flex items-center justify-center">
                 {({ isActive }) => (
                   <div
-                    className="flex flex-col items-center justify-center cursor-pointer group w-full h-[520px] md:h-[720px]"
+                    className="flex flex-col items-center justify-center cursor-pointer group w-full h-[450px] md:h-[550px]"
                     onClick={() =>
                       isActive
                         ? router.push(`/cataProducts/${cat.id}/${encodeURIComponent(cat.name)}`)

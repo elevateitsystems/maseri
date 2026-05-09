@@ -141,7 +141,7 @@ export default function CataProductCard({ cataId, cataName }: { cataId?: number,
   }, [cataId]);
 
   return (
-    <section className="w-full overflow-hidden py-16 md:mt-20">
+    <section className="w-full overflow-hidden py-16 md:mt-22">
       <div className="mx-auto container px-6">
         {/* Header */}
         <div className="mb-4 flex items-start justify-start gap-3">

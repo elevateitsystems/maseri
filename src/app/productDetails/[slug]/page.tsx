@@ -53,7 +53,7 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
   if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
 
   return (
-    <div className="container mx-auto space-y-16 mt-10 relative">
+    <div className="container mx-auto space-y-16 mt-20 md:mt-44 relative">
       <ProductImageCard product={product} />
 
       <ProductReviews 

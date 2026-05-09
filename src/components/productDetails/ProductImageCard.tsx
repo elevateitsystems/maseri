@@ -69,7 +69,7 @@ export function ProductImageCard({ product }: any) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(0);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(null);
 
   const imageColRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
