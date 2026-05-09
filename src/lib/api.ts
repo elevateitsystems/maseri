@@ -10,6 +10,7 @@ export interface OrderPayload {
   city: string;
   address: string;
   contact: string;
+  status?: string;
 }
 
 export interface Order extends OrderPayload {

@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState, use } from "react";
 import BestSellers from "@/components/home/components/BestSellers";
-import { AddReviewForm } from "@/components/productDetails/AddReviewForm";
-import { ProductAccordion } from "@/components/productDetails/ProductAccordion";
 import { ProductImageCard } from "@/components/productDetails/ProductImageCard";
 import { ProductReviews } from "@/components/productDetails/ProductReviews";
 import { api } from "@/lib/api";
 import { Review, Product } from "@/types/api";
 import { ProductDetailsSkeleton } from "@/components/productDetails/ProductDetailsSkeleton";
+import Link from "next/link";
+import Image from "next/image";
 
 export const mockProduct = {
   id: 1,
@@ -19,6 +19,7 @@ export const mockProduct = {
   details:
     "هذا المنتج مصنوع من خامات عالية الجودة ومناسب للاستخدام اليومي.",
 };
+
 
 export default function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -52,14 +53,39 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
   if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
 
   return (
-    <div className=" container mx-auto  md:mt-44 space-y-16 ">
+    <div className="container mx-auto space-y-16 mt-10 relative">
       <ProductImageCard product={product} />
-      <ProductAccordion product={product} />
 
-      <ProductReviews reviews={reviews} />
-      <AddReviewForm productId={productId} onSuccess={fetchData} />
+      <ProductReviews 
+        reviews={reviews} 
+        productId={productId} 
+        onSuccess={fetchData} 
+      />
 
       <BestSellers limit={3} excludeId={productId} />
+
+      {/* Explore More Section */}
+      <section className="flex flex-col items-center mt-4 mb-24">
+        <Link
+          href="/cataProducts"
+          className="bg-[#B3A495] text-white px-12 py-4 rounded-[4px] text-[16px] font-medium hover:bg-[#a39485] transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-[#B3A495]/20"
+        >
+          اكتشف مجموعتنا
+        </Link>
+      </section>
+
+      {/* Fixed Mobile Order Button */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-black/5 md:hidden z-[100]">
+        <button
+          onClick={() => {
+            const el = document.getElementById("order-form");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="w-full bg-[#B3A495] text-white h-14 rounded-[4px] text-[18px] font-bold shadow-xl active:scale-95 transition-transform"
+        >
+          اطلب الآن
+        </button>
+      </div>
     </div>
   );
 }

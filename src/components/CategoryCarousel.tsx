@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { api } from "@/lib/api";
 import { Category } from "@/types/api";
 
@@ -64,7 +64,7 @@ export default function CategoryCarousel() {
 
   if (loading) {
     return (
-      <section className="py-16 md:py-24 ">
+      <section className="py-16 md:py-24">
         <div className="animate-pulse max-w-7xl mx-auto px-4">
           <div className="h-16 w-48 bg-black/10 rounded mx-auto mb-6" />
           <div className="flex justify-center gap-8 mb-12">
@@ -93,29 +93,28 @@ export default function CategoryCarousel() {
   if (!categories.length) return null;
 
   return (
-    <section
-      dir="rtl"
-      className="relative py-16 md:py-24   overflow-hidden"
-    >
+    <section dir="rtl" className="relative overflow-hidden py-12 md:py-24 px-6 md:px-0">
       {/* Soft Background Accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[1200px] h-[800px] rounded-full bg-[#EDE4D8]/60 blur-[120px]" />
+        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[1200px] h-[800px] rounded-full blur-[120px]" />
       </div>
 
       {/* Header */}
-      <div className="text-center mb-12 md:mb-16 relative z-10">
-        <h2
-          className="font-bold text-black tracking-tight"
-          style={{ fontSize: "clamp(42px, 7.5vw, 88px)", fontFamily: "Georgia, serif" }}
+      <div className="text-center mb-6 md:mb-6 relative z-10">
+        <h1
+          className="font-bold text-black leading-[1.2] mb-5"
+              style={{
+                fontSize: "clamp(38px, 4.5vw, 68px)",
+                fontFamily: "'Poltawski Nowy', serif",
+              }}
         >
           منتجاتنا
-        </h2>
+        </h1>
 
         <div className="flex justify-center mt-4">
           <svg width="153" height="24" viewBox="0 0 153 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.779386 21.7369C0.779386 21.7369 79.2044 -11.5285 152.249 8.31399" stroke="black" strokeWidth="4" />
           </svg>
-
         </div>
 
         {/* Navigation Tabs */}
@@ -155,67 +154,48 @@ export default function CategoryCarousel() {
           slidesPerView={1}
           spaceBetween={16}
           breakpoints={{
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 8,
-            },
-            640: {
-              slidesPerView: 1.05,
-              spaceBetween: 8,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: -28,
-            },
-            1024: {
-              slidesPerView: 5,
-              spaceBetween: -35,
-            },
-            1280: {
-              slidesPerView: 5,
-              spaceBetween: -42,
-            },
+            320: { slidesPerView: 1.3, spaceBetween: 12 },
+            480: { slidesPerView: 1.5, spaceBetween: 16 },
+            640: { slidesPerView: 1.8, spaceBetween: 20 },
+            768: { slidesPerView: 3, spaceBetween: -20 },
+            1024: { slidesPerView: 5, spaceBetween: -35 },
+            1280: { slidesPerView: 5, spaceBetween: -42 },
           }}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setActive(swiper.realIndex)}
         >
           {categories.map((cat, i) => {
-            // Calculate distance from active slide
             const distance = Math.min(
               Math.abs(i - active),
               categories.length - Math.abs(i - active)
             );
 
-            // Determine card size based on distance
             const getCardSizes = () => {
               if (distance === 0)
-                return { w: "w-[364px]", h: "h-[586px]", scale: "md:scale-100" };
+                return { w: "w-[260px] md:w-[364px]", h: "h-[400px] md:h-[586px]" };
               if (distance === 1)
-                return { w: "w-[297px]", h: "h-[399px]", scale: "md:scale-100" };
-              return { w: "w-[234px]", h: "h-[317px]", scale: "md:scale-100" };
+                return { w: "w-[220px] md:w-[297px]", h: "h-[320px] md:h-[399px]" };
+              return { w: "w-[180px] md:w-[234px]", h: "h-[260px] md:h-[317px]" };
             };
 
             const sizes = getCardSizes();
 
             return (
-              <SwiperSlide key={`${cat.id}-${i}`} className="h-auto flex items-center justify-center py-6">
+              <SwiperSlide key={`${cat.id}-${i}`} className="h-full flex items-center justify-center">
                 {({ isActive }) => (
                   <div
-                    className="flex justify-center cursor-pointer group w-full"
+                    className="flex flex-col items-center justify-center cursor-pointer group w-full h-[520px] md:h-[720px]"
                     onClick={() =>
                       isActive
                         ? router.push(`/cataProducts/${cat.id}/${encodeURIComponent(cat.name)}`)
                         : swiperRef.current?.slideToLoop(i, 700)
                     }
                   >
-                    <div
-                      className={`arch-card relative transition-all duration-700 transform ${sizes.scale}`}
-                    >
-                      {/* Arch Container - Fixed Height */}
+                    <div className="relative flex flex-col items-center transition-all duration-700 ease-in-out">
                       <div
-                        className={`relative overflow-hidden bg-[#F8F4EE] shadow-lg md:shadow-2xl transition-all duration-500 flex-shrink-0 ${sizes.w} ${sizes.h}`}
+                        className={`relative overflow-hidden bg-[#F8F4EE] shadow-lg md:shadow-2xl transition-all duration-700 ease-in-out flex-shrink-0 ${sizes.w} ${sizes.h}`}
                         style={{
-                          borderRadius: "140px 140px 30px 30px / 120px 120px 30px 30px",
+                          borderRadius: "160px 160px 20px 20px / 140px 140px 20px 20px",
                         }}
                       >
                         {cat.image ? (
@@ -230,34 +210,22 @@ export default function CategoryCarousel() {
                         ) : (
                           <div className="w-full h-full bg-gradient-to-b from-[#E8D5C4] to-[#D4C4B0] animate-pulse" />
                         )}
-
-                        {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
                       </div>
 
-                      {/* Label */}
-                      <div className="text-center mt-2 md:mt-4 min-h-[28px] md:min-h-[40px] flex items-center flex-row-reverse justify-between">
-                        <button className={`${isActive
-                          ? "block"
-                          : "hidden"
-                          }`}
-                          onClick={() => {
-                            const activeCat = rawCats[active % rawCats.length];
-                            if (activeCat) {
-                              router.push(`/cataProducts/${activeCat.id}/${encodeURIComponent(activeCat.name)}`);
-                            }
-                          }}>
+                      <div className="w-full text-center mt-4 md:mt-6 flex flex-row-reverse items-center justify-between px-2 h-10">
+                        <button 
+                          className={`transition-all duration-500 ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-50 pointer-events-none"}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/cataProducts/${cat.id}/${encodeURIComponent(cat.name)}`);
+                          }}
+                        >
                           <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18 9C18.5523 9 19 8.55228 19 8C19 7.44772 18.5523 7 18 7V8V9ZM1.29289 7.29289C0.902369 7.68342 0.902369 8.31658 1.29289 8.70711L7.65685 15.0711C8.04738 15.4616 8.68054 15.4616 9.07107 15.0711C9.46159 14.6805 9.46159 14.0474 9.07107 13.6569L3.41421 8L9.07107 2.34315C9.46159 1.95262 9.46159 1.31946 9.07107 0.928932C8.68054 0.538408 8.04738 0.538408 7.65685 0.928932L1.29289 7.29289ZM18 8V7L2 7V8V9L18 9V8Z" fill="black" />
                           </svg>
-
                         </button>
-                        <h3
-                          className={`font-semibold text-black transition-all duration-500 ${isActive
-                            ? "text-lg md:text-2xl"
-                            : "text-sm md:text-base"
-                            }`}
-                        >
+                        <h3 className={`font-semibold text-black transition-all duration-500 ${isActive ? "text-lg md:text-2xl" : "text-sm md:text-base opacity-40"}`}>
                           {cat.name}
                         </h3>
                       </div>
@@ -268,39 +236,28 @@ export default function CategoryCarousel() {
             );
           })}
         </Swiper>
+        {/* Side Finger Sliders (Arrows) */}
+        <button 
+          onClick={() => swiperRef.current?.slidePrev()}
+          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform"
+        >
+          <ChevronRight size={24} className="text-black/70 md:w-8 md:h-8" />
+        </button>
+        <button 
+          onClick={() => swiperRef.current?.slideNext()}
+          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl z-30 border border-black/5 active:scale-90 transition-transform"
+        >
+          <ChevronLeft size={24} className="text-black/70 md:w-8 md:h-8" />
+        </button>
       </div>
 
       {/* Bottom Button */}
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center mb-6 md:mt-8">
         <button
-          onClick={() => {
-            const activeCat = rawCats[active % rawCats.length];
-
-            if (activeCat) {
-              router.push(
-                `/cataProducts/${activeCat.id}/${encodeURIComponent(
-                  activeCat.name
-                )}`
-              );
-            }
-          }}
+          onClick={() => router.push(`/cataProducts`)}
           dir="rtl"
-          className="
-    inline-flex items-center justify-center
-    h-[62px]
-    px-[40px] 
-    bg-[#B3A495]
-    text-[#2F2F2F]
-    text-[28px] md:text-[34px]
-    leading-none
-    font-normal
-    whitespace-nowrap
-    transition-transform duration-300
-     scale-[1.02] 
-  "
-          style={{
-            fontFamily: "'Noto Naskh Arabic', serif",
-          }}
+          className="inline-flex items-center justify-center h-[62px] px-[40px] bg-[#B3A495] text-[#2F2F2F] text-[18px] md:text-[20px] leading-none font-normal whitespace-nowrap transition-transform duration-300 hover:scale-105"
+          style={{ fontFamily: "'Noto Naskh Arabic', serif" }}
         >
           حيث تلتقي
         </button>

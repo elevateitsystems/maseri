@@ -5,6 +5,8 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -34,9 +36,10 @@ const features = [
 ];
 
 const Features = () => {
+  const swiperRef = React.useRef<SwiperType | null>(null);
   return (
-    <section>
-      <div className="container mx-auto px-4 pb-12 sm:pb-28">
+    <section className="bg-secondary-300 py-12 md:py-24">
+      <div className="container mx-auto px-6 md:px-0">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-14 md:mb-20">
           <h2 className="text-[30px] md:text-[40px] font-semibold text-black mb-4 md:mb-6 leading-tight">
@@ -65,7 +68,8 @@ const Features = () => {
             pagination={{
               clickable: true,
             }}
-            className="features-swiper pb-12"
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            className="features-swiper pb-12 relative"
           >
             {features.map((feature, index) => (
               <SwiperSlide key={index}>
@@ -87,6 +91,22 @@ const Features = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Side Finger Sliders (Arrows) */}
+          <div className="flex justify-center gap-4 -mt-4 mb-8">
+            <button 
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg border border-black/5 active:scale-90 transition-transform"
+            >
+              <ChevronRight size={20} className="text-black/70" />
+            </button>
+            <button 
+              onClick={() => swiperRef.current?.slideNext()}
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg border border-black/5 active:scale-90 transition-transform"
+            >
+              <ChevronLeft size={20} className="text-black/70" />
+            </button>
+          </div>
 
           {/* Custom Dot Style */}
           <style jsx global>{`

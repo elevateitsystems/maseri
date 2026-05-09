@@ -5,26 +5,72 @@ import { useState } from "react";
 
 interface AccordionItemData {
   title: string;
-  content: string;
+  content: React.ReactNode;
 }
 
+const SizeTable = () => {
+  const sizes = ["XS", "S", "M", "L", "XL", "XXL", "SL"];
+  
+  return (
+    <div className="overflow-x-auto w-full mb-4 scrollbar-hide">
+      <table className="w-full min-w-[650px] border-collapse border border-[#D1C6B9]">
+        <thead>
+          <tr className="bg-[#E9E1D8]">
+            {Array(5).fill(0).map((_, i) => (
+              <th 
+                key={i} 
+                className="border border-[#D1C6B9] py-5 px-4 text-center text-[18px] font-medium text-black"
+              >
+                حيث تلتقي
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {sizes.map((size, idx) => (
+            <tr key={idx} className="group">
+              {Array(4).fill(0).map((_, i) => (
+                <td 
+                  key={i} 
+                  className="border border-[#D1C6B9] py-4 px-4 bg-[#F9F7F5] text-center text-[18px] text-black/70 font-medium"
+                >
+                  78 - 90
+                </td>
+              ))}
+              <td className="border border-[#D1C6B9] py-4 px-4 bg-[#E9E1D8] text-center text-[18px] font-medium text-black">
+                {size}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export function ProductAccordion({ product }: any) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // Default open first one
 
   const items: AccordionItemData[] = [
     {
-      title: "حيث تلتقي",
-      content:
-        product.description ||
-        "هذا المنتج مصنوع من خامات عالية الجودة ومناسب للاستخدام اليومي.",
+      title: "دليل المقاسات",
+      content: <SizeTable />,
     },
     {
-      title: "حيث تلتقي",
-      content: "يتم التوصيل خلال 3-5 أيام عمل إلى جميع الولايات.",
+      title: "وصف المنتج",
+      content: (
+        <p className="text-[16px] leading-[1.8] text-black/60">
+          {product.description || "هذا المنتج مصنوع من خامات عالية الجودة ومناسب للاستخدام اليومي."}
+        </p>
+      ),
     },
     {
-      title: "حيث تلتقي",
-      content: "يمكنك استرجاع المنتج خلال 7 أيام من تاريخ الاستلام.",
+      title: "سياسة التوصيل",
+      content: (
+        <p className="text-[16px] leading-[1.8] text-black/60">
+          يتم التوصيل خلال 3-5 أيام عمل إلى جميع الولايات.
+        </p>
+      ),
     },
   ];
 
@@ -33,31 +79,31 @@ export function ProductAccordion({ product }: any) {
   };
 
   return (
-    <div dir="rtl" className="divide-y divide-[#E9E9E9]">
+    <div dir="rtl" className="divide-y divide-[#E9E9E9] px-5 md:px-0">
       {items.map((item, i) => (
-        <div key={i}>
+        <div key={i} className="py-2">
           <button
             onClick={() => toggle(i)}
-            className="flex w-full items-center justify-between py-5 text-right"
+            className="flex w-full items-center justify-between py-6 text-right group"
           >
-            <span className="text-[20px] font-medium text-black">
+            <span className="text-[22px] font-medium text-black group-hover:text-black/70 transition-colors">
               {item.title}
             </span>
             <ChevronDown
-              className={`h-5 w-5 text-black/40 transition-transform duration-300 ${
+              className={`h-6 w-6 text-black transition-transform duration-500 ${
                 openIndex === i ? "rotate-180" : ""
               }`}
-              strokeWidth={1.5}
+              strokeWidth={1.2}
             />
           </button>
           <div
-            className={`overflow-hidden transition-all duration-300 ${
-              openIndex === i ? "max-h-[200px] pb-5" : "max-h-0"
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              openIndex === i ? "max-h-[1000px] opacity-100 pb-8" : "max-h-0 opacity-0"
             }`}
           >
-            <p className="text-[16px] leading-[1.8] text-black/60">
+            <div className="transform transition-all duration-500">
               {item.content}
-            </p>
+            </div>
           </div>
         </div>
       ))}

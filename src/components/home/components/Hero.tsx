@@ -27,6 +27,9 @@ export default function Hero() {
         {/* Model image — LEFT side, full height, no cropping */}
         <div
           className="absolute inset-0 pointer-events-none select-none"
+          style={{
+            transform: "translateX(-13%)",
+          }}
         >
           <Image
             src="/assets/hero.png"
@@ -78,7 +81,7 @@ export default function Hero() {
 
       {/* ── MOBILE LAYOUT ── */}
       <div
-        className="relative flex lg:hidden w-full flex-col justify-end"
+        className="relative flex lg:hidden w-full flex-col justify-end mt-24"
         style={{ minHeight: "100svh" }}
       >
         {/* Full-bleed background image using img tag to avoid Next.js fill issues */}
@@ -86,7 +89,7 @@ export default function Hero() {
         <img
           src="/assets/mobile-hero-image.png"
           alt="مجموعة أزياء لابيل تكستايل"
-          className="  object-top"
+          className="object-top"
           style={{ zIndex: 0 }}
         />
 
@@ -94,7 +97,7 @@ export default function Hero() {
 
         {/* Text at bottom */}
         <div
-          className="relative flex flex-col items-center pb-16 pt-8 px-6"
+          className="relative flex flex-col items-center py-12 px-6"
           style={{ zIndex: 2, direction: "rtl", textAlign: "center" }}
         >
           <h1

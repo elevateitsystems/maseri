@@ -54,9 +54,9 @@ export function AddReviewForm({ productId, onSuccess }: AddReviewFormProps) {
   };
 
   return (
-    <div className="mt-24 mb-20 rtl px-4 md:px-0">
-      <div className="flex items-center gap-4 mb-8">
-        <h2 className="text-[28px] font-bold">إضافة مراجعة</h2>
+    <div className="rtl">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-[24px] font-bold">إضافة مراجعة</h2>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((s) => (
             <Star
@@ -70,23 +70,21 @@ export function AddReviewForm({ productId, onSuccess }: AddReviewFormProps) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid md:grid-cols-1 gap-4">
-          <div className="space-y-1">
-            <Input
-              placeholder="الاسم"
-              {...register("name")}
-              className="h-14 bg-[#F9F9F9] border-none rounded-[2px] text-right focus-visible:ring-1 focus-visible:ring-[#B3A495]"
-            />
-            {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
-          </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <div className="space-y-1">
+          <Input
+            placeholder="الاسم الكامل"
+            {...register("name")}
+            className="h-12 bg-[#F9F9F9] border border-black/5 rounded-[4px] text-right focus-visible:ring-1 focus-visible:ring-[#B3A495]"
+          />
+          {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
         </div>
 
         <div className="space-y-1">
           <Textarea
-            placeholder="اكتب هنا..."
+            placeholder="اكتب مراجعتك هنا..."
             {...register("comment")}
-            className="min-h-[250px] bg-[#F9F9F9] border-none rounded-[2px] text-right p-6 focus-visible:ring-1 focus-visible:ring-[#B3A495]"
+            className="min-h-[150px] bg-[#F9F9F9] border border-black/5 rounded-[4px] text-right p-4 focus-visible:ring-1 focus-visible:ring-[#B3A495]"
           />
           {errors.comment && <p className="text-red-500 text-xs">{errors.comment.message}</p>}
         </div>
@@ -94,9 +92,9 @@ export function AddReviewForm({ productId, onSuccess }: AddReviewFormProps) {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full h-14 bg-[#B3A495] hover:bg-[#a39485] text-white text-[18px] font-medium rounded-[2px] transition-all disabled:opacity-50"
+          className="w-full h-12 bg-[#B3A495] hover:bg-[#a39485] text-white text-[16px] font-medium rounded-[4px] transition-all disabled:opacity-50"
         >
-          {isSubmitting ? "جاري الإرسال..." : "يقدم"}
+          {isSubmitting ? "جاري الإرسال..." : "إرسال المراجعة"}
         </Button>
       </form>
     </div>
