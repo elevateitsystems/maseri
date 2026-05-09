@@ -35,8 +35,8 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="bg-secondary-300 ">
-      <div className="container mx-auto px-4 md:px-0 py-12 sm:py-28">
+    <section className="bg-secondary-300 py-12 md:py-24">
+      <div className="container mx-auto px-6 md:px-0">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-14 md:mb-20">
           <h2 className="text-[30px] md:text-[40px] font-semibold text-black mb-4 md:mb-6 leading-tight">

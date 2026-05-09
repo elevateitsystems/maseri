@@ -57,7 +57,7 @@ const CategoryProductSection = () => {
   if (catsLoading) return null;
 
   return (
-    <section className="" dir="rtl">
+    <section className="py-12 md:py-24" dir="rtl">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-10">
           <div className="space-y-6 text-right">
@@ -65,7 +65,11 @@ const CategoryProductSection = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-7xl font-bold tracking-tight text-black"
+              className="font-bold text-black leading-[1.2] mb-5"
+              style={{
+                fontSize: "clamp(38px, 4.5vw, 68px)",
+                fontFamily: "'Poltawski Nowy', serif",
+              }}
             >
               اكتشف مجموعتنا
             </motion.h2>
@@ -80,28 +84,28 @@ const CategoryProductSection = () => {
             </motion.p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
+          <div className="flex flex-row items-center gap-3 w-full lg:w-auto overflow-x-auto no-scrollbar">
             {/* Favourites Filter */}
             <button
               onClick={() => setShowFavorites(!showFavorites)}
-              className={`flex items-center gap-3 px-8 py-4 rounded-full border-2 transition-all duration-500 text-lg font-medium ${
+              className={`flex items-center gap-2 px-5 md:px-8 py-4 rounded-full border-2 transition-all duration-500 text-base md:text-lg font-medium whitespace-nowrap ${
                 showFavorites 
                 ? "bg-black text-white border-black shadow-xl scale-105" 
                 : "bg-white text-black border-black/5 hover:border-black/20"
               }`}
             >
-              <Heart className={`w-6 h-6 transition-transform duration-300 ${showFavorites ? "fill-white scale-110" : "group-hover:scale-110"}`} />
+              <Heart className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${showFavorites ? "fill-white scale-110" : "group-hover:scale-110"}`} />
               <span>المفضلة</span>
             </button>
 
             {/* Custom Premium Dropdown */}
-            <div className="relative w-full md:w-80 z-50">
+            <div className="relative flex-1 md:w-80 z-50 min-w-[160px]">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between bg-[#F9F9F9] border-2 border-black/5 px-8 py-4 rounded-full text-lg font-medium hover:bg-black/5 transition-all duration-300"
+                className="w-full flex items-center justify-between bg-[#F9F9F9] border-2 border-black/5 px-5 md:px-8 py-4 rounded-full text-base md:text-lg font-medium hover:bg-black/5 transition-all duration-300 whitespace-nowrap"
               >
-                <span>{selectedCata?.name || "جميع الفئات"}</span>
-                <ChevronDown className={`w-6 h-6 transition-transform duration-500 ${isOpen ? "rotate-180" : ""}`} />
+                <span className="truncate">{selectedCata?.name || "جميع الفئات"}</span>
+                <ChevronDown className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-500 ${isOpen ? "rotate-180" : ""}`} />
               </button>
 
               <AnimatePresence>

@@ -97,7 +97,7 @@ export default function Hero() {
 
         {/* Text at bottom */}
         <div
-          className="relative flex flex-col items-center pb-16 pt-8 px-6"
+          className="relative flex flex-col items-center py-12 px-6"
           style={{ zIndex: 2, direction: "rtl", textAlign: "center" }}
         >
           <h1
