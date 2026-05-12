@@ -1,4 +1,10 @@
 "use client";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["200", "300"],
+});
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -6,6 +12,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 import { Category } from "@/types/api";
 import { api } from "@/lib/api";
+import LuxuryLogo from "./LuxuryLogo";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,17 +65,50 @@ const Navbar = () => {
         <div className="container mx-auto px-6 lg:px-10">
           {/* Logo row — slides up and fades out on scroll */}
           <div
-            className={`hidden md:flex items-center justify-center overflow-hidden transition-all duration-300 ease-in-out ${
-              scrolled ? "max-h-0 opacity-0 py-0" : "max-h-[70px] opacity-100 py-3"
-            }`}
+            className={`hidden md:flex items-center justify-center overflow-hidden transition-all duration-300 ease-in-out ${scrolled ? "max-h-0 opacity-0 py-0" : "max-h-[70px] opacity-100 py-3"
+              }`}
           >
-            <div className="flex flex-col items-center select-none">
-              <span className="text-2xl font-medium tracking-tight text-black">
-                LABEL Textile
-              </span>
-              <span className="text-[11px] tracking-[3px] -mt-1 font-medium">
-                Algeria
-              </span>
+            {/* Logo */}
+            <div className="flex justify-center pt-1 ">
+              <div
+                className={` ${montserrat.className} flex flex-col items-center justify-center leading-none select-none `}
+              >
+                {/* Main Text */}
+                <h1
+                  className="uppercase font-extralight text-black whitespace-nowrap text-[20px]     tracking-[12px] md:tracking-[18px]  lg:tracking-[24px]  xl:tracking-[30px]"
+                >
+                  LABELTEXTILE
+                </h1>
+
+                {/* Bottom Section */}
+                <div
+                  className="
+        flex
+        items-center
+        justify-center
+        gap-5
+        mt-4
+      "
+                >
+                  <div className="w-14 h-[1px] bg-black/40" />
+
+                  <span
+                    className="          uppercase
+          text-black/70
+          font-light
+
+          text-[10px]
+          md:text-[12px]
+
+          tracking-[8px]
+        "
+                  >
+                    ALGERIE
+                  </span>
+
+                  <div className="w-14 h-[1px] bg-black/40" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -87,14 +127,7 @@ const Navbar = () => {
             </button>
 
             {/* Mobile Logo — always visible */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center select-none">
-              <span className="text-2xl font-medium tracking-tight text-black">
-                LABEL Textile
-              </span>
-              <span className="text-[11px] tracking-[3px] -mt-1 font-medium">
-                Algeria
-              </span>
-            </div>
+            <LuxuryLogo />
 
             <div className="w-6" /> {/* Spacer to balance hamburger */}
           </div>
@@ -104,9 +137,8 @@ const Navbar = () => {
         <nav className="hidden md:block">
           <div className="container mx-auto px-6 lg:px-10">
             <ul
-              className={`flex items-center justify-center gap-12 transition-all duration-300 ${
-                scrolled ? "h-[60px]" : "h-[48px]"
-              }`}
+              className={`flex items-center justify-center gap-12 transition-all duration-300 ${scrolled ? "h-[60px]" : "h-[48px]"
+                }`}
             >
               {navLinks.map((link) => (
                 <li
@@ -119,9 +151,8 @@ const Navbar = () => {
                     <div className="flex items-center gap-1 cursor-default text-[16px] font-medium text-black">
                       <span>{link.label}</span>
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-300 ${
-                          isHovered ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 transition-transform duration-300 ${isHovered ? "rotate-180" : ""
+                          }`}
                       />
 
                       {isHovered && (
@@ -174,14 +205,7 @@ const Navbar = () => {
                 <X className="h-7 w-7 text-black/70" strokeWidth={1.5} />
               </button>
 
-              <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center select-none">
-                <span className="text-xl font-medium tracking-tight text-black">
-                  LABEL Textile
-                </span>
-                <span className="text-[9px] tracking-[3px] -mt-1 font-medium opacity-60">
-                  Algeria
-                </span>
-              </div>
+            <LuxuryLogo />
 
               <div className="w-11" />
             </div>
@@ -205,17 +229,15 @@ const Navbar = () => {
                           {link.label}
                         </span>
                         <ChevronDown
-                          className={`w-5 h-5 text-black/40 transition-transform duration-300 ${
-                            isMobileCategoryOpen ? "rotate-180" : ""
-                          }`}
+                          className={`w-5 h-5 text-black/40 transition-transform duration-300 ${isMobileCategoryOpen ? "rotate-180" : ""
+                            }`}
                         />
                       </div>
                       <div
-                        className={`overflow-hidden bg-black/5 rounded-xl transition-all duration-300 ${
-                          isMobileCategoryOpen
-                            ? "mt-4 max-h-96 opacity-100"
-                            : "mt-0 max-h-0 opacity-0"
-                        }`}
+                        className={`overflow-hidden bg-black/5 rounded-xl transition-all duration-300 ${isMobileCategoryOpen
+                          ? "mt-4 max-h-96 opacity-100"
+                          : "mt-0 max-h-0 opacity-0"
+                          }`}
                       >
                         <div className="p-6 flex flex-col gap-6">
                           {categories.map((cat) => (

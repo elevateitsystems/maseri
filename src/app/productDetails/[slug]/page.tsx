@@ -7,7 +7,7 @@ import { api } from "@/lib/api";
 import { Review, Product } from "@/types/api";
 import { ProductDetailsSkeleton } from "@/components/productDetails/ProductDetailsSkeleton";
 import Link from "next/link";
-import { ToastProvider } from "@/components/ToastProvider";
+import { ToastProvider } from "@/components/ToastProvider"; 
 
 export const mockProduct = {
   id: 1,
@@ -38,6 +38,7 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
       ]);
       setReviews(reviewData);
       setProduct(productData);
+      console.log("Fetched product:", productData);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -82,9 +83,10 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
             const el = document.getElementById("order-form");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="w-full bg-[#B3A495] text-white h-14 rounded-[4px] text-[18px] font-bold shadow-xl active:scale-95 transition-transform"
+          className="w-full bg-black text-white h-14 rounded-[4px] text-[18px] font-bold shadow-xl active:scale-95 transition-transform"
         >
-          اطلب الآن
+          اطلب الآن<br />
+          <span className="text-xs">الدفع عند الاستلام</span>
         </button>
       </div>
     </div>
