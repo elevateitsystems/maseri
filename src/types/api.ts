@@ -1,3 +1,4 @@
+// src\types\api.ts
 import { z } from "zod";
 
 export interface Category {

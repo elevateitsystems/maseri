@@ -195,6 +195,11 @@ export function ProductImageCard({ product }: { product: Product }) {
     const firstName = names[0];
     const lastName = names.slice(1).join(" ") || " ";
 
+    // Parse selected color back to integer (strip leading "#")
+    const colorInt = selectedColor
+      ? parseInt(selectedColor.replace("#", ""), 16)
+      : null;
+
     try {
       await api.addOrder({
         productId: product.id,
@@ -206,13 +211,19 @@ export function ProductImageCard({ product }: { product: Product }) {
         city: data.commune || data.country || "",
         address: data.address,
         contact: data.phone,
-        status: "confirm",   // ← hardcoded, never shown to user
+        status: "confirm",
+        // ── new fields ──────────────────────────────────────────────────────
+        country: selectedCountry ? selectedCountry.nameAr : undefined,
+        countryPrice1: selectedCountry?.price1 ?? null,
+        countryPrice2: selectedCountry?.price2 ?? null,
+        color: colorInt,
       });
 
       toast.success("تم تقديم طلبك بنجاح! سنتصل بك قريباً.");
       reset();
       setQuantity(1);
       setSelectedCountry(null);
+      setSelectedColor("");
       setCommunes([]);
       setShippingType("domicile");
     } catch (error) {
