@@ -69,7 +69,7 @@ const SizeTable = () => {
   const sizes = ["XS", "S", "M", "L", "XL", "XXL", "SL"];
   return (
     <div className="overflow-x-auto w-full mb-4 scrollbar-hide">
-      <table className="w-full min-w-[650px] border-collapse border border-[#D1C6B9]">
+      <table className="w-full min-w-[100%] md:min-w-[650px] border-collapse border border-[#D1C6B9]">
         <thead>
           <tr className="bg-[#E9E1D8]">
             {Array(5).fill(0).map((_, i) => (
@@ -253,12 +253,12 @@ export function ProductImageCard({ product }: { product: Product }) {
   const selectCls = "w-full h-14 bg-[#F9F9F9] border border-black/10 rounded-[2px] text-right px-4 appearance-none outline-none focus:ring-1 focus:ring-[#B3A495] pr-4 pl-10";
 
   return (
-    <div className="container mx-auto px-4 md:px-10 lg:px-10">
-      <div ref={sectionRef} className="flex flex-col md:flex-row gap-0 lg:gap-10 h-auto md:h-[900px]">
+    <div className="w-full overflow-hidden">
+      <div ref={sectionRef} className="flex flex-col md:flex-row gap-0 lg:gap-10 h-auto md:h-[900px] w-full min-w-0">
 
         {/* ── IMAGE GALLERY ──────────────────────────────────────────────── */}
-        <div ref={imageColRef} className="flex-1 flex flex-col md:overflow-y-auto no-scrollbar order-1 md:order-2 h-full">
-          <div className="flex flex-row gap-4 mb-10 h-auto md:h-[750px] flex-shrink-0">
+        <div ref={imageColRef} className="flex-1 flex flex-col md:overflow-y-auto no-scrollbar order-1 md:order-2 h-full w-full min-w-0">
+          <div className="flex flex-col md:flex-row gap-4 mb-10 h-auto md:h-[750px] flex-shrink-0 w-full">
 
             {/* MAIN SLIDER */}
             <div className="flex-1 relative bg-[#F5F5F5] overflow-hidden rounded-[4px]">
@@ -321,7 +321,7 @@ export function ProductImageCard({ product }: { product: Product }) {
         </div>
 
         {/* ── PRODUCT DETAILS / FORM ─────────────────────────────────────── */}
-        <div id="order-form" className="flex-1 flex flex-col items-start w-full text-right order-2 md:order-1 h-full md:overflow-y-auto no-scrollbar">
+        <div id="order-form" className="flex-1 flex flex-col items-start w-full text-right order-2 md:order-1 h-full md:overflow-y-auto no-scrollbar px-0 min-w-0">
 
           <h1 className="text-[32px] md:text-[42px] font-bold leading-tight text-black mb-4">{product.title}</h1>
 
@@ -343,7 +343,7 @@ export function ProductImageCard({ product }: { product: Product }) {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
               {/* Full Name */}
               <div className="space-y-1">
