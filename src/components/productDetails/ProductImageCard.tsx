@@ -105,6 +105,7 @@ export function ProductImageCard({ product }: { product: Product }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(null);
   const [showStickyButton, setShowStickyButton] = useState(false);
+  const [isRTL, setIsRTL] = useState(false);
 
   // Country / shipping state
   const [countries, setCountries] = useState<Country[]>([]);
@@ -115,6 +116,11 @@ export function ProductImageCard({ product }: { product: Product }) {
   const imageColRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<any>(null);
+
+  // ── Detect RTL ────────────────────────────────────────────────────────────
+  useEffect(() => {
+    setIsRTL(document.documentElement.dir === "rtl" || document.documentElement.lang?.startsWith("ar"));
+  }, []);
 
   // ── Fetch countries once ──────────────────────────────────────────────────
   useEffect(() => {
@@ -265,7 +271,7 @@ export function ProductImageCard({ product }: { product: Product }) {
               <Swiper
                 modules={[Navigation, Pagination, Zoom]}
                 zoom={{ maxRatio: 3 }}
-                loop={true}
+                loop={false}
                 navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
                 pagination={{ clickable: true, el: ".custom-pagination" }}
                 onSwiper={(swiper) => { swiperRef.current = swiper; }}
@@ -282,18 +288,51 @@ export function ProductImageCard({ product }: { product: Product }) {
                     </div>
                   </SwiperSlide>
                 ))}
-                <button onClick={prevImage} className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex w-14 h-14 rounded-full bg-white items-center justify-center shadow-xl border border-black/5">
-                  <ChevronLeft size={26} className="text-black/80" />
+                {/* PREV BUTTON — RIGHT SIDE IN RTL */}
+                <button
+                  onClick={() => {
+                    if (isRTL) {
+                      prevImage();
+                    } else {
+                      nextImage();
+                    }
+                  }}
+                  disabled={selectedImageIndex === 0}
+                  className={`absolute top-1/2 -translate-y-1/2 z-20 hidden md:flex w-14 h-14 rounded-full bg-white/95 backdrop-blur-sm items-center justify-center shadow-xl border border-black/5 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105 ${isRTL ? "right-4" : "left-4"
+                    }`}
+                >
+                  {isRTL ? (
+                    <ChevronRight size={26} className="text-black/80" />
+                  ) : (
+                    <ChevronLeft size={26} className="text-black/80" />
+                  )}
                 </button>
-                <button onClick={nextImage} className="custom-next absolute right-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex w-14 h-14 rounded-full bg-white items-center justify-center shadow-xl border border-black/5">
-                  <ChevronRight size={26} className="text-black/80" />
+
+                {/* NEXT BUTTON — LEFT SIDE IN RTL */}
+                <button
+                  onClick={() => {
+                    if (isRTL) {
+                      nextImage();
+                    } else {
+                      prevImage();
+                    }
+                  }}
+                  disabled={selectedImageIndex === images.length - 1}
+                  className={`absolute top-1/2 -translate-y-1/2 z-20 hidden md:flex w-14 h-14 rounded-full bg-white/95 backdrop-blur-sm items-center justify-center shadow-xl border border-black/5 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105 ${isRTL ? "left-4" : "right-4"
+                    }`}
+                >
+                  {isRTL ? (
+                    <ChevronLeft size={26} className="text-black/80" />
+                  ) : (
+                    <ChevronRight size={26} className="text-black/80" />
+                  )}
                 </button>
               </Swiper>
               <div className="custom-pagination mt-5 flex justify-center gap-2" />
             </div>
 
             {/* THUMBNAILS */}
-            <div className="hidden md:flex flex-col gap-3 w-[100px]">
+            <div className="hidden md:flex flex-col gap-3 w-[100px] p-2">
               {images.map((img, index) => (
                 <button key={index} type="button" onClick={() => setSelectedImageIndex(index)}
                   className={`relative aspect-[3/4] w-full overflow-hidden rounded-[4px] transition-all ${selectedImageIndex === index ? "ring-2 ring-[#B3A495]" : "opacity-60 hover:opacity-100"}`}>
@@ -400,7 +439,7 @@ export function ProductImageCard({ product }: { product: Product }) {
                 {errors.address && <p className="text-red-500 text-xs">{errors.address.message}</p>}
               </div>
 
-              
+
 
             </div>
 
