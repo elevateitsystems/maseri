@@ -34,13 +34,13 @@ export default function AboutExperience() {
               text-center
             "
           >
-            نؤمن أن الموضة لا تقتصر على ما نرتديه، بل على ما نشعر به. لذلك
-            يتم تصميم كل مجموعة لترافق المرأة في حياتها اليومية، من خلال قطع
-            تجمع بين الأناقة، الراحة وسهولة الارتداء. نولي اهتمامًا كبيرًا
-            لاختيار الأقمشة، القصات والتفاصيل الدقيقة، لضمان جودة تدوم ومظهر
-            أنيق في كل مرة. كل قطعة مصممة لتبرز جمال القوام مع الحفاظ على حرية
-            الحركة. هدفنا بسيط: تقديم تجربة تتجاوز مجرد شراء الملابس، حيث
-            تشعرين بالثقة، الإلهام، وتعبّرين عن نفسك بكل راحة وأناقة.
+            نؤمن أن الموضة لا تقتصر على ما نرتديه، بل على ما نشعر به. لذلك يتم
+            تصميم كل مجموعة لترافق المرأة في حياتها اليومية، من خلال قطع تجمع
+            بين الأناقة، الراحة وسهولة الارتداء. نولي اهتمامًا كبيرًا لاختيار
+            الأقمشة، القصات والتفاصيل الدقيقة، لضمان جودة تدوم ومظهر أنيق في كل
+            مرة. كل قطعة مصممة لتبرز جمال القوام مع الحفاظ على حرية الحركة.
+            هدفنا بسيط: تقديم تجربة تتجاوز مجرد شراء الملابس، حيث تشعرين بالثقة،
+            الإلهام، وتعبّرين عن نفسك بكل راحة وأناقة.
           </p>
         </div>
 
@@ -49,9 +49,10 @@ export default function AboutExperience() {
           {/* Left Image */}
           <div className="relative h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden">
             <Image
-              src="/assets/about-us/Rectangle 57 (1).png"
+              src="/assets/about-us/Rectangle 57 (1).avif"
               alt="Lifestyle shopping"
               fill
+              quality={75}
               priority
               className="object-cover"
             />
@@ -60,9 +61,10 @@ export default function AboutExperience() {
           {/* Right Image */}
           <div className="relative h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden">
             <Image
-              src="/assets/about-us/Rec.png"
+              src="/assets/about-us/Rec.avif"
               alt="Fashion design"
               fill
+              quality={75}
               priority
               className="object-cover"
             />

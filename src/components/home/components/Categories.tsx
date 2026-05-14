@@ -37,7 +37,12 @@ const getXPosition = (offset: number) => {
   return dir * (CENTER_W / 2 + SIDE1_W + SIDE2_W + SIDE3_W / 2 + GAP * 3);
 };
 
-const SPRING = { type: "spring" as const, stiffness: 200, damping: 28, mass: 0.8 };
+const SPRING = {
+  type: "spring" as const,
+  stiffness: 200,
+  damping: 28,
+  mass: 0.8,
+};
 
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -65,7 +70,9 @@ const Categories = () => {
   useEffect(() => {
     if (!categories.length) return;
     startAuto(categories.length);
-    return () => { if (autoTimer.current) clearInterval(autoTimer.current); };
+    return () => {
+      if (autoTimer.current) clearInterval(autoTimer.current);
+    };
   }, [categories.length, startAuto]);
 
   const handleSelect = (index: number) => {
@@ -85,7 +92,6 @@ const Categories = () => {
   return (
     <section className="w-full overflow-hidden select-none " dir="rtl">
       <div className="w-full">
-
         {/* Header */}
         <div className="text-center mb-16 container mx-auto px-4">
           <h2 className="text-[56px] font-semibold text-black leading-tight mb-2">
@@ -95,7 +101,9 @@ const Categories = () => {
             <svg width="142" height="18" viewBox="0 0 142 18" fill="none">
               <path
                 d="M2 15.5C46.6667 4.16667 95.3333 4.16667 140 15.5"
-                stroke="black" strokeWidth="3" strokeLinecap="round"
+                stroke="black"
+                strokeWidth="3"
+                strokeLinecap="round"
               />
             </svg>
           </div>
@@ -121,7 +129,8 @@ const Categories = () => {
         {/* Carousel */}
         <div className="relative w-full h-[600px] flex items-end justify-center">
           {[-2, -1, 0, 1, 2].map((offset) => {
-            const index = (activeIndex + offset + categories.length) % categories.length;
+            const index =
+              (activeIndex + offset + categories.length) % categories.length;
             const cat = categories[index];
             if (!cat) return null;
 
@@ -148,6 +157,8 @@ const Categories = () => {
                     src={`${BASE_URL}/${cat.image}`}
                     alt={cat.name}
                     fill
+                    quality={75}
+                    sizes="(max-width: 768px) 50vw, 364px"
                     className="object-cover object-top"
                     priority={isCenter}
                   />
@@ -155,7 +166,9 @@ const Categories = () => {
 
                 {/* Label row */}
                 <div className="w-full mt-3 flex items-center justify-between px-1">
-                  <span className={`font-semibold text-black transition-all duration-300 ${isCenter ? "text-[18px]" : "text-[13px]"}`}>
+                  <span
+                    className={`font-semibold text-black transition-all duration-300 ${isCenter ? "text-[18px]" : "text-[13px]"}`}
+                  >
                     {cat.name}
                   </span>
                   <button
@@ -163,7 +176,9 @@ const Categories = () => {
                     className="p-1.5 hover:bg-black/5 rounded-full transition-colors shrink-0"
                     aria-label="Next"
                   >
-                    <ArrowLeft className={`text-black transition-all ${isCenter ? "size-5" : "size-4"}`} />
+                    <ArrowLeft
+                      className={`text-black transition-all ${isCenter ? "size-5" : "size-4"}`}
+                    />
                   </button>
                 </div>
 
@@ -188,7 +203,6 @@ const Categories = () => {
             />
           ))}
         </div>
-
       </div>
     </section>
   );

@@ -6,10 +6,12 @@ export default function AboutHero() {
     <section className="relative w-full h-[320px] md:h-[450px] lg:h-[673px] overflow-hidden">
       {/* Background Image */}
       <Image
-        src="/assets/about-us/women-shopping-buying-consumer-products-customer-day-celebration 1.png"
+        src="/assets/about-us/women-shopping-buying-consumer-products-customer-day-celebration 1.avif"
         alt="About"
         fill
+        quality={75}
         priority
+        sizes="100vw"
         className="object-cover grayscale-[90%]"
       />
 

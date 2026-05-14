@@ -17,10 +17,12 @@ const Footer = () => {
             {/* Logo + Brand Name */}
             <div className="flex items-center gap-4">
               <Image
-                src="/assets/logo.png"
+                src="/assets/logo.avif"
                 alt="Label Textile Logo"
                 width={65}
                 height={70}
+                quality={75}
+                loading="lazy"
                 className="object-contain"
                 style={{ height: "auto" }}
               />
@@ -45,7 +47,10 @@ const Footer = () => {
               className="text-black leading-relaxed max-w-md"
               style={{ fontSize: "16px" }}
             >
-              لیبل تیكستايل هي علامة ملابس مقرها في الجزائر، مختصة في تصميم أزياء نسائية أنيقة ومريحة. نركز على الجودة في التصنيع، والتصميم العصري والاهتمام بأدق التفاصيل لنقدم ملابس تجمع بين الأناقة والراحة للاستعمال اليومي
+              لیبل تیكستايل هي علامة ملابس مقرها في الجزائر، مختصة في تصميم
+              أزياء نسائية أنيقة ومريحة. نركز على الجودة في التصنيع، والتصميم
+              العصري والاهتمام بأدق التفاصيل لنقدم ملابس تجمع بين الأناقة
+              والراحة للاستعمال اليومي
             </p>
 
             {/* Contact Info */}
@@ -89,12 +94,7 @@ const Footer = () => {
               المتجر
             </h3>
             <ul className="space-y-3">
-              {[
-                "الرئيسية",
-                "مجموعاتنا",
-                "اتصل بنا",
-                "من نحن", 
-              ].map((item) => (
+              {["الرئيسية", "مجموعاتنا", "اتصل بنا", "من نحن"].map((item) => (
                 <li key={item}>
                   <Link
                     href="#"

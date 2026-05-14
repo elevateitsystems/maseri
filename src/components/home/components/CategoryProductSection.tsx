@@ -6,32 +6,30 @@ import { Category, Product, ProductFilters } from "@/types/api";
 import ProductCard from "@/components/ProductCard";
 import { ChevronDown, Loader2 } from "lucide-react";
 
-const CategoryProductSection = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+interface CategoryProductSectionProps {
+  initialCategories: Category[];
+  initialProducts: Product[];
+}
+
+const CategoryProductSection = ({ 
+  initialCategories, 
+  initialProducts 
+}: CategoryProductSectionProps) => {
+  const [categories] = useState<Category[]>(initialCategories);
   const [selectedCata, setSelectedCata] = useState<Category | null>(null);
-  const [showFavorites, setShowFavorites] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [showFavorites] = useState(false);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [loading, setLoading] = useState(false);
-  const [catsLoading, setCatsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const fetchCats = async () => {
-      try {
-        const data = await api.getCategories();
-        setCategories(data);
-        setSelectedCata(null);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
-      } finally {
-        setCatsLoading(false);
-      }
-    };
-    fetchCats();
-  }, []);
-
-  useEffect(() => {
+    // Only fetch if it's not the initial load or filters changed
     const fetchProducts = async () => {
+      // Skip fetching on initial mount if no category is selected (we already have initialProducts)
+      if (!selectedCata && !showFavorites && products === initialProducts) {
+        return;
+      }
+
       setLoading(true);
       try {
         const filters: ProductFilters = {};
@@ -49,13 +47,12 @@ const CategoryProductSection = () => {
         setLoading(false);
       }
     };
+    
     fetchProducts();
   }, [selectedCata, showFavorites]);
 
-  if (catsLoading) return null;
-
   return (
-    <section className="py-8 md:py-16 overflow-hidden" dir="rtl">
+    <section className="py-16 md:py-32 overflow-hidden" dir="rtl">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end mb-8 md:mb-12 gap-6 md:gap-10 text-center lg:text-right">
           <div className="space-y-4 md:space-y-6">
