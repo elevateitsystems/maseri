@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "swiper/css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,6 +118,7 @@
   font-family: poppins, sans-serif !important;
 }
 
+/* ─── CategoryCarousel styles ─────────────────────────────────────────────── */
 
 .cat-swiper {
   overflow: visible !important;
@@ -130,22 +130,26 @@
   overflow: visible;
 }
 
+/* ── Non-active slides ─────────────────────────────────────────────────────── */
 .cat-swiper .swiper-slide {
   opacity: 0.75;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Active slide ──────────────────────────────────────────────────────────── */
 .cat-swiper .swiper-slide-active {
   opacity: 1;
   z-index: 30;
 }
 
+/* ── Immediate neighbours (desktop fan effect) ─────────────────────────────── */
 .cat-swiper .swiper-slide-prev,
 .cat-swiper .swiper-slide-next {
   opacity: 0.85;
   z-index: 20;
 }
 
+/* ── Outer neighbours (desktop fan effect) ─────────────────────────────────── */
 .cat-swiper .swiper-slide-prev-prev,
 .cat-swiper .swiper-slide-next-next {
   opacity: 0.85;
@@ -153,13 +157,43 @@
   z-index: 10;
 }
 
-@media (max-width: 768px) {
+/* ── Mobile overrides ──────────────────────────────────────────────────────── */
+/*
+  On mobile the wrapper has overflow-hidden, so peek slides are clipped neatly.
+  We want the side peeks clearly dimmed so the active card stands out.
+*/
+@media (max-width: 767px) {
   .cat-swiper {
     padding-bottom: 40px;
+    /* Allow slides to render outside the swiper's own box so the
+       parent overflow-hidden (not the swiper) does the clipping. */
+    overflow: visible !important;
+  }
+
+  /* Dim peeking slides more aggressively on mobile */
+  .cat-swiper .swiper-slide {
+    opacity: 0.45;
+  }
+
+  .cat-swiper .swiper-slide-active {
+    opacity: 1;
+  }
+
+  /* No scale transform on mobile — uniform card sizes, depth via opacity only */
+  .cat-swiper .swiper-slide-prev,
+  .cat-swiper .swiper-slide-next {
+    opacity: 0.45;
+    transform: none;
+  }
+
+  .cat-swiper .swiper-slide-prev-prev,
+  .cat-swiper .swiper-slide-next-next {
+    opacity: 0.3;
+    transform: none;
   }
 }
 
-/* Scrollbar Utilities */
+/* ── Scrollbar utilities ───────────────────────────────────────────────────── */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -175,4 +209,10 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+
+.swiper-pagination-bullet{
+  background-color: black !important; 
+  border: none !important;
 }

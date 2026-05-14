@@ -1,14 +1,25 @@
 import type { NextConfig } from "next";
- 
-const nextConfig = {
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'back.testwebapp.space',
+        protocol: "https",
+        hostname: "back.testwebapp.space",
+      },
+      {
+        protocol: "https",
+        hostname: "www.facebook.com",
       },
     ],
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig;
+export default withBundleAnalyzer(nextConfig);

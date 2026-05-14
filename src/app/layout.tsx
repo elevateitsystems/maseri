@@ -1,25 +1,17 @@
 import type { Metadata } from "next";
-import { Almarai, Inter, Poppins } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { ToastProvider } from "@/components/ToastProvider";
+import { Poppins } from "next/font/google";
+import Script from "next/script";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+
+import "./globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-});
-
-const almarai = Almarai({
-  variable: "--font-almarai",
-  subsets: ["arabic"],
-  weight: ["300", "400", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,14 +29,55 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${inter.variable} ${almarai.variable} ${poppins.variable} h-full antialiased`}
+      className={`${poppins.variable} h-full antialiased`}
     >
-      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet" />
-      <body className="font-almarai min-h-full flex flex-col">
+      <head>
+        <link rel="preconnect" href="https://back.testwebapp.space" />
+        <link rel="dns-prefetch" href="https://back.testwebapp.space" />
+      </head>
+      <body className="font-poppins min-h-full flex flex-col">
         <Navbar />
-        <div className="bg-[#F2F2F2]">{children}</div>
+
+        <div className="bg-[#F2F2F2] flex-1">{children}</div>
+
         <Footer />
-        <ToastProvider />
+
+        {/* Meta Pixel */}
+        <Script id="meta-pixel" strategy="lazyOnload">
+          {`
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;
+    n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;
+    n.push=n;
+    n.loaded=!0;
+    n.version='2.0';
+    n.queue=[];
+    t=b.createElement(e);
+    t.async=!0;
+    t.src=v;
+    s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}
+    (window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    requestIdleCallback(() => {
+      fbq('init', '1481466716815990');
+      fbq('track', 'PageView');
+    });
+  `}
+        </Script>
+
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1481466716815990&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
       </body>
     </html>
   );

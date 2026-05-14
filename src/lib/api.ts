@@ -1,3 +1,4 @@
+// src\lib\api.ts
 import { Category, Product, Review, ReviewPayload, ApiResponse, ProductFilters } from "@/types/api";
 
 export interface OrderPayload {
@@ -10,7 +11,11 @@ export interface OrderPayload {
   city: string;
   address: string;
   contact: string;
-  status?: string;
+  status?: string; 
+  country?: string;
+  countryPrice1?: number | null;
+  countryPrice2?: number | null;
+  color?: number | null;
 }
 
 export interface Order extends OrderPayload {

@@ -4,26 +4,40 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section
-      className="relative w-full overflow-hidden"
-
-    >
+    <section className="relative w-full overflow-hidden">
       {/* Background: warm beige gradient */}
       <div className="absolute hidden md:block inset-0 bg-gradient-to-b from-[#F2F0ED] to-[#C7B7A7]" />
 
       {/* Flower — top-right (desktop only) */}
       <div className="absolute md:-top-32 md:-left-30 -left-30 md:w-[480px] w-[200px] h-[200px] md:h-[480px] opacity-25 pointer-events-none select-none   ">
-        <Image src="/assets/background-flower.png" alt="" fill sizes="480px" className="object-contain" aria-hidden="true" />
+        <Image
+          src="/assets/background-flower.avif"
+          alt=""
+          fill
+          sizes="480px"
+          loading="eager"
+          quality={75}
+          className="object-contain"
+          aria-hidden="true"
+        />
       </div>
 
       {/* Flower — bottom-left (desktop only) */}
       <div className="absolute md:-bottom-32 bottom-70 md:-right-40 -right-30 md:w-[480px] w-[200px] h-[200px] md:h-[480px] opacity-25 pointer-events-none select-none  ">
-        <Image src="/assets/background-flower.png" alt="" fill sizes="480px" className="object-contain rotate-180" aria-hidden="true" />
+        <Image
+          src="/assets/background-flower.avif"
+          alt=""
+          fill
+          sizes="480px"
+          loading="eager"
+          quality={75}
+          className="object-contain rotate-180"
+          aria-hidden="true"
+        />
       </div>
 
       {/* ── DESKTOP LAYOUT ── */}
       <div className="hidden lg:block relative w-full h-screen">
-
         {/* Model image — LEFT side, full height, no cropping */}
         <div
           className="absolute inset-0 pointer-events-none select-none"
@@ -32,12 +46,14 @@ export default function Hero() {
           }}
         >
           <Image
-            src="/assets/hero.png"
+            src="/assets/hero.avif"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 70vw"
             className="object-cover object-center lg:object-left"
-            priority
+            loading="eager"
+            quality={75}
+            fetchPriority="high"
           />
         </div>
         {/* Text — RIGHT side, vertically centered */}
@@ -84,16 +100,18 @@ export default function Hero() {
         className="relative flex lg:hidden w-full flex-col justify-end mt-16"
         style={{ minHeight: "100svh" }}
       >
-        {/* Full-bleed background image using img tag to avoid Next.js fill issues */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/mobile-hero-image.png"
-          alt="مجموعة أزياء لابيل تكستايل"
-          className="object-top"
-          style={{ zIndex: 0 }}
-        />
-
-
+        <div className="relative w-full h-[65vh]">
+          <Image
+            src="/assets/hero-mobile.avif"
+            alt="مجموعة أزياء لابيل تكستايل"
+            fill
+            priority
+            fetchPriority="high"
+            quality={75}
+            sizes="100vw"
+            className="object-cover object-top"
+          />
+        </div>
 
         {/* Text at bottom */}
         <div
