@@ -59,6 +59,7 @@ const Features = () => {
                   width={300}
                   height={300}
                   quality={75}
+                  loading="lazy"
                   className="object-contain"
                 />
               </div>

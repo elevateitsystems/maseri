@@ -152,7 +152,8 @@ export default function CategorySlider({
                           quality={75}
                           fetchPriority={isActive ? "high" : "auto"}
                           className="object-cover object-center transition-all duration-700"
-                          sizes="(max-width: 640px) 82vw, (max-width: 767px) 520px, (max-width: 1024px) 260px, 364px"
+                          sizes="(max-width: 640px) 82vw, (max-width: 767px) 520px, (max-width: 1024px) 260px, 320px"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-b from-[#E8D5C4] to-[#D4C4B0] animate-pulse" />

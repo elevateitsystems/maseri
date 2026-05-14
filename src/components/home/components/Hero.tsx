@@ -14,8 +14,8 @@ export default function Hero() {
           src="/assets/background-flower.avif"
           alt=""
           fill
-          sizes="480px"
-          loading="eager"
+          sizes="200px"
+          loading="lazy"
           quality={75}
           className="object-contain"
           aria-hidden="true"
@@ -28,8 +28,8 @@ export default function Hero() {
           src="/assets/background-flower.avif"
           alt=""
           fill
-          sizes="480px"
-          loading="eager"
+          sizes="200px"
+          loading="lazy"
           quality={75}
           className="object-contain rotate-180"
           aria-hidden="true"
@@ -49,9 +49,9 @@ export default function Hero() {
             src="/assets/hero.avif"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 70vw"
+            sizes="(max-width: 1024px) 100vw, 70vw"
             className="object-cover object-center lg:object-left"
-            loading="eager"
+            priority
             quality={75}
             fetchPriority="high"
           />

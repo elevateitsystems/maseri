@@ -38,8 +38,8 @@ export default function FeaturesSlider({ features }: { features: any[] }) {
                   width={300}
                   height={300}
                   quality={75}
-                  priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
+                  sizes="300px"
                   className="object-contain"
                 />
               </div>

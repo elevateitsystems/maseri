@@ -11,6 +11,7 @@ export default function AboutHero() {
         fill
         quality={75}
         priority
+        sizes="100vw"
         className="object-cover grayscale-[90%]"
       />
 
