@@ -52,7 +52,7 @@ const InfoSection = () => {
             </div>
 
             {/* Overlapping Floating Icon */}
-            <div className="absolute top-[7%] -right-[33%] sm:-right-[25%] lg:-right-[20%] xl:-right-[35%] w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] md:w-[200px] md:h-[200px] xl:w-[234px] xl:h-[234px] flex items-center justify-center z-10 transition-transform duration-500 hover:scale-105 rounded-full bg-white shadow-xl">
+            <div className="absolute top-[7%] -right-[33%] sm:-right-[25%] lg:-right-[20%] xl:-right-[35%] w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] md:w-[200px] md:h-[200px] xl:w-[234px] xl:h-[234px] flex items-center justify-center z-10 transition-transform duration-500 hover:scale-105 rounded-full bg-[#F2F2F2] shadow-xl">
               <div className="relative w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] md:w-[200px] md:h-[200px] xl:w-[234px] xl:h-[234px]">
                 <Image
                   src="/assets/about-us-icon.avif"
