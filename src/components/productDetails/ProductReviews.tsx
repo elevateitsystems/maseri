@@ -16,13 +16,20 @@ interface ProductReviewsProps {
   onSuccess?: () => void;
 }
 
-export function ProductReviews({ reviews, productId, onSuccess }: ProductReviewsProps) {
+export function ProductReviews({
+  reviews,
+  productId,
+  onSuccess,
+}: ProductReviewsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Duplicate reviews to ensure the slider always has enough items to loop and autoplay smoothly
-  const displayReviews = reviews.length > 0 
-    ? (reviews.length < 6 ? [...reviews, ...reviews, ...reviews] : reviews)
-    : [];
+  const displayReviews =
+    reviews.length > 0
+      ? reviews.length < 6
+        ? [...reviews, ...reviews, ...reviews]
+        : reviews
+      : [];
 
   return (
     <div className="mt-20 rtl px-4 md:px-0 relative">
@@ -60,7 +67,9 @@ export function ProductReviews({ reviews, productId, onSuccess }: ProductReviews
                       key={index}
                       size={16}
                       fill={index < r.rating ? "#FFD700" : "transparent"}
-                      className={index < r.rating ? "text-[#FFD700]" : "text-gray-200"}
+                      className={
+                        index < r.rating ? "text-[#FFD700]" : "text-gray-200"
+                      }
                     />
                   ))}
                 </div>
@@ -80,7 +89,7 @@ export function ProductReviews({ reviews, productId, onSuccess }: ProductReviews
 
       {/* Add Review Button */}
       <div className="flex justify-center mb-20">
-        <button 
+        <button
           onClick={() => setIsModalOpen(true)}
           className="bg-[#B3A495] text-white px-12 py-4 rounded-[4px] text-[16px] font-medium hover:bg-[#a39485] transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-[#B3A495]/20"
         >
@@ -90,36 +99,34 @@ export function ProductReviews({ reviews, productId, onSuccess }: ProductReviews
 
       {/* Review Modal */}
       {isModalOpen && (
-          <>
-            {/* Backdrop */}
-            <div
-              onClick={() => setIsModalOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] animate-in fade-in duration-200"
-            />
-            
-            {/* Modal Content */}
-            <div
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[500px] bg-white rounded-[12px] shadow-2xl z-[101] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-200"
-            >
-              <div className="p-6 md:p-8 relative">
-                <button 
-                  onClick={() => setIsModalOpen(false)}
-                  className="absolute top-4 left-4 p-2 hover:bg-black/5 rounded-full transition-colors text-black/40 hover:text-black"
-                >
-                  <X size={20} />
-                </button>
-                
-                <AddReviewForm 
-                  productId={productId} 
-                  onSuccess={() => {
-                    setIsModalOpen(false);
-                    if (onSuccess) onSuccess();
-                  }} 
-                />
-              </div>
+        <>
+          {/* Backdrop */}
+          <div
+            onClick={() => setIsModalOpen(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] animate-in fade-in duration-200"
+          />
+
+          {/* Modal Content */}
+          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-[500px] bg-white rounded-[12px] shadow-2xl z-[101] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-200">
+            <div className="p-6 md:p-8 relative">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 left-4 p-2 hover:bg-black/5 rounded-full transition-colors text-black/40 hover:text-black"
+              >
+                <X size={20} />
+              </button>
+
+              <AddReviewForm
+                productId={productId}
+                onSuccess={() => {
+                  setIsModalOpen(false);
+                  if (onSuccess) onSuccess();
+                }}
+              />
             </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

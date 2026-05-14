@@ -4,12 +4,14 @@ import Script from "next/script";
 
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+
 import "./globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -30,17 +32,32 @@ export default function RootLayout({
       className={`${poppins.variable} h-full antialiased`}
     >
       <body className="font-poppins min-h-full flex flex-col">
-        {/* Meta Pixel Code */}
-        <Script id="meta-pixel" strategy="afterInteractive">
+        <Navbar />
+
+        <div className="bg-[#F2F2F2] flex-1">{children}</div>
+
+        <Footer />
+
+        {/* Meta Pixel */}
+        <Script id="meta-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            {if(f.fbq)return;
+            n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            if(!f._fbq)f._fbq=n;
+            n.push=n;
+            n.loaded=!0;
+            n.version='2.0';
+            n.queue=[];
+            t=b.createElement(e);
+            t.async=!0;
+            t.src=v;
+            s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}
+            (window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
+
             fbq('init', '1481466716815990');
             fbq('track', 'PageView');
           `}
@@ -55,11 +72,6 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
-        {/* End Meta Pixel Code */}
-
-        <Navbar />
-        <div className="bg-[#F2F2F2]">{children}</div>
-        <Footer />
       </body>
     </html>
   );

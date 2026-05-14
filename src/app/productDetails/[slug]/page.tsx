@@ -7,21 +7,22 @@ import { api } from "@/lib/api";
 import { Review, Product } from "@/types/api";
 import { ProductDetailsSkeleton } from "@/components/productDetails/ProductDetailsSkeleton";
 import Link from "next/link";
-import { ToastProvider } from "@/components/ToastProvider"; 
+import { ToastProvider } from "@/components/ToastProvider";
 
 export const mockProduct = {
   id: 1,
   title: "حيث تلتقي الأناقة",
-  description:
-    "هذا المنتج مثال لنص يمكن أن يستبدل في نفس المساحة.",
+  description: "هذا المنتج مثال لنص يمكن أن يستبدل في نفس المساحة.",
   price: 2500,
   image: "https://images.unsplash.com/photo-1520975922284-9f0f7d3f7d66",
-  details:
-    "هذا المنتج مصنوع من خامات عالية الجودة ومناسب للاستخدام اليومي.",
+  details: "هذا المنتج مصنوع من خامات عالية الجودة ومناسب للاستخدام اليومي.",
 };
 
-
-export default function Page({ params }: { params: Promise<{ slug: string }> }) {
+export default function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = use(params);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [product, setProduct] = useState<Product | null>(null);
@@ -34,7 +35,7 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
     try {
       const [reviewData, productData] = await Promise.all([
         api.filterReviews({ approved: true, productId }),
-        api.getProductById(productId)
+        api.getProductById(productId),
       ]);
       setReviews(reviewData);
       setProduct(productData);
@@ -51,17 +52,22 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
   }, [fetchData]);
 
   if (isLoading) return <ProductDetailsSkeleton />;
-  if (!product) return <div className="min-h-screen flex items-center justify-center">المنتج غير موجود</div>;
+  if (!product)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        المنتج غير موجود
+      </div>
+    );
 
   return (
     <div className="container mx-auto space-y-16 mt-20 md:mt-44 relative px-6">
       <ToastProvider />
       <ProductImageCard product={product} />
 
-      <ProductReviews 
-        reviews={reviews} 
-        productId={productId} 
-        onSuccess={fetchData} 
+      <ProductReviews
+        reviews={reviews}
+        productId={productId}
+        onSuccess={fetchData}
       />
 
       <BestSellers limit={3} excludeId={productId} />
@@ -85,7 +91,8 @@ export default function Page({ params }: { params: Promise<{ slug: string }> }) 
           }}
           className="w-full bg-black text-white h-14 rounded-[4px] text-[18px] font-bold shadow-xl active:scale-95 transition-transform"
         >
-          اطلب الآن<br />
+          اطلب الآن
+          <br />
           <span className="text-xs">الدفع عند الاستلام</span>
         </button>
       </div>
