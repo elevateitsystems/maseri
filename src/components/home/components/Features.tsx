@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 import FeaturesSliderDynamic from "./FeaturesSliderDynamic";
 
-import icon1 from "../../../../assets/features/hand-love.svg";
-import icon2 from "../../../../assets/features/doller.svg";
-import icon3 from "../../../../assets/features/box.svg";
-import icon4 from "../../../../assets/features/location.svg";
+import icon1 from "../../../../public/assets/features/hand-love.svg";
+import icon2 from "../../../../public/assets/features/doller.svg";
+import icon3 from "../../../../public/assets/features/box.svg";
+import icon4 from "../../../../public/assets/features/location.svg";
 
 const features = [
   {

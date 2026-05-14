@@ -3,7 +3,7 @@ import { ShoppingBag } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import placeholderImage from "../../assets/placeholder-image.svg";
+import placeholderImage from "../../public/assets/placeholder-image.svg";
 
 const ProductImageSlider = dynamic(() => import("./ProductImageSlider"), {
   ssr: true, // We want the first image to render on server

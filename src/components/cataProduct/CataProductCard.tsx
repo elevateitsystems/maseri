@@ -4,7 +4,7 @@ import { Product } from "@/types/api";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
-import placeholderImage from "../../../assets/placeholder-image.svg";
+import placeholderImage from "../../../public/assets/placeholder-image.svg";
 
 const ProductImageSlider = dynamic(() => import("../ProductImageSlider"), {
   ssr: true,

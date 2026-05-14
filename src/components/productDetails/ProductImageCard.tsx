@@ -22,7 +22,7 @@ import { api, getImageUrl } from "@/lib/api";
 import { toast } from "react-toastify";
 import { Product } from "@/types/api";
 
-import placeholderImage from "../../../assets/placeholder-image.svg";
+import placeholderImage from "../../../public/assets/placeholder-image.svg";
 import Image from "next/image";
 
 /* SWIPER */
