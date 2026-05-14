@@ -58,6 +58,7 @@ const InfoSection = () => {
                   src="/assets/about-us-icon.avif"
                   alt="Quality Icon"
                   fill
+                  sizes="234px"
                   className="object-contain"
                 />
               </div>

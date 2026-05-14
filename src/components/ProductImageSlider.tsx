@@ -8,10 +8,6 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 interface ProductImageSliderProps {
   images: string[];
   productTitle: string;
@@ -64,7 +60,7 @@ export default function ProductImageSlider({
                 priority={index === 0}
                 loading={index === 0 ? "eager" : "lazy"}
                 quality={75}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover object-top transition-all duration-500"
               />
             </div>
