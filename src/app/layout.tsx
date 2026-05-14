@@ -19,7 +19,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Maseri | LABEL Textile",
+  title: "LABEL Textile",
   description:
     "Experience the perfect blend of elegance and modesty with Maseri fashion collections.",
 };
