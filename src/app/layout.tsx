@@ -21,7 +21,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "LABEL Textile",
   description:
-    "Experience the perfect blend of elegance and modesty with Maseri fashion collections.",
+    "Experience the perfect blend of elegance and modesty with label textile collections.",
 };
 
 export default function RootLayout({
