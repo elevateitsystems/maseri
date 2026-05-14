@@ -12,6 +12,8 @@ export default function ContactUs() {
           alt=""
           fill
           quality={75}
+          loading="lazy"
+          sizes="(max-width: 768px) 150px, 300px"
           className="object-contain object-left-top"
         />
       </div>
@@ -21,12 +23,14 @@ export default function ContactUs() {
           alt=""
           fill
           quality={75}
+          loading="lazy"
+          sizes="(max-width: 768px) 150px, 300px"
           className="object-contain object-right-top"
         />
       </div>
 
       {/* Contact Form Section */}
-      <div className="container mx-auto px-6 lg:px-10 full mx-auto text-center">
+      <div className="container px-6 lg:px-10 full mx-auto text-center">
         <h1 className="text-[40px] md:text-[60px] font-bold text-black mb-10 mt-8">
           اتصل بنا
         </h1>

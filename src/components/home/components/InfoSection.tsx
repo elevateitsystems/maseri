@@ -18,7 +18,8 @@ const InfoSection = () => {
                   width={376}
                   height={534}
                   quality={75}
-                  loading="eager"
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 376px"
                   className="object-cover w-full"
                 />
               </div>

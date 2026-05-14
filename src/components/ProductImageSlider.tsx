@@ -62,6 +62,7 @@ export default function ProductImageSlider({
                 alt={productTitle}
                 fill
                 priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
                 quality={75}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover object-top transition-all duration-500"

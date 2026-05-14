@@ -22,6 +22,7 @@ const Footer = () => {
                 width={65}
                 height={70}
                 quality={75}
+                loading="lazy"
                 className="object-contain"
                 style={{ height: "auto" }}
               />

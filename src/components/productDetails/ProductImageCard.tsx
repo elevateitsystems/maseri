@@ -221,14 +221,6 @@ export function ProductImageCard({ product }: { product: Product }) {
     }
   };
 
-  // ── Computed shipping price ───────────────────────────────────────────────
-  const shippingPrice = useMemo(() => {
-    if (!selectedCountry) return null;
-    return shippingType === "domicile"
-      ? selectedCountry.price1
-      : selectedCountry.price2;
-  }, [selectedCountry, shippingType]);
-
   // ── Submit ────────────────────────────────────────────────────────────────
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
@@ -362,7 +354,7 @@ export function ProductImageCard({ product }: { product: Product }) {
                           loading="eager"
                           quality={75}
                           priority={index === 0}
-                          sizes="(max-width: 768px) 100vw, 50vw"
+                          sizes="(max-width: 768px) 100vw, 800px"
                           className="object-cover select-none cursor-zoom-in"
                         />
                       </div>
