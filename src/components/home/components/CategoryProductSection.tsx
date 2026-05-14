@@ -52,7 +52,7 @@ const CategoryProductSection = ({
   }, [selectedCata, showFavorites]);
 
   return (
-    <section className="py-8 md:py-16 overflow-hidden" dir="rtl">
+    <section className="py-16 md:py-32 overflow-hidden" dir="rtl">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end mb-8 md:mb-12 gap-6 md:gap-10 text-center lg:text-right">
           <div className="space-y-4 md:space-y-6">

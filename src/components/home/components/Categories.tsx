@@ -158,6 +158,7 @@ const Categories = () => {
                     alt={cat.name}
                     fill
                     quality={75}
+                    sizes="(max-width: 768px) 50vw, 364px"
                     className="object-cover object-top"
                     priority={isCenter}
                   />

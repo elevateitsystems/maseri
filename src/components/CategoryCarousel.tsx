@@ -5,10 +5,10 @@ const BASE_URL = "https://back.testwebapp.space";
 
 export default async function CategoryCarousel() {
   let rawCats: Category[] = [];
-  
+
   try {
-    const res = await fetch(`${BASE_URL}/getCata`, { 
-        next: { revalidate: 3600 } 
+    const res = await fetch(`${BASE_URL}/getCata`, {
+      next: { revalidate: 3600 },
     });
     const json = await res.json();
     rawCats = json.data || [];
@@ -21,7 +21,7 @@ export default async function CategoryCarousel() {
   return (
     <section
       dir="rtl"
-      className="relative overflow-hidden py-10 md:py-12 px-0 md:px-0"
+      className="relative overflow-hidden py-20 md:py-32 px-0 md:px-0"
     >
       {/* Soft Background Accent */}
       <div className="absolute inset-0 pointer-events-none">
@@ -29,7 +29,7 @@ export default async function CategoryCarousel() {
       </div>
 
       {/* Header */}
-      <div className="text-center mb-4 md:mb-6 relative z-10 px-4 md:px-0">
+      <div className="text-center mb-20 md:mb-24 relative z-10 px-4 md:px-0">
         <h1
           className="font-bold text-black leading-[1.2] mb-5"
           style={{
@@ -40,7 +40,7 @@ export default async function CategoryCarousel() {
           منتجاتنا
         </h1>
 
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-1">
           <svg
             width="153"
             height="24"

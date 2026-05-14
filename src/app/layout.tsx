@@ -6,6 +6,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 import "./globals.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/zoom";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -62,9 +66,21 @@ export default function RootLayout({
     (window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
 
-    requestIdleCallback(() => {
+    const initPixel = () => {
+      if (window.fbPixelInitialized) return;
+      window.fbPixelInitialized = true;
       fbq('init', '1481466716815990');
       fbq('track', 'PageView');
+    };
+
+    // Delay init until idle AND user interaction
+    requestIdleCallback(() => {
+      const events = ['mouseover', 'keydown', 'touchmove', 'scroll'];
+      const handler = () => {
+        initPixel();
+        events.forEach(e => window.removeEventListener(e, handler));
+      };
+      events.forEach(e => window.addEventListener(e, handler, { passive: true }));
     });
   `}
         </Script>

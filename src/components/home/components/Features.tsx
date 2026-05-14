@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 import FeaturesSliderDynamic from "./FeaturesSliderDynamic";
 
-import icon1 from "../../../../assets/features/hand-love.svg";
-import icon2 from "../../../../assets/features/doller.svg";
-import icon3 from "../../../../assets/features/box.svg";
-import icon4 from "../../../../assets/features/location.svg";
+import icon1 from "../../../../public/assets/features/hand-love.svg";
+import icon2 from "../../../../public/assets/features/doller.svg";
+import icon3 from "../../../../public/assets/features/box.svg";
+import icon4 from "../../../../public/assets/features/location.svg";
 
 const features = [
   {
@@ -28,7 +28,7 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="bg-secondary-300 py-8 md:py-12">
+    <section className="bg-secondary-300 py-16 md:py-32">
       <div className="container mx-auto px-6 md:px-0">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-14 md:mb-20">

@@ -49,9 +49,9 @@ export default function CategorySlider({
   if (!categories.length) return null;
 
   return (
-    <div className="relative z-10 px-0 md:px-0 min-h-[570px] md:min-h-[450px] flex items-center justify-center overflow-visible group">
+    <div className="relative z-10 px-0 md:px-0 min-h-[470px] md:min-h-[450px] flex items-center justify-center overflow-visible group">
       {/* Navigation Tabs (Moved here because they interact with Swiper) */}
-      <div className="absolute top-[-100px] left-0 right-0 flex justify-start md:justify-center gap-9 md:gap-10 mt-8 md:mt-2 overflow-x-auto pb-3 no-scrollbar px-7 md:px-4">
+      <div className="absolute top-[-120px] left-0 right-0 flex justify-start md:justify-center gap-9 md:gap-10 mt-12 md:mt-6 overflow-x-auto pb-3 no-scrollbar px-7 md:px-4">
         {rawCats.map((cat, i) => (
           <button
             key={cat.id}
@@ -104,17 +104,17 @@ export default function CategorySlider({
           const getCardSizes = () => {
             if (distance === 0)
               return {
-                w: "w-[82vw] max-w-[520px] md:w-[320px] md:max-w-none",
-                h: "h-[500px] sm:h-[560px] md:h-[420px]",
+                w: "w-[65vw] max-w-[420px] md:w-[320px] md:max-w-none",
+                h: "h-[400px] sm:h-[460px] md:h-[420px]",
               };
             if (distance === 1)
               return {
-                w: "w-[70vw] max-w-[440px] md:w-[260px] md:max-w-none",
-                h: "h-[420px] sm:h-[480px] md:h-[350px]",
+                w: "w-[55vw] max-w-[360px] md:w-[260px] md:max-w-none",
+                h: "h-[340px] sm:h-[380px] md:h-[350px]",
               };
             return {
-              w: "w-[60vw] max-w-[360px] md:w-[200px] md:max-w-none",
-              h: "h-[340px] sm:h-[400px] md:h-[280px]",
+              w: "w-[45vw] max-w-[300px] md:w-[200px] md:max-w-none",
+              h: "h-[280px] sm:h-[320px] md:h-[280px]",
             };
           };
 
@@ -127,7 +127,7 @@ export default function CategorySlider({
             >
               {({ isActive }) => (
                 <div
-                  className="flex flex-col items-center justify-center cursor-pointer group w-full h-[560px] sm:h-[620px] md:h-[550px]"
+                  className="flex flex-col items-center justify-center cursor-pointer group w-full h-[460px] sm:h-[520px] md:h-[550px]"
                   onClick={() =>
                     isActive
                       ? router.push(

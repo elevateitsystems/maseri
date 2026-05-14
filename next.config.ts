@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
         hostname: "www.facebook.com",
       },
     ],
-    unoptimized: true,
+    // unoptimized: true,
   },
 };
 
