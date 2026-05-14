@@ -6,30 +6,39 @@ import { Star, X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { AddReviewForm } from "./AddReviewForm";
+import { api } from "@/lib/api";
 
 // Swiper styles
 import "swiper/css";
 
 interface ProductReviewsProps {
-  reviews: Review[];
+  initialReviews: Review[];
   productId: number;
-  onSuccess?: () => void;
 }
 
 export function ProductReviews({
-  reviews,
+  initialReviews,
   productId,
-  onSuccess,
 }: ProductReviewsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>(initialReviews);
 
-  // Duplicate reviews to ensure the slider always has enough items to loop and autoplay smoothly
+  // Duplicate reviews to ensure the slider always has enough items to loop
   const displayReviews =
     reviews.length > 0
       ? reviews.length < 6
         ? [...reviews, ...reviews, ...reviews]
         : reviews
       : [];
+
+  const handleRefresh = async () => {
+    try {
+      const data = await api.filterReviews({ approved: true, productId });
+      setReviews(data);
+    } catch (error) {
+      console.error("Failed to refresh reviews:", error);
+    }
+  };
 
   return (
     <div className="mt-20 rtl px-4 md:px-0 relative">
@@ -41,12 +50,11 @@ export function ProductReviews({
           modules={[Autoplay]}
           spaceBetween={24}
           slidesPerView={1}
-          loop={true}
-          // dir="rtl"
+          loop={displayReviews.length > 1}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
-            reverseDirection: true, // In RTL mode, this will already move in the correct Arabic direction
+            reverseDirection: true,
           }}
           breakpoints={{
             768: {
@@ -120,7 +128,7 @@ export function ProductReviews({
                 productId={productId}
                 onSuccess={() => {
                   setIsModalOpen(false);
-                  if (onSuccess) onSuccess();
+                  handleRefresh();
                 }}
               />
             </div>

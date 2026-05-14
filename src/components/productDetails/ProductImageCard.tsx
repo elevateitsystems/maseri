@@ -327,7 +327,7 @@ export function ProductImageCard({ product }: { product: Product }) {
     <div className="w-full overflow-hidden">
       <div
         ref={sectionRef}
-        className="flex flex-col md:flex-row gap-0 lg:gap-10 h-auto md:h-[900px] w-full min-w-0"
+        className="flex flex-col md:flex-row gap-0 sm:gap-5 lg:gap-10 h-auto md:h-[900px] w-full min-w-0"
       >
         {/* ── IMAGE GALLERY ──────────────────────────────────────────────── */}
         <div
