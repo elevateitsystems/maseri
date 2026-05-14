@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { api, getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
 import Link from "next/link";
 import Image from "next/image";
+import type { Swiper as SwiperClass } from "swiper";
 
 import placeholderImage from "../../../assets/placeholder-image.svg";
 
@@ -45,7 +45,7 @@ function ProductSlider({ product }: { product: Product }) {
         pagination={{
           clickable: true,
         }}
-        onBeforeInit={(swiper: any) => {
+        onBeforeInit={(swiper: SwiperClass) => {
           if (
             typeof swiper.params.navigation !== "boolean" &&
             swiper.params.navigation

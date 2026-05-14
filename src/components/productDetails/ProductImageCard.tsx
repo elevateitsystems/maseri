@@ -24,6 +24,7 @@ import { Product } from "@/types/api";
 
 import placeholderImage from "../../../assets/placeholder-image.svg";
 import Image from "next/image";
+import type { Swiper as SwiperClass } from "swiper";
 
 /* SWIPER */
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -115,7 +116,7 @@ export function ProductImageCard({ product }: { product: Product }) {
 
   const imageColRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperClass | null>(null);
 
   // ── Detect RTL ────────────────────────────────────────────────────────────
   useEffect(() => {

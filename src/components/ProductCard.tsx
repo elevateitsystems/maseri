@@ -7,6 +7,7 @@ import { getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
 import Link from "next/link";
 import Image from "next/image";
+import type { Swiper as SwiperClass } from "swiper";
 
 import placeholderImage from "../../assets/placeholder-image.svg";
 
@@ -57,7 +58,7 @@ export default function ProductCard({
           pagination={{
             clickable: true,
           }}
-          onBeforeInit={(swiper: any) => {
+          onBeforeInit={(swiper: SwiperClass) => {
             if (
               typeof swiper.params.navigation !== "boolean" &&
               swiper.params.navigation
