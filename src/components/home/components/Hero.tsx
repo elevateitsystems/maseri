@@ -102,10 +102,11 @@ export default function Hero() {
       >
         <div className="relative w-full h-[65vh]">
           <Image
-            src="/assets/hero-mobile.svg"
+            src="/assets/hero-mobile.avif"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
             priority
+            fetchPriority="high"
             quality={75}
             sizes="100vw"
             className="object-cover object-top"

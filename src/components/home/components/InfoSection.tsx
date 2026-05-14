@@ -13,7 +13,7 @@ const InfoSection = () => {
               {/* Main Image */}
               <div className="overflow-hidden">
                 <Image
-                  src="/assets/about-us-image.svg"
+                  src="/assets/about-us-image.avif"
                   alt="About Maseri"
                   width={376}
                   height={534}
