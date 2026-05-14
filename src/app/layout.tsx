@@ -5,6 +5,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -47,9 +48,9 @@ export default function RootLayout({
         </Script>
 
         <noscript>
-          <img
-            height="1"
-            width="1"
+          <Image
+            height={1}
+            width={1}
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=1481466716815990&ev=PageView&noscript=1"
             alt=""
