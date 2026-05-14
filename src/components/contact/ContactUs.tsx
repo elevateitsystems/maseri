@@ -32,6 +32,7 @@ export default function ContactUs() {
           src="/assets/contacts_us_left_image.png"
           alt=""
           fill
+          quality={75}
           className="object-contain object-left-top"
         />
       </div>
@@ -40,6 +41,7 @@ export default function ContactUs() {
           src="/assets/contacts_us_right_image.png"
           alt=""
           fill
+          quality={75}
           className="object-contain object-right-top"
         />
       </div>
@@ -85,7 +87,7 @@ export default function ContactUs() {
         </div>
 
         {/* Features Section */}
-        <Features/>
+        <Features />
       </div>
     </section>
   );

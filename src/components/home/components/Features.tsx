@@ -47,8 +47,8 @@ const Features = () => {
           </h2>
 
           <p className="text-[16px] md:text-[20px] font-medium text-black/70 leading-relaxed">
-            نوفرو لك تجربة تسوق سهلة وآمنة مع الدفع عند الاستلام، تصنيع
-            في الجزائر، تصاميم مصنوعة يدويا، وتوصيل لكل الولايات عبر الوطن
+            نوفرو لك تجربة تسوق سهلة وآمنة مع الدفع عند الاستلام، تصنيع في
+            الجزائر، تصاميم مصنوعة يدويا، وتوصيل لكل الولايات عبر الوطن
           </p>
         </div>
 
@@ -59,7 +59,7 @@ const Features = () => {
             slidesPerView={1.3}
             spaceBetween={20}
             centeredSlides
-            loop
+            loop={features.length > 2}
             speed={800}
             autoplay={{
               delay: 2500,
@@ -80,6 +80,7 @@ const Features = () => {
                       alt={feature.title}
                       width={300}
                       height={300}
+                      quality={75}
                       className="object-contain"
                     />
                   </div>
@@ -128,6 +129,7 @@ const Features = () => {
                   alt={feature.title}
                   width={300}
                   height={300}
+                  quality={75}
                   className="object-contain"
                 />
               </div>

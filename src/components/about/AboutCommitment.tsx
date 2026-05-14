@@ -5,9 +5,6 @@ export default function AboutCommitment() {
   return (
     <section className="bg-background py-16 md:py-24">
       <div className="px-6 text-center">
-         
-
-
         <div className="text-center max-w-[1800px] mx-auto mb-14 md:mb-20">
           <h2
             dir="rtl"
@@ -36,9 +33,11 @@ export default function AboutCommitment() {
               text-center
             "
           >
-            بدأت رحلتنا بفكرة بسيطة لكنها قوية : تقديم تجربة جديدة للمرأة في عالم الموضة . كل
-            ملابس تجمع بين الجودة، الراحة، والشخصية الفريدة. كل تصميم ليس مجرد قطعة ملابس، بل وسيلة تعبّر من خلالها كل امرأة عن هويتها بثقة وأناقة
-            قطعة مصنوعة يدويًا في الجزائر، وتعكس حرفية مميزة ممزوجة بأسلوب عصري وأنيق. نهتم بكل تفصيلة بعناية لنقدم
+            بدأت رحلتنا بفكرة بسيطة لكنها قوية : تقديم تجربة جديدة للمرأة في
+            عالم الموضة . كل ملابس تجمع بين الجودة، الراحة، والشخصية الفريدة. كل
+            تصميم ليس مجرد قطعة ملابس، بل وسيلة تعبّر من خلالها كل امرأة عن
+            هويتها بثقة وأناقة قطعة مصنوعة يدويًا في الجزائر، وتعكس حرفية مميزة
+            ممزوجة بأسلوب عصري وأنيق. نهتم بكل تفصيلة بعناية لنقدم
           </p>
         </div>
 
@@ -47,6 +46,7 @@ export default function AboutCommitment() {
             src="/assets/about-us/tar.png"
             alt="Craftsmanship"
             fill
+            quality={75}
             className="object-cover"
           />
         </div>

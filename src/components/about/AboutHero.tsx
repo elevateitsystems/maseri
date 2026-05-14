@@ -9,6 +9,7 @@ export default function AboutHero() {
         src="/assets/about-us/women-shopping-buying-consumer-products-customer-day-celebration 1.png"
         alt="About"
         fill
+        quality={75}
         priority
         className="object-cover grayscale-[90%]"
       />

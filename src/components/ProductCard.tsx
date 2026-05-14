@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useMemo, useRef } from "react";
@@ -17,11 +16,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export default function ProductCard({
-  product,
-}: {
-  product: Product;
-}) {
+export default function ProductCard({ product }: { product: Product }) {
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
@@ -40,14 +35,10 @@ export default function ProductCard({
     }
   }, [product.images]);
 
-  const displayImages =
-    images.length > 0 ? images : [placeholderImage.src];
+  const displayImages = images.length > 0 ? images : [placeholderImage.src];
 
   return (
-    <div
-      className="relative flex flex-col w-full h-auto group"
-      dir="rtl"
-    >
+    <div className="relative flex flex-col w-full h-auto group" dir="rtl">
       {/* Product Image Slider */}
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#d9d9d9]">
         <Swiper
@@ -84,7 +75,7 @@ export default function ProductCard({
                     alt={product.title}
                     fill
                     priority={index === 0}
-                    quality={100}
+                    quality={75}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover object-top transition-all duration-500"
                   />
@@ -99,10 +90,7 @@ export default function ProductCard({
               ref={prevRef}
               className="absolute left-3 top-1/2 z-30 hidden md:flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black hover:text-white"
             >
-              <ChevronLeft
-                className="h-6 w-6"
-                strokeWidth={2}
-              />
+              <ChevronLeft className="h-6 w-6" strokeWidth={2} />
             </button>
           )}
 
@@ -112,10 +100,7 @@ export default function ProductCard({
               ref={nextRef}
               className="absolute right-3 top-1/2 z-30 hidden md:flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-lg border border-black/5 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black hover:text-white"
             >
-              <ChevronRight
-                className="h-6 w-6"
-                strokeWidth={2}
-              />
+              <ChevronRight className="h-6 w-6" strokeWidth={2} />
             </button>
           )}
         </Swiper>
@@ -147,9 +132,7 @@ export default function ProductCard({
         </div>
 
         <div className="text-right">
-          <p className="text-xl font-bold text-black">
-            {product.price} د.ج
-          </p>
+          <p className="text-xl font-bold text-black">{product.price} د.ج</p>
         </div>
       </div>
     </div>

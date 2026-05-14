@@ -1,18 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { api, getImageUrl } from "@/lib/api";
 import { Product } from "@/types/api";
-import Link from "next/link";
+import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 import placeholderImage from "../../../assets/placeholder-image.svg";
 
-
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -69,13 +67,13 @@ function ProductSlider({ product }: { product: Product }) {
                   alt={product.title}
                   fill
                   priority={index === 0}
-                  quality={100}
+                  quality={75}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-all duration-500"
                 />
               </div>
             </SwiperSlide>
-          )
+          ),
         )}
 
         {/* PREV */}
@@ -122,7 +120,13 @@ function CardSkeleton() {
   );
 }
 
-export default function CataProductCard({ cataId, cataName }: { cataId?: number, cataName?: string }) {
+export default function CataProductCard({
+  cataId,
+  cataName,
+}: {
+  cataId?: number;
+  cataName?: string;
+}) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -159,9 +163,7 @@ export default function CataProductCard({ cataId, cataName }: { cataId?: number,
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-end justify-center gap-8">
           {loading ? (
-            Array.from({ length: 6 }).map((_, i) => (
-              <CardSkeleton key={i} />
-            ))
+            Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)
           ) : products.length > 0 ? (
             products.map((product) => (
               <div
@@ -176,12 +178,15 @@ export default function CataProductCard({ cataId, cataName }: { cataId?: number,
                 {/* Product Info */}
                 <div className="flex flex-col p-3 md:px-4 md:py-3 w-full">
                   <div className="flex justify-between items-start gap-4 mb-1">
-                    <Link href={`/productDetails/${product.id}`} className="flex-1 min-w-0">
+                    <Link
+                      href={`/productDetails/${product.id}`}
+                      className="flex-1 min-w-0"
+                    >
                       <h3 className="text-xl font-normal text-black truncate text-right">
                         {product.title}
                       </h3>
                     </Link>
-                    <button 
+                    <button
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -193,16 +198,16 @@ export default function CataProductCard({ cataId, cataName }: { cataId?: number,
                     </button>
                   </div>
                   <div className="text-right">
-                    <p className="text-xl font-bold text-black">{product.price} د.ج</p>
+                    <p className="text-xl font-bold text-black">
+                      {product.price} د.ج
+                    </p>
                   </div>
                 </div>
               </div>
             ))
           ) : (
             <div className="col-span-full py-20 text-center">
-              <p className="text-xl text-muted-foreground">
-No Products Found
-              </p>
+              <p className="text-xl text-muted-foreground">No Products Found</p>
             </div>
           )}
         </div>
