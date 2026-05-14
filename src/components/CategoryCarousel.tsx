@@ -159,7 +159,8 @@ export default function CategoryCarousel() {
           dir="rtl"
           className="cat-swiper max-w-[1800px] mx-auto overflow-visible"
           modules={[Autoplay]}
-          loop={rawCats.length > 3}
+          // loop={rawCats.length > 3}
+          loop
           speed={1000}
           autoplay={{
             delay: 3000,
