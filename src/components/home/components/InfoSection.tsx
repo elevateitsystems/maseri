@@ -3,15 +3,15 @@ import Image from "next/image";
 
 const InfoSection = () => {
   return (
-    <section className="overflow-hidden bg-gradient-to-t from-[#F2F2F2] via-[#DED1C1] to-[#F2F2F2] py-20 md:py-28 relative">
+    <section className="overflow-hidden bg-gradient-to-t from-[#F2F2F2] via-[#DED1C1] to-[#F2F2F2] py-16 md:py-28 relative">
       <div className="container mx-auto px-6 lg:px-20">
-        <div className="flex flex-col-reverse md:flex-row-reverse items-center justify-center gap-16 md:gap-32">
-          {/* TEXT SIDE (Left) */}
-          <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-right space-y-8">
+        <div className="flex flex-col-reverse lg:flex-row-reverse items-start lg:items-center justify-center gap-10 xl:gap-32">
+          {/* TEXT SIDE (Left on Desktop) */}
+          <div className="flex-1 flex flex-col items-start lg:items-start text-start lg:text-right space-y-6 md:space-y-8">
             <h2
               className="font-bold text-black leading-tight"
               style={{
-                fontSize: "clamp(40px, 5vw, 64px)",
+                fontSize: "clamp(32px, 5vw, 64px)",
                 fontFamily: "'Poltawski Nowy', serif",
               }}
             >
@@ -19,9 +19,9 @@ const InfoSection = () => {
             </h2>
 
             <p
-              className="text-black/70 leading-[1.8]"
+              className="text-black/70 leading-[1.8] max-w-2xl"
               style={{
-                fontSize: "clamp(16px, 1.2vw, 20px)",
+                fontSize: "clamp(15px, 1.2vw, 20px)",
                 fontFamily: "'Noto Naskh Arabic', serif",
               }}
             >
@@ -35,10 +35,10 @@ const InfoSection = () => {
             </p>
           </div>
 
-          {/* IMAGE SIDE (Right) */}
-          <div className="relative flex-shrink-0">
-            {/* Main Image - 376x534 */}
-            <div className="relative w-[300px] h-[426px] md:w-[376px] md:h-[534px] overflow-hidden shadow-2xl">
+          {/* IMAGE SIDE (Right on Desktop) */}
+          <div className="relative flex-shrink-0 mb-12 lg:mb-0 self-end sm:self-center">
+            {/* Main Image Container */}
+            <div className="relative w-[280px] h-[398px] sm:w-[320px] sm:h-[454px] md:w-[376px] md:h-[534px] overflow-hidden">
               <Image
                 src="/assets/about-us-image.avif"
                 alt="About Maseri"
@@ -51,14 +51,16 @@ const InfoSection = () => {
               />
             </div>
 
-            {/* Overlapping Floating Icon - 234px */}
-            <div className="absolute top-[10%] -right-[20%] md:-right-[35%] w-[160px] h-[160px] md:w-[234px] md:h-[234px] flex items-center justify-center z-10 transition-transform duration-500 hover:scale-105 rounded-full bg-white">
-              <Image
-                src="/assets/about-us-icon.avif"
-                alt="Quality Icon"
-                fill
-                className="object-contain"
-              />
+            {/* Overlapping Floating Icon */}
+            <div className="absolute top-[7%] -right-[33%] sm:-right-[25%] lg:-right-[20%] xl:-right-[35%] w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] md:w-[200px] md:h-[200px] xl:w-[234px] xl:h-[234px] flex items-center justify-center z-10 transition-transform duration-500 hover:scale-105 rounded-full bg-white shadow-xl">
+              <div className="relative w-[160px] h-[160px] sm:w-[180px] sm:h-[180px] md:w-[200px] md:h-[200px] xl:w-[234px] xl:h-[234px]">
+                <Image
+                  src="/assets/about-us-icon.avif"
+                  alt="Quality Icon"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
