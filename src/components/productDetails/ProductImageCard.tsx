@@ -22,7 +22,6 @@ import { api, getImageUrl } from "@/lib/api";
 import { toast } from "react-toastify";
 import { Product } from "@/types/api";
 
-import placeholderImage from "../../../assets/placeholder-image.svg";
 import Image from "next/image";
 
 /* SWIPER */
@@ -355,7 +354,7 @@ export function ProductImageCard({ product }: { product: Product }) {
 
           {/* ACCORDION DESKTOP */}
           <div className="hidden md:block space-y-2 pb-10">
-            {accordionItems.map((item, i) => (
+            {accordionItems.filter((_, i) => i !== 1).map((item, i) => (
               <div key={i} className="border-b border-[#E9E9E9]">
                 <button onClick={() => setOpenAccordionIndex(openAccordionIndex === i ? null : i)}
                   className="flex w-full items-center justify-between py-6 text-right">
@@ -375,7 +374,7 @@ export function ProductImageCard({ product }: { product: Product }) {
 
           <h1 className="text-[32px] md:text-[42px] font-bold leading-tight text-black mb-4">{product.title}</h1>
 
-          <div className="flex items-center flex-col justify-start gap-8 mb-8">
+          <div className="flex items-start flex-col justify-start gap-8 mb-8">
             <div className="text-[28px] font-bold text-black">
               {product.discountPrice || product.price} د.ج
               {product.discountPrice && (
@@ -383,7 +382,7 @@ export function ProductImageCard({ product }: { product: Product }) {
               )}
             </div>
             {product.description && (
-              <p className="block md:hidden text-[15px] leading-[1.8] text-black/60 mb-6 text-right">{product.description}</p>
+              <p className="block   text-[15px] leading-[1.8] text-black/60 mb-6 text-right">{product.description}</p>
             )}
             <div className="flex items-center gap-2">
               <span className="text-[14px] text-black/40">({product.reviewsCount || 0} مراجعة)</span>
