@@ -49,7 +49,7 @@ export default function AboutExperience() {
           {/* Left Image */}
           <div className="relative h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden">
             <Image
-              src="/assets/about-us/Rectangle 57 (1).png"
+              src="/assets/about-us/Rectangle 57 (1).avif"
               alt="Lifestyle shopping"
               fill
               quality={75}
@@ -61,7 +61,7 @@ export default function AboutExperience() {
           {/* Right Image */}
           <div className="relative h-[320px] sm:h-[420px] md:h-[520px] overflow-hidden">
             <Image
-              src="/assets/about-us/Rec.png"
+              src="/assets/about-us/Rec.avif"
               alt="Fashion design"
               fill
               quality={75}

@@ -17,7 +17,7 @@ const Footer = () => {
             {/* Logo + Brand Name */}
             <div className="flex items-center gap-4">
               <Image
-                src="/assets/logo.png"
+                src="/assets/logo.avif"
                 alt="Label Textile Logo"
                 width={65}
                 height={70}

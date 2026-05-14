@@ -47,7 +47,7 @@ export default function AboutClosing() {
         </div>
         <div className="relative w-full lgj:w-1/2 mx-auto aspect-[21/9] overflow-hidden rounded-sm grayscale-[0.2] opacity-90">
           <Image
-            src="/assets/about-us/Rectangle 57 (2).png"
+            src="/assets/about-us/Rectangle 57 (2).avif"
             alt="Closing View"
             fill
             quality={75}

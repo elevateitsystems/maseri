@@ -39,7 +39,7 @@ export default function Page({
       ]);
       setReviews(reviewData);
       setProduct(productData);
-      console.log("Fetched product:", productData);
+      //console.log("Fetched product:", productData);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {

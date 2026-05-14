@@ -43,7 +43,7 @@ export default function AboutCommitment() {
 
         <div className="relative w-full aspect-[16/7] overflow-hidden rounded-sm">
           <Image
-            src="/assets/about-us/tar.png"
+            src="/assets/about-us/tar.avif"
             alt="Craftsmanship"
             fill
             quality={75}

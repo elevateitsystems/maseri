@@ -11,7 +11,7 @@ export default function Hero() {
       {/* Flower — top-right (desktop only) */}
       <div className="absolute md:-top-32 md:-left-30 -left-30 md:w-[480px] w-[200px] h-[200px] md:h-[480px] opacity-25 pointer-events-none select-none   ">
         <Image
-          src="/assets/background-flower.png"
+          src="/assets/background-flower.avif"
           alt=""
           fill
           sizes="480px"
@@ -25,7 +25,7 @@ export default function Hero() {
       {/* Flower — bottom-left (desktop only) */}
       <div className="absolute md:-bottom-32 bottom-70 md:-right-40 -right-30 md:w-[480px] w-[200px] h-[200px] md:h-[480px] opacity-25 pointer-events-none select-none  ">
         <Image
-          src="/assets/background-flower.png"
+          src="/assets/background-flower.avif"
           alt=""
           fill
           sizes="480px"
@@ -46,7 +46,7 @@ export default function Hero() {
           }}
         >
           <Image
-            src="/assets/hero.webp"
+            src="/assets/hero.avif"
             alt="مجموعة أزياء لابيل تكستايل"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 70vw"

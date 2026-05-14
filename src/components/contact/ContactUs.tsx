@@ -6,19 +6,19 @@ import Features from "../home/components/Features";
 
 const features = [
   {
-    icon: "/assets/features/hand-love.png",
+    icon: "/assets/features/hand-love.avif",
     title: "صناعة يدوية",
   },
   {
-    icon: "/assets/features/doller.png",
+    icon: "/assets/features/doller.avif",
     title: "الدفع عند الاستلام",
   },
   {
-    icon: "/assets/features/box.png",
+    icon: "/assets/features/box.avif",
     title: "توصيل لكل الولايات",
   },
   {
-    icon: "/assets/features/location.png",
+    icon: "/assets/features/location.avif",
     title: "صنع في الجزائر",
   },
 ];
@@ -29,7 +29,7 @@ export default function ContactUs() {
       {/* Decorative Background Images */}
       <div className=" absolute left-0 top-0 h-full w-[150px] md:w-[250px] lg:w-[300px] opacity-60 pointer-events-none">
         <Image
-          src="/assets/contacts_us_left_image.png"
+          src="/assets/contacts_us_left_image.avif"
           alt=""
           fill
           quality={75}
@@ -38,7 +38,7 @@ export default function ContactUs() {
       </div>
       <div className=" absolute right-0 top-0 h-full w-[150px] md:w-[250px] lg:w-[300px] opacity-60 pointer-events-none">
         <Image
-          src="/assets/contacts_us_right_image.png"
+          src="/assets/contacts_us_right_image.avif"
           alt=""
           fill
           quality={75}
