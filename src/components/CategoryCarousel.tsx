@@ -5,10 +5,10 @@ const BASE_URL = "https://back.testwebapp.space";
 
 export default async function CategoryCarousel() {
   let rawCats: Category[] = [];
-  
+
   try {
-    const res = await fetch(`${BASE_URL}/getCata`, { 
-        next: { revalidate: 3600 } 
+    const res = await fetch(`${BASE_URL}/getCata`, {
+      next: { revalidate: 3600 },
     });
     const json = await res.json();
     rawCats = json.data || [];
